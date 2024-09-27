@@ -1,0 +1,20 @@
+{
+   
+    "mulksahibiekle": "add-customer.html",
+    "personelekle": "add-personel.html",
+    "mulkekle": "add-property.html",
+    "kiraekle": "add-rent.html",
+    "kiracıekle": "add-tenant.html",
+   "mulksahibiduzenle": "edit-customer.html",
+   "mulkduzenle": "edit-property.html",
+   "personelduzenle": "edit-personel.html",
+   "kiraduzenle": "edit-rent.html",
+   "kiracıduzenle": "edit-tenant.html",
+   "mulksahibilistele": "list-customer.html",
+   "personellistele": "list-personel.html",
+   "mulklistele": "list-property.html",
+   "kiracılistele": "list-tenant.html",
+   "kiralistele": "list-rent.html"
+
+
+}
