@@ -119,15 +119,7 @@
                       
                         </ul>
                     </li>
-                    <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown"><i data-feather="package"></i><span data-i18n="Apps">Sistem Kullanıcıları</span></a>
-                        <ul class="dropdown-menu" data-bs-popper="none">
-                            <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="add-personel.html" data-bs-toggle="" data-i18n="Email"><span data-i18n="Email">Sistem Kullanıcısı Ekle</span></a>
-                            </li>
-                            <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="list-personel.html" data-bs-toggle="" data-i18n="Email"><span data-i18n="Email">Sistem Kullanıcıları Listesi</span></a>
-                            </li>
-                        
-                        </ul>
-                    </li>
+                  
                     <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown"><i data-feather="layers"></i><span data-i18n="User Interface">Mülk Sahipleri</span></a>
                         <ul class="dropdown-menu" data-bs-popper="none">
                             <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="list-customer.html" data-bs-toggle="" data-i18n=""><span data-i18n="Typography">Mülk Sahipleri Listesi</span></a>
@@ -364,6 +356,28 @@
                                         <div class="mb-1 col-md-6">
                                             <label class="form-label" for="startingRentAmount">Kira Başlangıç Tarihi</label>
                                             <input type="date" id="startingRentAmount" name="startingRentAmount" class="form-control" placeholder="" />
+                                        </div>
+                                        <div class="mb-1 col-md-6">
+                                            <label class="form-label" for="tenanttype">Kiracı Türü</label>
+                                            <select id="tenanttype" name="tenanttype" class="form-control">
+                                                <option value="">Seçiniz</option>
+                                                <option value="isyeri">İşyeri</option>
+                                                <option value="sahis">Şahıs</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="mb-1 col-md-6">
+                                            <label class="form-label" for="noticeoftermination">Fesih Bildirimi</label>
+                                            <input type="date" id="noticeoftermination" name="noticeoftermination" class="form-control" placeholder="" />
+                                        </div>
+                                        <div class="mb-1 col-md-6">
+                                            <label class="form-label" for="evacuationcommitment">Tahliye Taahhütnamesi</label>
+                                            <select id="evacuationcommitment" name="evacuationcommitment" class="form-control">
+                                                <option value="">Seçiniz</option>
+                                                <option value="var">Var</option>
+                                                <option value="yok">Yok</option>
+                                            </select>
                                         </div>
                                       
                                     </div>

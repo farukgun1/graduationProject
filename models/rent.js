@@ -80,6 +80,37 @@ tenantName: {
     type: String,
     required: false
 },
+tenanttype: {
+  type: String,
+  required: false
+},
+
+tenantName: {
+  type: String,
+  required: false
+},
+
+tenantName: {
+  type: String,
+  enum: ["isyeri", "sahis"],
+  required: false
+},
+
+
+
+noticeoftermination: {
+  type: String,
+  required: false
+},
+evacuationcommitment: {
+  type: String,
+  enum: ["var", "yok"],
+  required: false
+},
+
+
+
+
 
 
 

@@ -52,9 +52,44 @@ async function populateNeighborhoods(district) {
         });
     }
 }
+async function populateDistrictsTwo(stateCode) {
+    try {
+      const data = await populateStates(stateCode)
+      const stateData = data[stateCode]
+      console.log(data)
+      console.log(stateCode)
+      const districtSelectElement = document.getElementById('titledeeddistrict')
+  
+      districtSelectElement.innerHTML = '<option value="">Seç</option>'
+      Object.keys(data).forEach((district) => {
+        const option = document.createElement('option')
+        option.value = district
+        option.textContent = district
+        districtSelectElement.appendChild(option)
+      })
+    } catch (error) {
+      console.error('İlçeler verileri alınırken hata oluştu:', error)
+    }
+  }
 
-
-
+async function populateNeighborhoodsTwo(district) {
+    const data = await populateStates(
+      document.getElementById('titledeedprovince').value,
+    )
+    const neighborhoodSelectElement = document.getElementById(
+      'titledeedneighborhood',
+    )
+  
+    neighborhoodSelectElement.innerHTML = '<option value="">Seç</option>'
+    if (data[district]) {
+      data[district].forEach((neighborhood) => {
+        const option = document.createElement('option')
+        option.value = neighborhood
+        option.textContent = neighborhood
+        neighborhoodSelectElement.appendChild(option)
+      })
+    }
+  }
 
 
 document.addEventListener('DOMContentLoaded', async function () {
@@ -112,6 +147,65 @@ document.addEventListener('DOMContentLoaded', async function () {
     if (!id) {
         console.error('Mülk ID bulunamadı.');
         return;
+    }
+    const demirbasForm = document.getElementById('demirbas-form')
+
+    if (demirbasForm) {
+      // "Demirbaş Ekle" butonuna tıklandığında yeni satır ekle
+      document
+        .getElementById('data-repeater-create')
+        .addEventListener('click', function () {
+          const assetContainer = demirbasForm.querySelector(
+            '[data-repeater-list="assets"]',
+          )
+          const newAssetRow = `
+                  <div data-repeater-item>
+                      <div class="row d-flex align-items-end">
+                          <div class="col-md-4 col-12">
+                              <div class="mb-1">
+                                  <label class="form-label" for="assetName">Demirbaş Adı</label>
+                                  <input type="text" name="assetName" class="form-control" placeholder="Demirbaş adı" />
+                              </div>
+                          </div>
+                          <div class="col-md-2 col-12">
+                              <div class="mb-1">
+                                  <label class="form-label" for="quantity">Miktar</label>
+                                  <input type="number" name="quantity" class="form-control" placeholder="1" />
+                              </div>
+                          </div>
+                          <div class="col-md-2 col-12">
+                              <div class="mb-1">
+                                  <label class="form-label" for="price">Fiyat</label>
+                                  <input type="text" name="price" class="form-control" placeholder="Fiyat" />
+                              </div>
+                          </div>
+                          <div class="col-md-2 col-12 mb-50">
+                              <div class="mb-1">
+                                  <button class="btn btn-outline-danger text-nowrap px-1" data-repeater-delete type="button">
+                                      <i data-feather="x" class="me-25"></i>
+                                   
+                                  </button>
+                              </div>
+                          </div>
+                      </div>
+                      <hr />
+                  </div>
+              `
+          assetContainer.insertAdjacentHTML('beforeend', newAssetRow)
+        })
+  
+      // Kaldırma işlemi için olay dinleyici
+      demirbasForm.addEventListener('click', function (e) {
+        if (e.target.matches('[data-repeater-delete]')) {
+          const itemToRemove = e.target.closest('[data-repeater-item]')
+          if (itemToRemove) {
+            itemToRemove.remove() // Satırı kaldır
+          }
+        }
+      })
+      
+    } else {
+      console.error('Demirbaş formu bulunamadı!')
     }
 
     const dataa = await populateStates();
@@ -223,6 +317,8 @@ document.addEventListener('DOMContentLoaded', async function () {
       
                   districtSelectElement.appendChild(option);
                 });
+
+                console.log("eferdfdscvds",districtSelectElement)
               } 
       
               neighborhoodSelectElement.innerHTML = "";
@@ -252,7 +348,7 @@ document.addEventListener('DOMContentLoaded', async function () {
               let data_state2;
               let dataa2 = await populateStates()
               if(property.titledeed.titledeedprovince !== ""){
-                  data_state2 = await populateStates(property.titledeed.province)
+                  data_state2 = await populateStates(property.titledeed.titledeedprovince)
               }
 
 
@@ -278,8 +374,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             });
             neighborhoodSelectElement2.innerHTML = "";
             neighborhoodSelectElement2.innerHTML = '<option value="">Seç</option>';
-            if (data_state && typeof data_state === "object") {
-                Object.keys(data_state).forEach(function (district) {
+            if (data_state2 && typeof data_state2 === "object") {
+                Object.keys(data_state2).forEach(function (district) {
                   const option = document.createElement("option");
                   option.value = district;
                   option.textContent = district;
@@ -290,12 +386,18 @@ document.addEventListener('DOMContentLoaded', async function () {
       
                   districtSelectElement2.appendChild(option);
                 });
+
+                console.log("eferdfdscvds",districtSelectElement2)
               } 
+      
+
+              console.log(districtSelectElement2)
       
               neighborhoodSelectElement2.innerHTML = "";
               neighborhoodSelectElement2.innerHTML = '<option value="">Seç</option>';
       
-              data_state[property.titledeed.titledeedneighborhood].forEach(function (neighborhood) {
+              data_state2[property.titledeed.titledeeddistrict] && 
+                data_state2[property.titledeed.titledeeddistrict].forEach(function (neighborhood) {
                   const option = document.createElement("option");
                   option.value = neighborhood;
                   option.textContent = neighborhood;
@@ -321,6 +423,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     
             const otherDetails = property.otherDetails[0] || {};
             const details = property.details[0];
+            const assets = property.asset;
             const titledeed = property.titledeed;
             const baseURL = 'http://localhost:3001/public/';
     
@@ -458,12 +561,68 @@ document.addEventListener('DOMContentLoaded', async function () {
             setInputValue('#daskPolicyNumber', details.daskPolicyNumber);
             setInputValue('#propertyOwnerName', details.propertyOwnerName);
             setInputValue('#forownerpurchaseDate', details.forownerpurchaseDate);
-            setInputValue('#assetName', details.assetName);
-            setInputValue('#quantity', details.quantity);
-            setInputValue('#price', details.price);
+      
+
+            assets.forEach(function (item) {
+                const assetContainer = demirbasForm.querySelector('[data-repeater-list="assets"]');
+                
+                const newAssetRow = `
+                    <div data-repeater-item>
+                        <div class="row d-flex align-items-end">
+                            <div class="col-md-4 col-12">
+                                <div class="mb-1">
+                                    <label class="form-label" for="assetName">Demirbaş Adı</label>
+                                    <input type="text" name="assetName" class="form-control" value="${item.assetName}" placeholder="Demirbaş adı" />
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-12">
+                                <div class="mb-1">
+                                    <label class="form-label" for="quantity">Miktar</label>
+                                    <input type="number" name="quantity" class="form-control" value="${item.quantity}" placeholder="1" />
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-12">
+                                <div class="mb-1">
+                                    <label class="form-label" for="price">Fiyat</label>
+                                    <input type="text" name="price" class="form-control" value="${item.price}" placeholder="Fiyat" />
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-12 mb-50">
+                                <div class="mb-1">
+                                    <button class="btn btn-outline-danger text-nowrap px-1" data-repeater-delete type="button">
+                                        <i data-feather="x" class="me-25"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+                `;
+                
+                assetContainer.insertAdjacentHTML('beforeend', newAssetRow);
+            });
+            debugger;
             setInputValue('#nonRentStatus', details.nonRentStatus);
             setInputValue('#mortgageStatus', details.mortgageStatus);
             setInputValue('#propertyTransactionStatus', details.propertyTransactionStatus);
+
+
+            setInputValue('#realEstateInvestmentsPortfolio', details.realEstateInvestmentsPortfolio);
+            setInputValue('#propertyId', details.propertyId);
+            setInputValue('#reportNumber', details.reportNumber);
+            setInputValue('#portfolioValue', details.portfolioValue);
+            setInputValue('#fundShareRatio', details.fundShareRatio);
+            setInputValue('#fundArea', details.fundArea);
+            setInputValue('#grossM2Cost', details.grossM2Cost);
+            setInputValue('#valuationPricePerM2', details.valuationPricePerM2);
+            setInputValue('#costIncludingVAT', details.costIncludingVAT);
+            setInputValue('#valuationReportDate', details.valuationReportDate);
+            setInputValue('#valueInValuationReport', details.valueInValuationReport);
+            setInputValue('#portfolioValue', details.portfolioValue);
+
+
+
+
     
             // Dropdown menüleri (select elementleri) ayarla
             function selectOptionByValue(selector, value) {
@@ -531,15 +690,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 
 
-
-
-
-
-
-
-
-
-
     
         } catch (error) {
             console.error('Form verilerini doldururken bir hata oluştu:', error);
@@ -592,13 +742,30 @@ document.addEventListener('DOMContentLoaded', async function () {
                 daskPolicyNumber: document.querySelector('#daskPolicyNumber').value,
                 propertyOwnerName: document.querySelector('#propertyOwnerName').value,
                 forownerpurchaseDate: document.querySelector('#forownerpurchaseDate').value,
-                assetName: document.querySelector('#assetName').value,
-                quantity: document.querySelector('#quantity').value,
-                price: document.querySelector('#price').value,
+               
                 nonRentStatus: document.querySelector('#nonRentStatus').value,
                 mortgageStatus: document.querySelector('#mortgageStatus').value,
                 propertyTransactionStatus: document.querySelector('#propertyTransactionStatus').value,
+                
+    
+
+
+
+                realEstateInvestmentsPortfolio: document.querySelector('#realEstateInvestmentsPortfolio').value,
+                propertyId: document.querySelector('#propertyId').value,
+                reportNumber: document.querySelector('#reportNumber').value,
+                portfolioValue: document.querySelector('#portfolioValue').value,
+                fundShareRatio: document.querySelector('#fundShareRatio').value,
+                fundArea: document.querySelector('#fundArea').value,
+                grossM2Cost: document.querySelector('#grossM2Cost').value,
+                costIncludingVAT: document.querySelector('#costIncludingVAT').value,
+                valuationReportDate: document.querySelector('#valuationReportDate').value,
+                valueInValuationReport: document.querySelector('#valueInValuationReport').value,
+                portfolioValue: document.querySelector('#portfolioValue').value,
+           
+
             },
+            asset: [],
             otherDetails: {
                 facade: Array.from(document.querySelectorAll('input[name="facade"]:checked')).map(cb => cb.value),
                 general: Array.from(document.querySelectorAll('input[name="general"]:checked')).map(cb => cb.value),
@@ -636,8 +803,31 @@ document.addEventListener('DOMContentLoaded', async function () {
                 shareType: document.querySelector('#shareType').value,
                 bbShareRatio: document.querySelector('#bbShareRatio').value
             }
+
+
             
         };
+
+        const assetRows = document.querySelectorAll('[data-repeater-item]')
+        assetRows.forEach((row) => {
+          const assetName = row.querySelector('input[name="assetName"]').value
+          const quantity = row.querySelector('input[name="quantity"]').value
+          const price = row.querySelector('input[name="price"]').value
+  
+          console.log(
+            `Asset Name: ${assetName}, Quantity: ${quantity}, Price: ${price}`,
+          ) // Debugging için
+  
+          // Sadece değerler boş değilse ekle
+          if (assetName && quantity && price) {
+            propertyData.asset.push({
+              assetName,
+              quantity,
+              price,
+            })
+          }
+        })
+  
         console.log(propertyData)
         try {
             const response = await axios.post(`http://localhost:3001/api/v1/emlakze/admin/updateproperty`, propertyData, {
@@ -648,6 +838,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     
        // Fotoğrafları içeren form verilerini oluştur
        const photoFormData = new FormData();
+       debugger;
        photoFormData.append("propertyId", propertyId);
  
        const files = document.getElementById("formFileMultiple").files;
@@ -667,9 +858,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         console.log("Photo Response:", photoResponse.data);
 
             if (response.status === 200) {
-
-
-
 
                 Swal.fire({
                     icon: 'success',

@@ -3,15 +3,14 @@
 <!-- BEGIN: Head-->
 
 <head>
+    <title>Mülk Düzenle</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Form Wizard - Vuexy - Bootstrap HTML admin template</title>
-    <link rel="apple-touch-icon" href="../app-assets/images/ico/apple-icon-120.png">
-    <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/ico/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="https://dveb.com.tr/shared/site/0d1724850172.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
@@ -120,15 +119,7 @@
                       
                         </ul>
                     </li>
-                    <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown"><i data-feather="package"></i><span data-i18n="Apps">Sistem Kullanıcıları</span></a>
-                        <ul class="dropdown-menu" data-bs-popper="none">
-                            <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="add-personel.html" data-bs-toggle="" data-i18n="Email"><span data-i18n="Email">Sistem Kullanıcısı Ekle</span></a>
-                            </li>
-                            <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="list-personel.html" data-bs-toggle="" data-i18n="Email"><span data-i18n="Email">Sistem Kullanıcıları Listesi</span></a>
-                            </li>
-                        
-                        </ul>
-                    </li>
+                   
                     <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown"><i data-feather="layers"></i><span data-i18n="User Interface">Mülk Sahipleri</span></a>
                         <ul class="dropdown-menu" data-bs-popper="none">
                             <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="list-customer.html" data-bs-toggle="" data-i18n=""><span data-i18n="Typography">Mülk Sahipleri Listesi</span></a>
@@ -455,7 +446,7 @@
                             <div id="mulkbilgileri-info" class="content" role="tabpanel" aria-labelledby="mulkbilgileri-info-trigger">
                                 <div class="content-header">
                                     <h5 class="mb-0">Mülk Bilgileri</h5>
-                                   
+                                  
                                 </div>
                                 <form id="mulkbilgileri-form">
                                     <div class="row">
@@ -475,7 +466,7 @@
                                         </div>
                                         <div class="mb-1 col-md-6">
                                             <label class="form-label" for="buildingPermitDate">Yapı Ruhsat Tarihi </label>
-                                            <input type="text" name="buildingPermitDate" id="buildingPermitDate" class="form-control" placeholder="" />
+                                            <input type="date" name="buildingPermitDate" id="buildingPermitDate" class="form-control" placeholder="" />
                                         </div>
                                     </div>
                                     <div class="row">
@@ -491,7 +482,7 @@
                                     <div class="row">
                                         <div class="mb-1 col-md-6">
                                             <label class="form-label" for="facades">Cepheler</label>
-                                            <select class="form-select w-100" name="facades" id="facades">
+                                            <select class="form-control w-100" name="facades" id="facades" required>
                                                 <option value="">Seçiniz</option>
                                                 <option value="Kuzey">Kuzey</option>
                                                 <option value="Guney">Güney</option>
@@ -508,8 +499,9 @@
                                     <div class="row">
                                         <div class="mb-1 col-md-6">
                                             <label class="form-label" for="zoningStatus">İmar Durumu</label>
-                                            <select class="select2 w-100" name="zoningStatus" id="zoningStatus">
-                                                <option value="">Seçiniz</option>
+                                            <select class="select2 w-100" name="zoningStatus" id="zoningStatus" required>
+                                                <option></option>            
+
                                                 <option value="NazımImarPlani">Nazım İmar Planı</option>
                                                 <option value="MekansalImarPlani">Mekansal İmar Planı</option>
                                                 <option value="CevreDuzeniPlani">Çevre Düzeni Planı</option>
@@ -520,6 +512,9 @@
                                                 <option value="MevziImarPlanı">Mevzi İmar Planı</option>
                                               
                                             </select>
+
+
+
                                         </div>
                                         <div class="mb-1 col-md-6">
                                             <label class="form-label" for="benchmark"> Emsal</label>
@@ -532,15 +527,91 @@
                                             <label class="form-label" for="integrationCode"> Entegrasyon Kodu</label>
                                             <input type="text" name="integrationCode" id="integrationCode" class="form-control" placeholder="" />
                                         </div>
+                                         
+                                        <!-- <div class="mb-1 col-md-6">
+                                            <label class="form-label" for="tenantType"> Kiracı Türü</label>
+                                            <input type="text" name="tenantType" id="tenantType" class="form-control" placeholder="" />
+                                        </div> -->
                                     </div>
+
+                                    
+                                    <div class="row">
+                                    
+                                        <div class="mb-1 col-md-6">
+                                            <label class="form-label" for="realEstateInvestmentsPortfolio"> Gayrimenul Yatırımları Portfoyu</label>
+                                            <input type="text" name="realEstateInvestmentsPortfolio" id="realEstateInvestmentsPortfolio" class="form-control" placeholder="" />
+                                        </div>
+                                        <div class="mb-1 col-md-6">
+                                            <label class="form-label" for="propertyId"> Gayrimenkul Id</label>
+                                            <input type="text" name="propertyId" id="propertyId" class="form-control" placeholder="" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                    
+                                        <div class="mb-1 col-md-6">
+                                            <label class="form-label" for="reportNumber"> Rapor Numarası</label>
+                                            <input type="text" name="reportNumber" id="reportNumber" class="form-control" placeholder="" />
+                                        </div>
+                                        <div class="mb-1 col-md-6">
+                                            <label class="form-label" for="portfolioValue"> Portfoy Değeri</label>
+                                            <input type="text" name="portfolioValue" id="portfolioValue" class="form-control" placeholder="" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                    
+                                        <div class="mb-1 col-md-6">
+                                            <label class="form-label" for="fundShareRatio"> Fon Hisse Oranı</label>
+                                            <input type="text" name="fundShareRatio" id="fundShareRatio" class="form-control" placeholder="" />
+                                        </div>
+                                        <div class="mb-1 col-md-6">
+                                            <label class="form-label" for="fundArea"> Fon m2</label>
+                                            <input type="text" name="fundArea" id="fundArea" class="form-control" placeholder="" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                    
+                                        <div class="mb-1 col-md-6">
+                                            <label class="form-label" for="grossM2Cost"> Brüt m2 Maliyeti</label>
+                                            <input type="text" name="grossM2Cost" id="grossM2Cost" class="form-control" placeholder="" />
+                                        </div>
+                                        <div class="mb-1 col-md-6">
+                                            <label class="form-label" for="valuationPricePerM2"> Değerlendirme m2 Maliyeti</label>
+                                            <input type="text" name="valuationPricePerM2" id="valuationPricePerM2" class="form-control" placeholder="" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                    
+                                        <div class="mb-1 col-md-6">
+                                            <label class="form-label" for="costIncludingVAT"> KDV Dahil Maliyet</label>
+                                            <input type="text" name="costIncludingVAT" id="costIncludingVAT" class="form-control" placeholder="" />
+                                        </div>
+                                        <div class="mb-1 col-md-6">
+                                            <label class="form-label" for="valuationReportDate"> Değerlendirme Rapor Tarihi</label>
+                                            <input type="text" name="valuationReportDate" id="valuationReportDate" class="form-control" placeholder="" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                    
+                                        <div class="mb-1 col-md-6">
+                                            <label class="form-label" for="valueInValuationReport"> Değerlemdirme Rapor Değeri</label>
+                                            <input type="text" name="valueInValuationReport" id="valueInValuationReport" class="form-control" placeholder="" />
+                                        </div>
+                                        <div class="mb-1 col-md-6">
+                                            <label class="form-label" for="portfolioValue"> Portfolyo Değeri</label>
+                                            <input type="text" name="portfolioValue" id="portfolioValue" class="form-control" placeholder="" />
+                                        </div>
+                                    </div>
+
+                                    
                                 </form>
                                 <div class="d-flex justify-content-between">
                                     <button class="btn btn-primary btn-prev">
                                         <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
-                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                        <span class="align-middle d-sm-inline-block d-none">Geri</span>
                                     </button>
                                     <button class="btn btn-primary btn-next">
-                                        <span class="align-middle d-sm-inline-block d-none">Next</span>
+                                        <span class="align-middle d-sm-inline-block d-none">İleri</span>
                                         <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
                                     </button>
                                 </div>
@@ -884,46 +955,77 @@
                             <div id="demirbas-info" class="content" role="tabpanel" aria-labelledby="demirbas-info-trigger">
                                 <div class="content-header">
                                     <h5 class="mb-0">Demirbaş Bilgileri</h5>
-                              
                                 </div>
-                                <form id="demirbas-form">
+                                <form id="demirbas-form" class="asset-repeater">
+                                <section class="form-control-repeater">
                                     <div class="row">
-                                        <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="assetName">Demirbaş Adı</label>
-                                            <input type="text" id="assetName" name="assetName" class="form-control" placeholder="" />
+                                        <!-- Demirbaş Ekleme Formu -->
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h4 class="card-title">Demirbaş Ekle</h4>
+                                                </div>
+                                                <div class="card-body">
+                                                        <div data-repeater-list="assets">
+                                                            <!-- <div data-repeater-item>
+                                                                <div class="row d-flex align-items-end">
+                                                                    <div class="col-md-4 col-12">
+                                                                        <div class="mb-1">
+                                                                            <label class="form-label" for="assetName">Demirbaş Adı</label>
+                                                                            <input type="text" name="assetName" class="form-control" placeholder="Demirbaş adı" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2 col-12">
+                                                                        <div class="mb-1">
+                                                                            <label class="form-label" for="quantity">Miktar</label>
+                                                                            <input type="number" name="quantity" class="form-control" placeholder="1" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2 col-12">
+                                                                        <div class="mb-1">
+                                                                            <label class="form-label" for="price">Fiyat</label>
+                                                                            <input type="text" name="price" class="form-control" placeholder="Fiyat" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2 col-12 mb-50">
+                                                                        <div class="mb-1">
+                                                                            <button class="btn btn-outline-danger text-nowrap px-1"  id="data-repeater-delete" data-repeater-delete type="button">
+                                                                                <i data-feather="x" class="me-25"></i>
+
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <hr />
+                                                            </div> -->
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <button class="btn btn-icon btn-primary" id="data-repeater-create" type="button" data-repeater-create>
+                                                                    <i data-feather="plus" class="me-25"></i>
+                                                              
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="quantity">Miktar</label>
-                                            <input type="text" name="quantity" id="quantity" class="form-control" placeholder="" />
-                                        </div>
+                                        <!-- /Demirbaş Ekleme Formu -->
                                     </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="price">Fiyat</label>
-                                            <input type="text" id="price" name="price" class="form-control" placeholder="" />
-                                        </div>
-                                    
-                                    </div>
-                                   
-                                </form> 
+                                </section>
+                            </form>
                                 <div class="d-flex justify-content-between">
                                     <button class="btn btn-primary btn-prev">
                                         <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
-                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                        <span class="align-middle d-sm-inline-block d-none">Geri</span>
                                     </button>
                                     <button class="btn btn-primary btn-next">
-                                        <span class="align-middle d-sm-inline-block d-none">Next</span>
+                                        <span class="align-middle d-sm-inline-block d-none">İleri</span>
                                         <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
                                     </button>
                                 </div>
-                                <!-- <div class="d-flex justify-content-between">
-                                    <button class="btn btn-primary btn-prev">
-                                        <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
-                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                                    </button>
-                                    <button class="btn btn-success btn-submit">Submit</button>
-                                </div> -->
                             </div>
+                            
                             <div id="digerbilgiler-info" class="content" role="tabpanel" aria-labelledby="digerbilgiler-info-trigger">
                                 <div class="content-header">
                                     <h5 class="mb-0">Diğer Bilgiler</h5>

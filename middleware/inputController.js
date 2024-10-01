@@ -15,7 +15,6 @@ const inputControllerMiddleware = (inputModel, updateFunction, type, pass, schem
         try {
             let input = type === 'post' ? req.body : req.params
 
-console.log("heloooo",input)
             const validatedData = await inputModel.safeParse(input);
 
             if (!validatedData.success) {

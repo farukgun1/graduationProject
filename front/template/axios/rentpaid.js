@@ -52,7 +52,7 @@ $(document).ready(function() {
             $(this.api().table().container()).find('.top').append('<button type="button" class="btn btn-primary addPaymentModal" data-bs-toggle="modal" data-bs-target="#addPaymentModal" style="margin-left: 10px;">Ödeme Ekle</button>');
         }
     });
-
+debugger;
     $('addPaymentModal').click(function () {
         console.log('1');
         setTimeout(() => {

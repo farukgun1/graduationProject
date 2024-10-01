@@ -13,7 +13,8 @@ const { makeActionHistory } = require('../../helpers/actionHistory')
 const mongoose = require('mongoose')
 const moment = require('moment');
 const md5 = require('md5');
-
+const fs = require('fs');
+const path = require('path');
 
 const crypto = require('crypto')
 const jwt = require('jsonwebtoken')
@@ -1324,141 +1325,142 @@ const deleteExpense = async (input, res, next) => {
   }
 }
 
+// const setPhoto = async (input, res, next, results, req) => {
+//   try {
+//     const propertyId = input.propertyId
+//     if (!propertyId) {
+//       return res.status(400).json({ error: 'Property ID is required' })
+//     }
+//     let photos = []
+//     if (req.files) {
+//       for (let key of req.files) {
+//         photos.push(key.filename)
+//       }
+//     }
+
+
+
+//     const property = await propertySchema.findById(propertyId)
+//     if (!property) {
+//       return res.status(404).json({ error: 'Property not found' })
+//     }
+
+
+
+//     // Fotoğrafları property'nin photos dizisine ekliyoruz
+//     property.photos = [...property.photos, ...photos]
+
+    
+//     // Mülkü güncelliyoruz
+//     const updatedProperty = await property.save();
+
+//     console.log("updatedProperty",updatedProperty)
+    
+//     if (!updatedProperty) {
+//       return res.status(500).json({ error: 'Property update failed' });
+//     }
+
+//     // Yanıt olarak güncellenmiş fotoğrafları döndürüyoruz
+  
+//     return next(createSuccessMessage(2007, property.photos));
+//   } catch (error) {
+//     // Hata durumunda next() ile hatayı ileriye taşıyoruz
+//     next(error)
+//   }
+// }
+
+
+
+
+    
+
+
+
+
+// const setPhoto = async (input, res, next, results, req) => {
+//   try {
+//     const propertyId = input.propertyId;
+//     if (!propertyId) {
+//       return res.status(400).json({ error: 'Property ID is required' });
+//     }
+
+
+//     // Yeni fotoğrafları ekle
+//     let newPhotos = [];
+//     if (req.files) {
+//       for (let file of req.files) {
+//         newPhotos.push(file.filename);
+//       }
+//     }
+
+//     console.log("asdasdasdsa", newPhotos)
+
+//     // Property'yi güncelle
+  
+      
+//       const updatedProperty = await propertySchema.findByIdAndUpdate(
+//         propertyId,
+//         { $set: { photos: newPhotos } },
+//         { new: true } // Upsert: false, yeni belge oluşturma
+//       );
+  
+   
+
+
+//     if (!updatedProperty) {
+//       return res.status(404).json({ error: 'Property not found' });
+//     }
+
+//     // Yanıt olarak güncellenmiş fotoğrafları döndürüyoruz
+//     return next(createSuccessMessage(2007, updatedProperty));
+//   } catch (error) {
+//     // Hata durumunda next() ile hatayı ileriye taşıyoruz
+//     next(error);
+//   }
+// }
+
 const setPhoto = async (input, res, next, results, req) => {
   try {
-    const propertyId = input.propertyId
+    const propertyId = input.propertyId;
     if (!propertyId) {
-      return res.status(400).json({ error: 'Property ID is required' })
+      return res.status(400).json({ error: 'Property ID is required' });
     }
-    let photos = []
+
+    let photos = [];
     if (req.files) {
       for (let key of req.files) {
-        photos.push(key.filename)
+        photos.push(key.filename);
       }
     }
 
-    // Mülk ID'sini kullanarak mülkü buluyoruz ve fotoğrafları ekliyoruz
-    const property = await propertySchema.findById(propertyId)
+    console.log("photos", photos);
+
+    const property = await propertySchema.findById(propertyId);
     if (!property) {
-      return res.status(404).json({ error: 'Property not found' })
+      return res.status(404).json({ error: 'Property not found' });
     }
 
-    // Fotoğrafları property'nin photos dizisine ekliyoruz
-    property.photos = [...property.photos, ...photos]
-    // Mülkü güncelliyoruz
-    await property.save()
+    console.log("property", property);
+
+    // Yeni fotoğrafları mevcut fotoğraflara ekleyerek güncelleyerek veritabanına gönderiyoruz
+    const updatedProperty = await propertySchema.findByIdAndUpdate(
+      propertyId,
+      { $addToSet: { photos: { $each: photos } } }, // Var olan fotoğrafları koruyarak ekleme yapıyoruz
+      { new: true, runValidators: true } // Yeni belgeyi döndür ve doğrulamaları çalıştır
+    );
+
+    if (!updatedProperty) {
+      return res.status(500).json({ error: 'Property update failed' });
+    }
 
     // Yanıt olarak güncellenmiş fotoğrafları döndürüyoruz
-    res.status(200).json({ photos: property.photos })
+    return next(createSuccessMessage(2007, updatedProperty.photos));
   } catch (error) {
-    // Hata durumunda next() ile hatayı ileriye taşıyoruz
-    next(error)
+    console.error("Error occurred:", error);
+    next(error);
   }
 }
 
-
-// const setFile = async (input, res, next,results,req) => {
-//   try {
-    
-//     const{rentId,paymentDate}=input;
-//     console.log(req.imageFileName,"11111111111111111111111111")
-
-//     if (!rentId || !paymentDate) {
-//       return res.status(400).json({ message: 'Rent ID and payment date are required' });
-//     }
-
-//     const rent = await RentSchema.findById(rentId);
-//     if (!rent) {
-//       return res.status(404).json({ message: 'Rent not found' });
-//     }
-
-//     const paymentToUpdate = rent.payments.find(payment => payment.paymentDate === paymentDate);
-    
-//     if (!paymentToUpdate) {
-//       return res.status(404).json({ message: 'Payment not found for the specified date' });
-//     }
-
-  
-//     if (req.imageFileName) {
-//       paymentToUpdate.receipt = req.imageFileName.path;  
-   
-//     }
-// console.log(rent)
- 
-//     await rent.save();
-
-//     res.status(200).json({ message: 'File uploaded and rent updated successfully' });
-//   } catch (error) {
-//     console.error('Error uploading file:', error);
-//     res.status(500).json({ message: 'Internal Server Error' });
-//   }
-// };
-// const setFile = async (input, res, next, results, req) => {
-//   try {
-//     const { rentId, paymentDate, rentAmount, paidDate } = input;
-
-
-//     const rent = await RentSchema.findById(rentId);
-//     if (!rent) {
-//       throw new Error('Rent record not found');
-//     }
-
-
-//     const paymentToUpdate = rent.payments.find(payment => payment.paymentDate === paymentDate);
-//     if (!paymentToUpdate) {
-//       throw new Error('Payment record not found');
-//     }
-
-//     if (req.imageFileName) {
-//       paymentToUpdate.receipt = req.imageFileName; 
-//     }
-
-
-//     paymentToUpdate.isPaid = true;
-//     paymentToUpdate.paidDate = paidDate;
-
-
-//     await rent.save();
-
-//     console.log('Payment updated:', paymentToUpdate);
-
-    
-//     if (paymentToUpdate.isPaid === true) {
-//       const moment = require('moment');
-//       const nextPaymentDate = moment(paymentDate).add(1, 'month').format('YYYY-MM-DD');
-
-//       const nextPayment = {
-//         paymentDate: nextPaymentDate,
-//         rentAmount: null, // Bu alanın null olmaması gerekebilir
-//         isPaid: false,
-//         paidDate: null,
-//         receipt: null
-//       };
-
-//       console.log('Next payment to be added:', nextPayment);
-     
-
-
-//       const updatePayments = await RentSchema.findOneAndUpdate(
-//         { _id: rentId },
-//         { $push: { payments: nextPayment } },
-//         { new: true } // Yeni dönen belgeyi almak için
-//       );
-
-//       console.log('Rent payments after push:', rent.payments);
-
-//       // Rent kaydını tekrar güncelle
-//       await rent.save();
-
-//       return res.status(200).json({ message: 'Payment marked as paid and next payment scheduled', nextPayment });
-//     } else {
-//       return res.status(200).json({ message: 'Payment status updated but next payment not scheduled' });
-//     }
-
-//   } catch (err) {
-//     next(new Error('Failed to update payment status: ' + err.message));
-//   }
-// };
 
 
 
@@ -1532,17 +1534,6 @@ console.log("cpsöödscd",rent)
     next(new Error('Failed to update payment status: ' + err.message));
   }
 };
-
-
-
-
-
-
-
-
-
-
-
 
 
 const getFile = async (input, res, next) => {

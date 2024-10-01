@@ -6,6 +6,76 @@ const mongoose = require('mongoose')
 const DetailSchema = new mongoose.Schema({
 
 
+
+  // New fields
+  fundShareRatio: { // Fon Hisse Oranı
+    type: String,
+    required: false
+  },
+  fundArea: { // Fon m2
+    type: String,
+    required: false
+  },
+  grossM2Cost: { // Brüt m2 Maliyet
+    type: String,
+    required: false
+  },
+  valuationPricePerM2: { // Değerleme m2 Fiyatı
+    type: String,
+    required: false
+  },
+  costIncludingVAT: { // KDV Dahil Maliyet
+    type: String,
+    required: false
+  },
+  valuationReportDate: { // Değerleme Rapor Tarihi
+    type: String,
+    required: false
+  },
+  valueInValuationReport: { // Değerleme Raporunda Yer Alan Değer
+    type: String,
+    required: false
+  },
+  portfolioValue: { // Portföy Değeri
+    type: String,
+    required: false
+  },
+  reportNumber: { // Rapor No
+    type: String,
+    required: false
+  },
+  realEstateCode: { // G. Menkul Kodu
+    type: String,
+    required: false
+  },
+
+  propertyId: { // Gayrimenkul ID'si
+    type: String,
+    required: false
+  },
+  realEstateInvestmentsPortfolio: { // Gayrimenkul Yatırımları Portföyü
+    type: String,
+    required: false
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   propertyName: {
     type: String,
     required: false,

@@ -117,7 +117,10 @@ const deleteTenantInput = z.object({
 })
 //
 
-
+// tenantType: z.string().optional(), // Kiracı Türü
+// rentIncreaseRate: z.string().optional(), // Kira Artış Oranı
+// evictionCommitment: z.string().optional(), // Tahliye Taahhütnamesi
+// terminationNotice: z.string().optional(), // Fesih Bildirimi
 
 
 //property
@@ -126,6 +129,18 @@ const deleteTenantInput = z.object({
 const setPropertyInput = z.object({
 
   details: z.object({
+    fundShareRatio: z.string().optional(), // Fon Hisse Oranı
+    fundArea: z.string().optional(), // Fon m²
+    grossM2Cost: z.string().optional(), // Brüt m² Maliyet
+    valuationPricePerM2: z.string().optional(), // Değerleme m² Fiyatı
+    costIncludingVAT: z.string().optional(), // KDV Dahil Maliyet
+    valuationReportDate: z.string().optional(), // Değerleme Rapor Tarihi
+    valueInValuationReport: z.string().optional(), // Değerleme Raporunda Yer Alan Değer
+    portfolioValue: z.string().optional(), // Portföy Değeri//
+    reportNumber: z.string().optional(), // Rapor No//
+   
+    propertyId: z.string().optional(), // Gayrimenkul ID'si//
+    realEstateInvestmentsPortfolio: z.string().optional(), // Gayrimenkul Yatırımları Portföyü//
     propertyName: z.string().optional(),
     portfolioId: z.string(),
     block: z.string().optional(),
@@ -593,6 +608,9 @@ const setRentInput = z.object({
   maintenanceFeeAmount: z.string().optional(),
   propertyName: z.string().optional(), // propertyName isteğe bağlı
   tenantName: z.string().optional(),   // tenantName isteğe bağlı
+  tenanttype: z.enum(['isyeri', 'sahis']).optional(), // enum eklenmiş
+  noticeoftermination: z.string().optional(),
+  evacuationcommitment: z.enum(['var', 'yok']).optional(), // enum eklenmiş
   payments: z.array(z.object({
     paymentDate: z.string(),  // Ödeme günü
     rentAmount: z.string(),  // Kira bedeli
@@ -622,6 +640,19 @@ const updateRentInput = z.object({
   maintenanceStartDate: z.string().optional(), // Bakım başlangıç tarihi
   maintenanceFeeAmount: z.string().optional(), // Bakım ücreti miktarı
   isActive: z.boolean().optional(), // Aktiflik durumu
+
+
+  tenanttype: z.enum(['isyeri', 'sahis']).optional(), // enum eklenmiş
+  noticeoftermination: z.string().optional(),
+  evacuationcommitment: z.enum(['var', 'yok']).optional(), // enum eklenmiş
+
+
+
+
+
+
+
+
   payments: z.array(z.object({
     paymentDate: z.string().optional(), // Ödeme tarihi
     rentAmount: z.string().optional(), // Kira bedeli
