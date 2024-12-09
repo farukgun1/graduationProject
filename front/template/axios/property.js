@@ -54,7 +54,7 @@ $(document).ready(function() {
             "infoFiltered": "(toplam _MAX_ kayıttan filtrelendi)",
             "infoPostFix": "",
             "thousands": ",",
-            "lengthMenu": "_MENU_ kayıt göster",
+            "lengthMenu": "_MENU_  Kayıtları Göster",
             "loadingRecords": "Yükleniyor...",
             "processing": "İşleniyor...",
             "search": "Ara:",

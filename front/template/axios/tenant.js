@@ -15,11 +15,6 @@ const jwt = getJWTFromCookie();
 console.log("jwt",jwt)
 
 
-
-
-
-
-
 $(document).ready(function() {
     
     function base64UrlDecode(str) {
@@ -50,7 +45,34 @@ $(document).ready(function() {
     console.log("payloadpayload",payload)
     // DataTables'ı başlat
     // DataTables'ı başlat
-    const table = $('#tenantTable').DataTable();
+    const table = $('#tenantTable').DataTable({
+        language: {
+            "decimal": "",
+            "emptyTable": "Tabloda veri yok",
+            "info": "Gösterilen _START_ ile _END_ arasındaki _TOTAL_ kayıt",
+            "infoEmpty": "Gösterilecek kayıt yok",
+            "infoFiltered": "(toplam _MAX_ kayıttan filtrelendi)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "_MENU_  Kayıtları Göster",
+            "loadingRecords": "Yükleniyor...",
+            "processing": "İşleniyor...",
+            "search": "Ara:",
+            "searchPlaceholder": "Arama yapın...",
+            "zeroRecords": "Eşleşen kayıt bulunamadı",
+            "paginate": {
+                "first": "İlk",
+                "last": "Son",
+                "next": "Sonraki",
+                "previous": "Önceki"
+            },
+            "aria": {
+                "sortAscending": ": artan sütun sıralamasını etkinleştir",
+                "sortDescending": ": azalan sütun sıralamasını etkinleştir"
+            }
+        },
+    
+    });
 
     async function getTenant() {
         try {

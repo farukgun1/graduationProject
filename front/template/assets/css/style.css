@@ -104,3 +104,11 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
     color: white;
     background-color: rgb(234, 84, 84);
 }
+.table thead th
+{
+    text-transform: none !important;
+}
+.btn-primary:focus
+{
+    background-color:#ea5455 !important ;
+}
