@@ -99,3 +99,8 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 .dataTables_wrapper {
     padding: 20px;
 }
+.dropdown-item:hover
+{
+    color: white;
+    background-color: rgb(234, 84, 84);
+}
