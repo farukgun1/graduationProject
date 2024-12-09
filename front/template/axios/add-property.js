@@ -163,7 +163,7 @@ async function populatePortfolio(personelId) {
     response.data.data.forEach((portfolio) => {
       const option = document.createElement('option');
       option.value = portfolio._id; // ID değerini value olarak ayarla
-      option.textContent = portfolio.portfolioname; // Görünen metni portfolioname olarak ayarla
+      option.textContent = portfolio.portfolioName || "Bilinmiyor"; // portfolioName alanını ayarla, yoksa "Bilinmiyor" yaz
       selectElement.appendChild(option);
     });
   } catch (error) {

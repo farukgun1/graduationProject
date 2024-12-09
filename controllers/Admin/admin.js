@@ -713,19 +713,20 @@ const setPortfolio = async (input, res, next) => {
 
 const getPortfolio = async (input, res, next) => {
   try {
-    // input'tan personelId alın
+    // Gelen input'tan personelId alın
     const personelId = input.personelId;
 
     // personelId ile portföyleri sorgula
     const portfolios = await portfolioSchema.find(
       { personelId }, // Şarta göre filtreleme
-      { _id: 1, portfolioname: 1 } // Sadece id (_id) ve portfolioname alanını getir
+      { _id: 1, portfolioName: 1 } // _id ve portfolioname alanlarını getir
     );
 
     if (!portfolios.length) {
-      return next(createCustomError(404, "Portfolio not found for given personelId"));
+      return next(createCustomError(404, "Belirtilen personelId için portföy bulunamadı."));
     }
 
+    // Başarı mesajı ile sonuç döndür
     return next(createSuccessMessage(2007, portfolios));
   } catch (err) {
     console.error(err);
@@ -1519,46 +1520,41 @@ const setFile = async (input, res, next, results, req) => {
   try {
     const { rentId, paymentDate, rentAmount, paidDate } = input;
 
- 
+    // Rent kaydını bul
     const rent = await RentSchema.findById(rentId);
     if (!rent) {
       throw new Error('Rent record not found');
     }
-console.log("cpsöödscd",rent)
 
+    console.log("Found rent record:", rent);
 
-
-  
+    // Ödeme kaydını bul
     const paymentToUpdate = rent.payments.find(payment => payment.paymentDate === paymentDate);
     if (!paymentToUpdate) {
       throw new Error('Payment record not found');
     }
 
- console.log(paymentToUpdate)
+    console.log("Payment to update:", paymentToUpdate);
 
-
-
+    // Ödeme detaylarını güncelle
     if (req.imageFileName) {
-      paymentToUpdate.receipt = req.imageFileName; 
+      paymentToUpdate.receipt = req.imageFileName;
     }
-    console.log("req",req.imageFileName)
-
-
     paymentToUpdate.isPaid = true;
     paymentToUpdate.paidDate = paidDate;
-
 
     await rent.save();
 
     console.log('Payment updated:', paymentToUpdate);
 
+    // Yeni ödeme oluşturma
     if (paymentToUpdate.isPaid === true) {
       const moment = require('moment');
       const nextPaymentDate = moment(paymentDate).add(1, 'month').format('YYYY-MM-DD');
 
       const nextPayment = {
         paymentDate: nextPaymentDate,
-        rentAmount: rentAmount, // Bu alanın null olmaması gerekebilir
+        rentAmount: rentAmount,
         isPaid: false,
         paidDate: null,
         receipt: null
@@ -1566,25 +1562,40 @@ console.log("cpsöödscd",rent)
 
       console.log('Next payment to be added:', nextPayment);
 
-      // Yeni ödemeyi ekle
+      // Yeni ödeme kaydını ekle
       const updatePayments = await RentSchema.findOneAndUpdate(
-        { _id: rentId  , },
+        { _id: rentId },
         { $push: { payments: nextPayment } },
-        { new: true, useFindAndModify: false } // Yeni dönen belgeyi almak için
+        { new: true, useFindAndModify: false }
       );
 
       console.log('Rent payments after push:', updatePayments.payments);
 
-      return res.status(200).json({ message: 'Payment marked as paid and next payment scheduled', nextPayment });
+      // E-posta göndermek için mülk sahibini bul
+      const propertyOwnerId = rent.propertyOwnerId;
+      const customer = await customerSchema.findById(propertyOwnerId);
+
+      if (!customer) {
+        throw new Error('Customer not found for given propertyOwnerId');
+      }
+
+      // E-posta gönderimi
+      await sendEmail({
+        to: customer.email,
+        subject: 'Ödeme Bilgilendirme',
+        text: `Sayın ${customer.name} ${customer.surname}, kira ödemeniz başarıyla alınmıştır. \n\nÖdeme Detayları:\n- Ödeme Tarihi: ${paymentDate}\n- Tutar: ${rentAmount} TL.`
+      });
+
+      console.log('Email sent to:', customer.email);
+
+      return res.status(200).json({ message: 'Payment marked as paid, next payment scheduled, and email sent', nextPayment });
     } else {
       return res.status(200).json({ message: 'Payment status updated but next payment not scheduled' });
     }
-
   } catch (err) {
     next(new Error('Failed to update payment status: ' + err.message));
   }
 };
-
 
 const getFile = async (input, res, next) => {
   try {
