@@ -50,6 +50,32 @@ console.log("jwt",jwt)
         console.error("Property verileri alınırken hata oluştu:", error);
     }
 }
+async function populatePortfolio(personelId) {
+    try {
+        const url = 'http://localhost:3001/api/v1/emlakze/admin/getportfolio';
+        const response = await axios.post(url, { personelId });
+
+        console.log("API Yanıtı:", response.data); // API yanıtını konsola yazdırarak kontrol et
+        const selectElement = document.getElementById('portfolioId');
+  
+        // Önceki seçenekleri temizle
+        selectElement.innerHTML = '<option value="">Seçiniz</option>';
+  
+        // Gelen verileri işle ve seçim kutusuna ekle
+        response.data.data.forEach((portfolio) => {
+            const option = document.createElement('option');
+            option.value = portfolio._id; // ID değerini value olarak ayarla
+            option.textContent = portfolio.portfolioName || "Bilinmiyor"; // portfolioName alanını ayarla, yoksa "Bilinmiyor" yaz
+            selectElement.appendChild(option);
+        });
+        
+        // Select2'yi başlat
+        $('#portfolioId').select2();
+    } catch (error) {
+        console.error('Portfolio verileri alınırken hata oluştu:', error);
+    }
+}
+
 
 
 async function populateTenant(personelId) {
@@ -133,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const personelId=payload.id;
     populateProperty(personelId);
     populateTenant(personelId);
-
+  populatePortfolio(personelId)
     document.querySelector('.btn-submit-all').addEventListener('click', async function () {
         const tabContentContainers = document.querySelectorAll('.bs-stepper-content .content');
         const allFormData = {};

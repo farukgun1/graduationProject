@@ -41,6 +41,9 @@ document.addEventListener('DOMContentLoaded', function () {
         //window.location.href = '/giris';
         console.log('JWT cookie bulunamadı veya geçersiz formatta.');
     }
+    if (payload && payload.name) {
+        document.getElementById("user-name").textContent = payload.name; // "Berfin Kale" yerine customer-name'i yerleştiriyoruz
+    }
 
     console.log("payloadpayload",payload)
     const form = document.getElementById('add-tenant');

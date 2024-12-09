@@ -43,6 +43,10 @@ $(document).ready(function() {
     }
 
     console.log("payloadpayload",payload)
+    if (payload && payload.name) {
+        document.getElementById("user-name").textContent = payload.name; // "Berfin Kale" yerine customer-name'i yerleştiriyoruz
+    }
+
 
     // DataTables'ı başlat
     const table = $('#propertyTable').DataTable({

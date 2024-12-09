@@ -10,7 +10,7 @@ const rent = new mongoose.Schema({
   },
   portfolioId: {
       type: String,
-      required: false
+      required: true
   },
   personelId: {
     type: String,

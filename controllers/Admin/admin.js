@@ -1526,15 +1526,11 @@ const setFile = async (input, res, next, results, req) => {
       throw new Error('Rent record not found');
     }
 
-    console.log("Found rent record:", rent);
-
     // Ödeme kaydını bul
     const paymentToUpdate = rent.payments.find(payment => payment.paymentDate === paymentDate);
     if (!paymentToUpdate) {
       throw new Error('Payment record not found');
     }
-
-    console.log("Payment to update:", paymentToUpdate);
 
     // Ödeme detaylarını güncelle
     if (req.imageFileName) {
@@ -1544,8 +1540,6 @@ const setFile = async (input, res, next, results, req) => {
     paymentToUpdate.paidDate = paidDate;
 
     await rent.save();
-
-    console.log('Payment updated:', paymentToUpdate);
 
     // Yeni ödeme oluşturma
     if (paymentToUpdate.isPaid === true) {
@@ -1560,8 +1554,6 @@ const setFile = async (input, res, next, results, req) => {
         receipt: null
       };
 
-      console.log('Next payment to be added:', nextPayment);
-
       // Yeni ödeme kaydını ekle
       const updatePayments = await RentSchema.findOneAndUpdate(
         { _id: rentId },
@@ -1569,26 +1561,26 @@ const setFile = async (input, res, next, results, req) => {
         { new: true, useFindAndModify: false }
       );
 
-      console.log('Rent payments after push:', updatePayments.payments);
-
       // E-posta göndermek için mülk sahibini bul
-      const propertyOwnerId = rent.propertyOwnerId;
-      const customer = await customerSchema.findById(propertyOwnerId);
-
-      if (!customer) {
-        throw new Error('Customer not found for given propertyOwnerId');
-      }
+      const propertyId = rent.propertyId;
+      const property = await propertySchema.findById(propertyId);
+      const propertyownerId = property.propertyOwnerId;
+      const owner = await customerSchema.findById(propertyownerId);
 
       // E-posta gönderimi
       await sendEmail({
-        to: customer.email,
+        to: owner.email,
         subject: 'Ödeme Bilgilendirme',
-        text: `Sayın ${customer.name} ${customer.surname}, kira ödemeniz başarıyla alınmıştır. \n\nÖdeme Detayları:\n- Ödeme Tarihi: ${paymentDate}\n- Tutar: ${rentAmount} TL.`
+        text: `Sayın ${owner.name} ${owner.surname}, kira ödemeniz başarıyla alınmıştır. \n\nÖdeme Detayları:\n- Ödeme Tarihi: ${paymentDate}\n- Tutar: ${rentAmount} TL.`
+      }).catch(error => {
+        console.error('Error sending email:', error);
+        throw new Error('E-posta gönderimi başarısız oldu');
       });
 
-      console.log('Email sent to:', customer.email);
-
-      return res.status(200).json({ message: 'Payment marked as paid, next payment scheduled, and email sent', nextPayment });
+      return res.status(200).json({ 
+        message: 'Payment marked as paid, next payment scheduled, email sent to owner', 
+        nextPayment 
+      });
     } else {
       return res.status(200).json({ message: 'Payment status updated but next payment not scheduled' });
     }

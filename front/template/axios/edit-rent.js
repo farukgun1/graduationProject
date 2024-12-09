@@ -1,3 +1,5 @@
+const { getPortfolio } = require("../../../controllers/Admin/admin");
+
 $(document).ready(function() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -109,7 +111,8 @@ $(document).ready(function() {
     async  function populateForm(data) {
         if (!data || !data.rent) return;
         await getProperty(data.rent.propertyId);
-
+        const personelId=payload.id
+await getPortfolio(personelId)
         await getTenant(data.rent.tenantId);
         const rent = data.rent;
       
