@@ -86,7 +86,29 @@ function getJWTFromCookie() {
   }
   
  
-  
+  // Populate customer dropdown
+async function populateCustomer(personelId) {
+  try {
+    const url = 'http://localhost:3001/api/v1/emlakze/admin/getcustomer';
+    const response = await axios.post(url, {});
+    const selectElement = document.getElementById('propertyOwnerName');
+
+    // Clear previous options
+    selectElement.innerHTML = '';
+
+    // Filter customers by personelId
+    response.data.data
+      .filter(customer => customer.personelId === personelId) // Filter logic
+      .forEach((customer) => {
+        const option = document.createElement('option');
+        option.value = customer._id;
+        option.textContent = `${customer.name} ${customer.surname}`;
+        selectElement.appendChild(option);
+      });
+  } catch (error) {
+    console.error('Customer data retrieval error:', error);
+  }
+}
  
   
   document.addEventListener('DOMContentLoaded', async function () {
@@ -114,7 +136,9 @@ function getJWTFromCookie() {
       //window.location.href = '/giris';
       console.log('JWT cookie bulunamadı veya geçersiz formatta.');
   }
-  
+ const  personelId=payload.id
+  await populateCustomer(personelId)
+        
 
   
     const dataa = await populateStates()
@@ -189,7 +213,9 @@ function getJWTFromCookie() {
         })
  
     const personelId=payload.id;
-        
+    const propertyOwnerSelect = document.getElementById('propertyOwnerName'); // Ensure this ID matches your select element
+    const propertyOwnerId = propertyOwnerSelect.value; // Get the selected value
+ 
   
         const organizedData = {
        
@@ -199,6 +225,8 @@ function getJWTFromCookie() {
     
    
           personelId:personelId,
+          propertyOwnerId:propertyOwnerId,
+      
           
         }
         console.log(personelId)

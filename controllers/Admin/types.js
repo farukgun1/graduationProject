@@ -9,7 +9,8 @@ const setPersonelInput = z.object({
   name: z.string(),
   surname: z.string(),
   email: z.string(),
-  phoneNumber: z.string()
+  phoneNumber: z.string(),
+  password:z.string()
  
 })
 
@@ -471,6 +472,7 @@ const updatePropertyInput = z.object({
 
     portfoliotype:z.enum(['Site', 'Ticari', 'Endüstriyel', 'Müstakil', 'Arsa', 'Bina', 'Mix']),
     duesM2Price: z.string().optional(),
+    portfolioName: z.string().optional(),
     rentM2Price: z.string().optional(),
     country: z.string().optional(),
     province: z.string().optional(),
@@ -478,6 +480,8 @@ const updatePropertyInput = z.object({
     neighborhood: z.string().optional(),
     latitude: z.string().optional(),
     longitude: z.string().optional(),
+    personelId:z.string().optional(),
+    propertyOwnerId: z.string().optional(),
 
     photos: z.string().optional(),
 

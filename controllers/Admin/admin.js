@@ -182,7 +182,7 @@ const setPersonel2 = async (input, res, next, results) => {
 };
 
 const setPersonel = async (input, res, next) => {
-  const { name, surname, email, phoneNumber } = input;
+  const { name, surname, email, phoneNumber,password } = input;
 
   try {
     // Yeni personel nesnesi oluşturma
@@ -190,7 +190,8 @@ const setPersonel = async (input, res, next) => {
       name,
       surname,
       email,
-      phoneNumber
+      phoneNumber,
+      password
     });
 
     // Personeli veritabanına kaydetme
@@ -454,6 +455,27 @@ const getCustomer = async (input, res, next, results) => {
   }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const updateCustomer = async (input, res, next, results) => {
   const {
     updatedId,
@@ -689,6 +711,31 @@ const setPortfolio = async (input, res, next) => {
   }
 };
 
+const getPortfolio = async (input, res, next) => {
+  try {
+    // input'tan personelId alın
+    const personelId = input.personelId;
+
+    // personelId ile portföyleri sorgula
+    const portfolios = await portfolioSchema.find(
+      { personelId }, // Şarta göre filtreleme
+      { _id: 1, portfolioname: 1 } // Sadece id (_id) ve portfolioname alanını getir
+    );
+
+    if (!portfolios.length) {
+      return next(createCustomError(404, "Portfolio not found for given personelId"));
+    }
+
+    return next(createSuccessMessage(2007, portfolios));
+  } catch (err) {
+    console.error(err);
+    return next(createCustomError(9000, errorRoute.Enum.general));
+  }
+};
+
+
+
+
 const updateProperty = async (input, res, next, results) => {
   const {
     updatedId,
@@ -802,6 +849,8 @@ const getProperty = async (req, res, next) => {
     next(createCustomError(9000, errorRoute.Enum.general));
   }
 };
+
+
 
 
 const deleteProperty = async (input, res, next, results) => {
@@ -1492,6 +1541,7 @@ console.log("cpsöödscd",rent)
     if (req.imageFileName) {
       paymentToUpdate.receipt = req.imageFileName; 
     }
+    console.log("req",req.imageFileName)
 
 
     paymentToUpdate.isPaid = true;
@@ -1720,5 +1770,6 @@ module.exports = {
   getPropertyCount,
   getRentCount,
   getPersonelCount,
-  setPersonel2
+  setPersonel2,
+  getPortfolio
 }

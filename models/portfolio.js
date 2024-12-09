@@ -178,7 +178,19 @@ const portfolio = new mongoose.Schema({
         enum: ['Site', 'Ticari', 'Endüstriyel', 'Müstakil', 'Arsa', 'Bina', 'Mix'],
         required: false
     },
-    
+    personelId:{
+      type:String,
+      required:false
+    },
+    propertyOwnerId: {
+      type:String,
+      required:false
+    },
+    portfolioName:{
+      type:String,
+      required:false
+    }
+    ,
     duesM2Price:{
         type:String,
         required:false

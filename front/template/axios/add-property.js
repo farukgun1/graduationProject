@@ -47,7 +47,7 @@ async function populateStates(citycode) {
   }
 }
 
-// İlçeleri doldur
+
 async function populateDistricts(stateCode) {
   try {
     const data = await populateStates(stateCode)
@@ -144,6 +144,30 @@ async function populateCustomer(personelId) {
       });
   } catch (error) {
     console.error('Customer data retrieval error:', error);
+  }
+}
+
+
+async function populatePortfolio(personelId) {
+  try {
+    const url = 'http://localhost:3001/api/v1/emlakze/admin/getportfolio';
+    
+    // API'den verileri alın
+    const response = await axios.post(url, { personelId });
+    const selectElement = document.getElementById('portfolioId');
+
+    // Önceki seçenekleri temizle
+    selectElement.innerHTML = '<option value="">Seçiniz</option>';
+
+    // Gelen verileri işle ve seçim kutusuna ekle
+    response.data.data.forEach((portfolio) => {
+      const option = document.createElement('option');
+      option.value = portfolio._id; // ID değerini value olarak ayarla
+      option.textContent = portfolio.portfolioname; // Görünen metni portfolioname olarak ayarla
+      selectElement.appendChild(option);
+    });
+  } catch (error) {
+    console.error('Portfolio data retrieval error:', error);
   }
 }
 
@@ -287,6 +311,7 @@ console.log("payloadpayload",payload)
   // Populate customer dropdown
   const personelId=payload.id;
   await populateCustomer(personelId)
+  await populatePortfolio(personelId)
 
   // Handle form submission
   document
