@@ -426,7 +426,6 @@ const OtherDetailSchema=new mongoose.Schema({
           "CableCar",
           "Tram",
           "Siding",
-          
           "TrainStation",
           "Pier"
         ],
@@ -468,10 +467,10 @@ const OtherDetailSchema=new mongoose.Schema({
       location: {
         type: [String],
         enum: [
-          "CloseToMainRoad",     
-          "Seafront",           
-          "CloseToSea",         
-          "CloseToAirport",      
+          "CloseToMainRoad",
+          "Seafront",
+          "CloseToSea",
+          "CloseToAirport",
           "CloseToPublicTransport",
           "NearSea"
         ],

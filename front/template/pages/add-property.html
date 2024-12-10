@@ -358,23 +358,24 @@
                                             <label class="form-label" for="bbNo">BB No</label>
                                             <input type="text" name="bbNo" id="bbNo" class="form-control" required/>
                                         </div>
-   
-
                                         <div class="mb-1 col-md-4">
-                                            <label class="form-label" for="attribute1">Nitelik</label>
-                                            <select class="select2 w-100" name="attribute1" id="attribute1" required>
-                                                <option value="">Seçiniz</option>
+                                            <label class="form-label" for="attribute">Nitelik</label>
+                                            <select class="select2 w-100" name="attribute" id="attribute" required>
+                                               
                                                 <option value="konut">Konut</option>
                                                 <option value="isyeri">İşyeri</option>
                                                 <option value="ofis">Ofis</option>
                                                 <option value="dukkan">Dükkan</option>
                                                 <option value="arsa">Arsa</option>
-                                              
+                                        
+                                          
                                             </select>
                                         </div>
                                         <div class="mb-1 col-md-4">
                                             <label class="form-label" for="type">Tipi</label>
                                             <select class="select2 w-100" name="type" id="type " required>
+                                               
+                                               
                                                 <option value="1+0">1+0</option>
                                                 <option value="1+1">1+1</option>
                                                 <option value="2+1">2+1</option>
@@ -756,14 +757,11 @@
                                             <input type="text" id="ownership" name="ownership" class="form-control" placeholder=""  required/>
                                         </div>
                                         <div class="mb-1 col-md-4">
-                                            <label class="form-label" for="attribute">Ana Gayrimenkul Niteliği</label>
-                                            <select class="select2 w-100" name="attribute" id="attribute" required>
+                                            <label class="form-label" for="facades">Ana Gayrimenkul Niteliği</label>
+                                            <select class="select2 w-100" name="facades" id="facades" required>
                                                 <option value="">Seçiniz</option>
-                                                <option value="arsa">Arsa</option>
-                                                <option value="konut">Konut</option>
-                                                <option value="isyeri">İş Yeri</option>
-                                                <option value="ofis">Ofis</option>
-                                                <option value="dukkan">Dükkan</option>
+                                                <option value="Arsa">Arsa</option>
+                                                <option value="BetonermeBinaveArsası">Betonerme ve Bina Arsası</option>
                                                
                                               
                                             </select>
@@ -783,9 +781,7 @@
                                             <select class="select2 w-100" name="shareType" id="shareType" required>
                                                 <option value="">Seçiniz</option>
                                                 <option value="Payli">Paylı </option>
-                                                <option value="Paylasilmis">Paylaşılmış</option>
-                                                <option value="Tam">Tam </option>
-                                                <option value="Bagimsiz">Bağımsız</option>
+                                                <option value="ElBirligi">El Birliği</option>
                                              
                                               
                                             </select>
@@ -1222,7 +1218,7 @@
                                                                                     </div>
                                                                                     <div class="form-check col-md-3 col-6 mb-3"> <!-- mb-3 eklendi -->
                                                                                         <input class="form-check-input" type="checkbox" value="Entrance/Ramp" id="Entrance/Ramp" name="disabledFriendly" />
-                                                                                        <label class="form-check-label" for="Entrance/Ramp">Giriş/Rampa</label>
+                                                                                        <label class="form-check-label" for="EntranceRamp">Giriş/Rampa</label>
                                                                                     </div>
                                                                                     <div class="form-check col-md-3 col-6 mb-3"> <!-- mb-3 eklendi -->
                                                                                         <input class="form-check-input" type="checkbox" value="Stairs" id="Stairs" name="disabledFriendly" />
@@ -1237,7 +1233,7 @@
                                                                                         <label class="form-check-label" for="RoomDoor">Oda Kapısı</label>
                                                                                     </div>
                                                                                     <div class="form-check col-md-3 col-6 mb-3"> <!-- mb-3 eklendi -->
-                                                                                        <input class="form-check-input" type="checkbox" value="ParkingSocket/ElectricSwitch" id="ParkingSocketElectricSwitch" name="disabledFriendly" />
+                                                                                        <input class="form-check-input" type="checkbox" value="ParkingSocket/ElectricSwitch" id="ParkingSocket/ElectricSwitch" name="disabledFriendly" />
                                                                                         <label class="form-check-label" for="ParkingSocketElectricSwitch">Park Priz / Elektrik</label>
                                                                                     </div>
                                                                                     <div class="form-check col-md-3 col-6 mb-3"> <!-- mb-3 eklendi -->
@@ -1807,11 +1803,11 @@
                                                                                       <label class="form-check-label" for="Mosque">Cami</label>
                                                                                     </div>
                                                                                     <div class="form-check col-md-3 col-3 mb-3">
-                                                                                      <input class="form-check-input" type="checkbox" value="Cemetery" id="Cemevi" name="environment" />
+                                                                                      <input class="form-check-input" type="checkbox" value="Cemetery" id="Cemetery" name="environment" />
                                                                                       <label class="form-check-label" for="Cemevi">Cemevi</label>
                                                                                     </div>
                                                                                     <div class="form-check col-md-3 col-3 mb-3">
-                                                                                      <input class="form-check-input" type="checkbox" value="Seafront" id="Seaside" name="environment" />
+                                                                                      <input class="form-check-input" type="checkbox" value="Seafront" id="Seafront" name="environment" />
                                                                                       <label class="form-check-label" for="Seaside">Denize Sıfır</label>
                                                                                     </div>
                                                                                     <div class="form-check col-md-3 col-3 mb-3">
@@ -1854,7 +1850,7 @@
                                                                                     </div>
                                                                                     <div class="form-check col-md-3 col-3 mb-3">
                                                                                       <input class="form-check-input" type="checkbox" value="NeighborhoodMarket" id="NeighborhoodMarket" name="environment" />
-                                                                                      <label class="form-check-label" for="NeighborhoodMarket">Semt Pazarı</label>
+                                                                                      <label class="form-check-label" for="LocalMarket">Semt Pazarı</label>
                                                                                     </div>
                                                                                     <div class="form-check col-md-3 col-3 mb-3">
                                                                                       <input class="form-check-input" type="checkbox" value="Gym" id="Gym" name="environment" />
@@ -1866,7 +1862,7 @@
                                                                                     </div>
                                                                                     <div class="form-check col-md-3 col-3 mb-3">
                                                                                       <input class="form-check-input" type="checkbox" value="Primary/SecondarySchool" id="Primary/SecondarySchool" name="environment" />
-                                                                                      <label class="form-check-label" for="Primary/SecondarySchool">İlkokul-Ortaokul</label>
+                                                                                      <label class="form-check-label" for="PrimarySchool">İlkokul-Ortaokul</label>
                                                                                     </div>
                                                                                   
                                                                                     <div class="form-check col-md-3 col-3 mb-3">

@@ -282,7 +282,6 @@ const setPropertyInput = z.object({
       "CableCar",
       "Tram",
       "Siding",
-      
       "TrainStation",
       "Pier"
     ])).optional(),

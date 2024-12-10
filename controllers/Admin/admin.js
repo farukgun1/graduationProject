@@ -1733,8 +1733,45 @@ const getPersonelCount = async (input, res, next) => {
 }
 
 
+const calculateAverageRentIncome = async (input, res, next) => {
+  try {
+    const {personelId}=input;
+      // Rentleri veritabanından çek
+      const rents = await RentSchema.find({ personelId });
+
+      if (!rents || rents.length === 0) {
+          console.log("Bu personel için ödeme bulunamadı.");
+          return 0;
+      }
+
+      let totalIncome = 0;
+      let paidCount = 0;
+
+      rents.forEach(rent => {
+          if (rent.payments && rent.payments.length > 0) {
+              rent.payments.forEach(payment => {
+                  if (payment.isPaid) {
+                      totalIncome += parseFloat(payment.rentAmount || 0); // Ödenen miktarı topla
+                      paidCount++; // Ödenen sayısını artır
+                  }
+              });
+          }
+      });
+
+      const averageIncome = paidCount > 0 ? (totalIncome / paidCount).toFixed(2) : 0;
+      return next(createSuccessMessage(2007, { averageIncome}));
+      
+
+  } catch (error) {
+      console.error("Hata oluştu:", error);
+      throw error;
+  }
+};
+
+
 
 module.exports = {
+  calculateAverageRentIncome,
   setPersonel,
   updatePersonel,
   getPersonel,
