@@ -136,9 +136,9 @@ async function populateCustomer(personelId) {
       //window.location.href = '/giris';
       console.log('JWT cookie bulunamadı veya geçersiz formatta.');
   }
-  if (payload && payload.name) {
-    document.getElementById("user-name").textContent = payload.name; // "Berfin Kale" yerine customer-name'i yerleştiriyoruz
-}
+  if (payload && payload.name && payload.surname) {
+    document.getElementById("user-name").textContent = `${payload.name} ${payload.surname}`;
+    }
 
  const  personelId=payload.id
   await populateCustomer(personelId)
