@@ -7,9 +7,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
-    <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
-    <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
-    <meta name="author" content="PIXINVENT">
+    <meta name="description" content="Deveb Yazılım Çözümleri AŞ'nin sunduğu Mülk Takip Uygulaması ile mülklerinizi kolayca takip edebilir, yönetebilir ve raporlayabilirsiniz.">
+    <meta name="keywords" content="mülk takip, yazılım çözümleri, Deveb Yazılım, mülk yönetimi, gayrimenkul takip, dijital mülk yönetimi, mülk izleme">
+    <meta name="author" content="Deveb Yazılım Çözümleri AŞ">
     <link rel="shortcut icon" type="image/x-icon" href="https://dveb.com.tr/shared/site/0d1724850172.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
 
@@ -53,7 +53,7 @@
                 </ul>
                 <ul class="nav navbar-nav">
                     <li class="nav-item">
-                        <a class="navbar-brand" href="../../../html/ltr/horizontal-menu-template/index.html">
+                        <a class="navbar-brand" href="dashboard.html">
                             <img width="100" src="app-assets/images/logo.svg" alt="">
                         </a>
                     </li>
@@ -129,7 +129,7 @@
             <div class="navbar-container main-menu-content  container-xxl" data-menu="menu-container">
                 <!-- include ../../../includes/mixins-->
                 <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
-                    <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="index.html" data-bs-toggle="dropdown"><i data-feather="home"></i><span data-i18n="Dashboards">Dashboards</span></a>
+                    <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="index.html" data-bs-toggle="dropdown"><i data-feather="home"></i><span data-i18n="Dashboards">Genel</span></a>
                         <ul class="dropdown-menu" data-bs-popper="none">
                             <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="dashboard.html" data-bs-toggle="" data-i18n="Analytics"><i data-feather="activity"></i><span data-i18n="Ana Sayfa">Ana Sayfa</span></a>
                             </li>
@@ -346,11 +346,11 @@
                                 </div>
                                 <form id="genel-form">
                                     <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="propertyName">Mülk Adı</label>
                                             <input type="text" name="propertyName" id="propertyName" class="form-control"  />
                                         </div>
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="portfolioId">Portfolyo</label>
                                             <select class="select2 w-100" name="portfolioId" id="portfolioId">
                                                 <option value="">Seçiniz</option>
@@ -358,21 +358,16 @@
                                               
                                             </select>
                                         </div>
-                                        
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="block">Blok</label>
                                             <input type="text" name="block" id="block" class="form-control"/>
                                         </div>
                                         
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="bbNo">BB No</label>
                                             <input type="text" name="bbNo" id="bbNo" class="form-control"/>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="attribute">Nitelik</label>
                                             <select class="select2 w-100" name="attribute" id="attribute">
                                                
@@ -385,7 +380,7 @@
                                           
                                             </select>
                                         </div>
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="type">Tipi</label>
                                             <select class="select2 w-100" name="type" id="type">
                                                
@@ -402,9 +397,7 @@
 
                                             </select>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="usageType">Kullanım Durumu</label>
                                             <select class="select2 w-100" name="usageType" id="usageType">
                                                
@@ -415,36 +408,32 @@
                                             </select>
                                         </div>
                                                  
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="netM2">net m2</label>
                                             <input type="text" name="netM2" id="netM2" class="form-control"/>
                                         </div>
-                                        
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="grossM2">Brüt m2 </label>
                                             <input type="text" name="grossM2" id="grossM2" class="form-control"/>
                                         </div>
                                                  
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="island">Ada</label>
                                             <input type="text" name="island" id="island" class="form-control"/>
                                         </div>
-                                        
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="parcel">Parsel </label>
                                             <input type="text" name="parcel" id="parcel" class="form-control"/>
                                         </div>
                                                  
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="onShelf">Pafta </label>
                                             <input type="text" name="onShelf" id="onShelf" class="form-control"/>
                                         </div>
+                                        
                                     </div>
-                             
+                                   
+                                 
                                       
                                  
                                 </form>
@@ -452,10 +441,10 @@
                                 <div class="d-flex justify-content-between">
                                     <button class="btn btn-outline-secondary btn-prev" disabled>
                                         <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
-                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                        <span class="align-middle d-sm-inline-block d-none">Geri</span>
                                     </button>
                                     <button class="btn btn-primary btn-next">
-                                        <span class="align-middle d-sm-inline-block d-none">Next</span>
+                                        <span class="align-middle d-sm-inline-block d-none">İleri</span>
                                         <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
                                     </button>
                                 </div>
@@ -467,37 +456,31 @@
                                 </div>
                                 <form id="mulkbilgileri-form">
                                     <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="propertyNumber">Taşınmaz Numarası</label>
                                             <input type="text" name="propertyNumber" id="propertyNumber" class="form-control" placeholder="" />
                                         </div>
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="numberOfFloors">Kat Sayısı </label>
                                             <input type="text" name="numberOfFloors" id="numberOfFloors" class="form-control" placeholder="" />
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="floor">Kat</label>
                                             <input type="text" name="floor" id="floor" class="form-control" placeholder="" />
                                         </div>
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="buildingPermitDate">Yapı Ruhsat Tarihi </label>
                                             <input type="date" name="buildingPermitDate" id="buildingPermitDate" class="form-control" placeholder="" />
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="purchaseDate">Alış Tarihi</label>
                                             <input type="date" name="purchaseDate" id="purchaseDate" class="form-control" placeholder="" />
                                         </div>
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="purchasePrice">Alış Fiyatı </label>
                                             <input type="text" name="purchasePrice" id="purchasePrice" class="form-control" placeholder="" />
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="facades">Cepheler</label>
                                             <select class="form-control w-100" name="facades" id="facades" required>
                                                 <option value="">Seçiniz</option>
@@ -508,13 +491,11 @@
                                             </select>
                                         </div>
                                         
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="referenceCode"> Referans Kodu</label>
                                             <input type="text" name="referenceCode" id="referenceCode" class="form-control" placeholder="" />
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="zoningStatus">İmar Durumu</label>
                                             <select class="select2 w-100" name="zoningStatus" id="zoningStatus" required>
                                                 <option></option>            
@@ -533,94 +514,68 @@
 
 
                                         </div>
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="benchmark"> Emsal</label>
                                             <input type="text" name="benchmark" id="benchmark" class="form-control" placeholder="" />
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                    
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="integrationCode"> Entegrasyon Kodu</label>
                                             <input type="text" name="integrationCode" id="integrationCode" class="form-control" placeholder="" />
                                         </div>
-                                         
-                                        <!-- <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="tenantType"> Kiracı Türü</label>
-                                            <input type="text" name="tenantType" id="tenantType" class="form-control" placeholder="" />
-                                        </div> -->
+                                         <!-- <div class="mb-1 col-md-4">
+                                        <label class="form-label" for="tenantType"> Kiracı Türü</label>
+                                        <input type="text" name="tenantType" id="tenantType" class="form-control" placeholder="" />
+                                    </div> -->
+                                    <div class="mb-1 col-md-4">
+                                        <label class="form-label" for="realEstateInvestmentsPortfolio"> Gayrimenul Yatırımları Portfoyu</label>
+                                        <input type="text" name="realEstateInvestmentsPortfolio" id="realEstateInvestmentsPortfolio" class="form-control" placeholder="" />
                                     </div>
-
-                                    
-                                    <div class="row">
-                                    
-                                        <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="realEstateInvestmentsPortfolio"> Gayrimenul Yatırımları Portfoyu</label>
-                                            <input type="text" name="realEstateInvestmentsPortfolio" id="realEstateInvestmentsPortfolio" class="form-control" placeholder="" />
-                                        </div>
-                                        <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="propertyId"> Gayrimenkul Id</label>
-                                            <input type="text" name="propertyId" id="propertyId" class="form-control" placeholder="" />
-                                        </div>
+                                    <div class="mb-1 col-md-4">
+                                        <label class="form-label" for="propertyId"> Gayrimenkul Id</label>
+                                        <input type="text" name="propertyId" id="propertyId" class="form-control" placeholder="" />
                                     </div>
-                                    <div class="row">
-                                    
-                                        <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="reportNumber"> Rapor Numarası</label>
-                                            <input type="text" name="reportNumber" id="reportNumber" class="form-control" placeholder="" />
-                                        </div>
-                                        <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="portfolioValue"> Portfoy Değeri</label>
-                                            <input type="text" name="portfolioValue" id="portfolioValue" class="form-control" placeholder="" />
-                                        </div>
+                                    <div class="mb-1 col-md-4">
+                                        <label class="form-label" for="reportNumber"> Rapor Numarası</label>
+                                        <input type="text" name="reportNumber" id="reportNumber" class="form-control" placeholder="" />
                                     </div>
-                                    <div class="row">
-                                    
-                                        <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="fundShareRatio"> Fon Hisse Oranı</label>
-                                            <input type="text" name="fundShareRatio" id="fundShareRatio" class="form-control" placeholder="" />
-                                        </div>
-                                        <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="fundArea"> Fon m2</label>
-                                            <input type="text" name="fundArea" id="fundArea" class="form-control" placeholder="" />
-                                        </div>
+                                    <div class="mb-1 col-md-4">
+                                        <label class="form-label" for="portfolioValue"> Portfoy Değeri</label>
+                                        <input type="text" name="portfolioValue" id="portfolioValue" class="form-control" placeholder="" />
                                     </div>
-
-                                    <div class="row">
-                                    
-                                        <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="grossM2Cost"> Brüt m2 Maliyeti</label>
-                                            <input type="text" name="grossM2Cost" id="grossM2Cost" class="form-control" placeholder="" />
-                                        </div>
-                                        <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="valuationPricePerM2"> Değerlendirme m2 Maliyeti</label>
-                                            <input type="text" name="valuationPricePerM2" id="valuationPricePerM2" class="form-control" placeholder="" />
-                                        </div>
+                                    <div class="mb-1 col-md-4">
+                                        <label class="form-label" for="fundShareRatio"> Fon Hisse Oranı</label>
+                                        <input type="text" name="fundShareRatio" id="fundShareRatio" class="form-control" placeholder="" />
                                     </div>
-                                    <div class="row">
-                                    
-                                        <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="costIncludingVAT"> KDV Dahil Maliyet</label>
-                                            <input type="text" name="costIncludingVAT" id="costIncludingVAT" class="form-control" placeholder="" />
-                                        </div>
-                                        <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="valuationReportDate"> Değerlendirme Rapor Tarihi</label>
-                                            <input type="text" name="valuationReportDate" id="valuationReportDate" class="form-control" placeholder="" />
-                                        </div>
+                                    <div class="mb-1 col-md-4">
+                                        <label class="form-label" for="fundArea"> Fon m2</label>
+                                        <input type="text" name="fundArea" id="fundArea" class="form-control" placeholder="" />
                                     </div>
-                                    <div class="row">
-                                    
-                                        <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="valueInValuationReport"> Değerlemdirme Rapor Değeri</label>
-                                            <input type="text" name="valueInValuationReport" id="valueInValuationReport" class="form-control" placeholder="" />
-                                        </div>
-                                        <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="portfolioValue"> Portfolyo Değeri</label>
-                                            <input type="text" name="portfolioValue" id="portfolioValue" class="form-control" placeholder="" />
-                                        </div>
+                                    <div class="mb-1 col-md-4">
+                                        <label class="form-label" for="grossM2Cost"> Brüt m2 Maliyeti</label>
+                                        <input type="text" name="grossM2Cost" id="grossM2Cost" class="form-control" placeholder="" />
                                     </div>
-
-                                    
+                                    <div class="mb-1 col-md-4">
+                                        <label class="form-label" for="valuationPricePerM2"> Değerlendirme m2 Maliyeti</label>
+                                        <input type="text" name="valuationPricePerM2" id="valuationPricePerM2" class="form-control" placeholder="" />
+                                    </div>
+                                    <div class="mb-1 col-md-4">
+                                        <label class="form-label" for="costIncludingVAT"> KDV Dahil Maliyet</label>
+                                        <input type="text" name="costIncludingVAT" id="costIncludingVAT" class="form-control" placeholder="" />
+                                    </div>
+                                    <div class="mb-1 col-md-4">
+                                        <label class="form-label" for="valuationReportDate"> Değerlendirme Rapor Tarihi</label>
+                                        <input type="text" name="valuationReportDate" id="valuationReportDate" class="form-control" placeholder="" />
+                                    </div>
+                                    <div class="mb-1 col-md-4">
+                                        <label class="form-label" for="valueInValuationReport"> Değerlemdirme Rapor Değeri</label>
+                                        <input type="text" name="valueInValuationReport" id="valueInValuationReport" class="form-control" placeholder="" />
+                                    </div>
+                                    <div class="mb-1 col-md-4">
+                                        <label class="form-label" for="portfolioValue"> Portfolyo Değeri</label>
+                                        <input type="text" name="portfolioValue" id="portfolioValue" class="form-control" placeholder="" />
+                                    </div>
+                                </div>
+ 
                                 </form>
                                 <div class="d-flex justify-content-between">
                                     <button class="btn btn-primary btn-prev">
@@ -640,11 +595,11 @@
                                 </div>
                                 <form id="adres-form">
                                     <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="country2">Ülke</label>
                                             <input type="text" id="country2" name="country2" class="form-control" placeholder="" />
                                         </div>
-                                        <div class="col-md-6 col-12">
+                                        <div class="col-md-4 col-12">
                                             <label class="col-sm-2 col-form-label" for="province">İl</label>
                                             <div class="mb-1">
                                                 <select id="province" class="form-select" data-allow-clear="true">
@@ -652,9 +607,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6 col-12">
+                                        <div class="col-md-4 col-12">
                                             <label class="col-sm-2 col-form-label" for="district">İlçe</label>
                                             <div class="mb-1">
                                                 <select id="district" class="form-select" data-allow-clear="true">
@@ -662,44 +615,41 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-12">
-                                            <label class="col-sm-2 col-form-label" for="neighborhood">Mahalle</label>
+                                        <div class="col-md-4 col-12">
+                                            <label class="form-label" for="neighborhood">Mahalle</label>
                                             <div class="mb-1">
                                                 <select id="neighborhood" class="form-select" data-allow-clear="true">
                                                     <option value="">Seç</option>
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="address1">Adres1</label>
                                             <input type="text" id="address1" name="address1" class="form-control" placeholder="" />
                                         </div>
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="address2">Adres2</label>
                                             <input type="text" id="address2" name="address2" class="form-control" placeholder="" />
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="latitude">Enlem</label>
                                             <input type="text" id="latitude" name="latitude" class="form-control" placeholder="" />
                                         </div>
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="longitude">Boylam</label>
                                             <input type="text" id="longitude" name="longitude" class="form-control" placeholder="" />
                                         </div>
                                     </div>
+                              
                                 </form>
                                 
                                 <div class="d-flex justify-content-between">
                                     <button class="btn btn-primary btn-prev">
                                         <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
-                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                        <span class="align-middle d-sm-inline-block d-none">Geri </span>
                                     </button>
                                     <button class="btn btn-primary btn-next">
-                                        <span class="align-middle d-sm-inline-block d-none">Next</span>
+                                        <span class="align-middle d-sm-inline-block d-none">İleri</span>
                                         <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
                                     </button>
                                 </div>
@@ -711,113 +661,95 @@
                                 </div>
                                 <form id="tapu-form">
                                     <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="location">Mevki</label>
                                             <input type="text" id="location" name="location" class="form-control" placeholder="" />
                                         </div>
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="area">Yüz Ölçümü</label>
                                             <input type="text" id="area"   name="area" class="form-control" placeholder="" />
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="parcelShare">Arsapayı Pay</label>
                                             <input type="text" id="parcelShare"   name="parcelShare" class="form-control" placeholder="" />
                                         </div>
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="parcelShareholder">Arsapayı Payda</label>
                                             <input type="text" id="parcelShareholder"  name="parcelShareholder" class="form-control" placeholder="" />
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="description">Vasfı </label>
                                             <input type="text" id="description"  name="description"  class="form-control" placeholder="" />
                                         </div>
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="independentSectionDescription">Bağımsız Bölüm Niteliği</label>
                                             <input type="text" id="independentSectionDescription"  name="independentSectionDescription"  class="form-control" placeholder="" />
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="volumeNumber">Cilt Numarası </label>
                                             <input type="text" id="volumeNumber"  name="volumeNumber" class="form-control" placeholder="" />
                                         </div>
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="journalNumber">Yevmiye</label>
                                             <input type="text" id="journalNumber"  name="journalNumber" class="form-control" placeholder="" />
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="page">Sayfa </label>
                                             <input type="text" id="page"   name="page" class="form-control" placeholder="" />
                                         </div>
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="titleDeedDate">Tapu Tarihi</label>
                                             <input type="date" id="titleDeedDate"  name="titleDeedDate" class="form-control" placeholder="" />
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="titleDeedType">Tapu Tipi </label>
                                             <input type="text" id="titleDeedType"   name="titleDeedType" class="form-control" placeholder="" />
                                         </div>
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="titleDeedTransferMethod">Tapu İntikal Şekli</label>
                                             <input type="text" id="titleDeedTransferMethod"  name="titleDeedTransferMethod" class="form-control" placeholder="" />
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="titleDeedTransferDate">Tapu İntikal Tarihi </label>
                                             <input type="date" id="titleDeedTransferDate"  name="titleDeedTransferDate" class="form-control" placeholder="" />
                                         </div>
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="titleDeedTransferMethod">Tapu İntikal Şekli</label>
                                             <input type="text" id="titleDeedTransferMethod"  name="titleDeedTransferMethod" class="form-control" placeholder="" />
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="titledeedcountry">Ülke</label>
                                             <input type="text" id="titledeedcountry" name="titledeedcountry" class="form-control" placeholder="" />
                                         </div>
-                                        <div class="col-md-6 col-12">
-                                            <label class="col-sm-2 col-form-label" for="titledeedprovince">İl</label>
+                                        <div class="col-md-4 col-12">
+                                            <label class="form-label" for="titledeedprovince">İl</label>
                                             <div class="mb-1">
                                                 <select id="titledeedprovince" name="titledeedprovince" class="form-select" data-allow-clear="true">
                                                     <option value="">Seç</option>
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6 col-12">
-                                            <label class="col-sm-2 col-form-label" for="titledeeddistrict">İlçe</label>
+                                        <div class="col-md-4 col-12">
+                                            <label class="form-label" for="titledeeddistrict">İlçe</label>
                                             <div class="mb-1">
                                                 <select id="titledeeddistrict"  name="titledeeddistrict" class="form-select" data-allow-clear="true">
                                                     <option value="">Seç</option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-12">
-                                            <label class="col-sm-2 col-form-label" for="titledeedneighborhood">Mahalle</label>
+                                        <div class="col-md-4 col-12">
+                                            <label class="form-label" for="titledeedneighborhood">Mahalle</label>
                                             <div class="mb-1">
                                                 <select id="titledeedneighborhood" name="titledeedneighborhood" class="form-select" data-allow-clear="true">
                                                     <option value="">Seç</option>
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="ownership">Mülkiyet</label>
                                             <input type="text" id="ownership" name="ownership" class="form-control" placeholder="" />
                                         </div>
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="facades">Ana Gayrimenkul Niteliği</label>
                                             <select class="select2 w-100" name="facades" id="facades">
                                                 <option value="">Seçiniz</option>
@@ -827,9 +759,7 @@
                                               
                                             </select>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="restrictionStatus">Kısıt Durumu</label>
                                             <select class="select2 w-100" name="restrictionStatus" id="restrictionStatus">
                                                 <option value="">Seçiniz</option>
@@ -839,7 +769,7 @@
                                               
                                             </select>
                                         </div>
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="shareType">Hisse Türü</label>
                                             <select class="select2 w-100" name="shareType" id="shareType">
                                                 <option value="">Seçiniz</option>
@@ -849,23 +779,21 @@
                                               
                                             </select>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="bbShareRatio">BB Hisse Oranı</label>
                                             <input type="text" id="bbShareRatio" name="bbShareRatio" class="form-control" placeholder="" />
                                         </div>
-          
-
                                     </div>
+                                
+                                
                                 </form>
                                 <div class="d-flex justify-content-between">
                                     <button class="btn btn-primary btn-prev">
                                         <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
-                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                        <span class="align-middle d-sm-inline-block d-none">Geri</span>
                                     </button>
                                     <button class="btn btn-primary btn-next">
-                                        <span class="align-middle d-sm-inline-block d-none">Next</span>
+                                        <span class="align-middle d-sm-inline-block d-none">İleri</span>
                                         <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
                                     </button>
                                 </div>
@@ -884,31 +812,27 @@
                                 </div>
                                 <form id="fiyat-form">
                                     <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="listingPrice">Liste Fiyatı</label>
                                             <input type="text" id="listingPrice" name="listingPrice" class="form-control" placeholder="" />
                                         </div>
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="costPrice">Maliyet Fiyatı</label>
                                             <input type="text" name="costPrice" id="costPrice" class="form-control" placeholder="" />
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="bookValue">Defter Değeri</label>
                                             <input type="text" id="bookValue"   name="bookValue"  class="form-control" placeholder="" />
                                         </div>
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="marketValue">Rayiç Değeri</label>
                                             <input type="text" id="marketValue" name="marketValue"  class="form-control" placeholder="" />
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="specialPrice">Özel Fiyat</label>
                                             <input type="text" id="specialPrice"  name="specialPrice" class="form-control" placeholder="" />
                                         </div>
-                                        <div class="mb-1 col-md-6">
+                                        <div class="mb-1 col-md-4">
                                             <label class="form-label" for="downPaymentPrice">Peşinat Fiyatı </label>
                                             <input type="text" id="downPaymentPrice" name="downPaymentPrice" class="form-control" placeholder="" />
                                         </div>
@@ -918,10 +842,10 @@
                                 <div class="d-flex justify-content-between">
                                     <button class="btn btn-primary btn-prev">
                                         <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
-                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                        <span class="align-middle d-sm-inline-block d-none">Geri</span>
                                     </button>
                                     <button class="btn btn-primary btn-next">
-                                        <span class="align-middle d-sm-inline-block d-none">Next</span>
+                                        <span class="align-middle d-sm-inline-block d-none">İleri</span>
                                         <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
                                     </button>
                                 </div>
@@ -954,10 +878,10 @@
                                 <div class="d-flex justify-content-between">
                                     <button class="btn btn-primary btn-prev">
                                         <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
-                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                        <span class="align-middle d-sm-inline-block d-none">Geri</span>
                                     </button>
                                     <button class="btn btn-primary btn-next">
-                                        <span class="align-middle d-sm-inline-block d-none">Next</span>
+                                        <span class="align-middle d-sm-inline-block d-none">ileri</span>
                                         <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
                                     </button>
                                 </div>
@@ -2051,7 +1975,7 @@
 
     <!-- BEGIN: Footer-->
     <footer class="footer footer-static footer-light">
-        <p class="clearfix mb-0"><span class="float-md-start d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2021<a class="ms-25" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Pixinvent</a><span class="d-none d-sm-inline-block">, All rights Reserved</span></span><span class="float-md-end d-none d-md-block">Hand-crafted & Made with<i data-feather="heart"></i></span></p>
+        <p class="clearfix mb-0"><span class="float-md-start d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2024<a class="ms-25" href="https://dveb.com.tr/" target="_blank">DveB</a><span class="d-none d-sm-inline-block">, Tüm Haklar Saklıdır.</span></span></p>
     </footer>
     <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
     <!-- END: Footer-->
@@ -2082,7 +2006,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- BEGIN: Page JS-->
     <script src="../app-assets/js/scripts/forms/form-wizard.js"></script>
-    <script src="../../../axios/edit-property.js"></script>
+    <script src="../axios/edit-property.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
     <!-- END: Page JS-->
 

@@ -179,10 +179,10 @@ document.addEventListener('DOMContentLoaded', async function () {
                                   <input type="text" name="price" class="form-control" placeholder="Fiyat" />
                               </div>
                           </div>
-                          <div class="col-md-2 col-12 mb-50">
+                          <div class="col-md-2 col-12 ">
                               <div class="mb-1">
                                   <button class="btn btn-outline-danger text-nowrap px-1" data-repeater-delete type="button">
-                                      <i data-feather="x" class="me-25"></i>
+                                      <i class="fa-solid fa-x"></i>
                                    
                                   </button>
                               </div>
