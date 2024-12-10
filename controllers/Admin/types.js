@@ -10,18 +10,18 @@ const setPersonelInput = z.object({
   surname: z.string(),
   email: z.string(),
   phoneNumber: z.string(),
-  password:z.string()
- 
+  password: z.string()
+
 })
 
 const updatePersonelInput = z.object({
-  updatedId: z.string() ,
+  updatedId: z.string(),
   name: z.string(),
   surname: z.string(),
   email: z.string(),
   phoneNumber: z.string(),
   isActive: z.boolean(),
-})                          
+})
 const updateStatusPersonelInput = z.object({
   updatedId: z.string(),
   isActive: z.boolean(),
@@ -52,7 +52,7 @@ const setCustomerInput = z.object({
   neighborhood: z.string(),
   address: z.string(),
   personelId: z.string(),
-  password:z.string().optional()
+  password: z.string().optional()
 })
 const getCustomerInput = z.object({
   customerId: z.string().optional(),
@@ -85,7 +85,7 @@ const updateStatusCustomerInput = z.object({
 //tenant
 
 const setTenantInput = z.object({
-  personelId:z.string().optional(),
+  personelId: z.string().optional(),
   name: z.string(),
   surname: z.string(),
   phone: z.string(),
@@ -139,7 +139,7 @@ const setPropertyInput = z.object({
     valueInValuationReport: z.string().optional(), // Değerleme Raporunda Yer Alan Değer
     portfolioValue: z.string().optional(), // Portföy Değeri//
     reportNumber: z.string().optional(), // Rapor No//
-   
+
     propertyId: z.string().optional(), // Gayrimenkul ID'si//
     realEstateInvestmentsPortfolio: z.string().optional(), // Gayrimenkul Yatırımları Portföyü//
     propertyName: z.string().optional(),
@@ -147,8 +147,8 @@ const setPropertyInput = z.object({
     block: z.string().optional(),
     bbNo: z.string(),
     attribute: z.enum(['konut', 'isyeri', 'ofis', 'dukkan', 'arsa']),
-    type: z.enum(['1+0', '1+1', '2+1','3+1','4+1','3+1Dblx','2+1Dblx','1+1Loft','2+1Loft' ,'StudyoLoft']),
-    usageType: z.enum(['Bekliyor', 'Satılık', 'Kiralık']),
+    type: z.enum(['1+0', '1+1', '2+1', '3+1', '4+1', '3+1Dblx', '2+1Dblx', '1+1Loft', '2+1Loft', 'StudyoLoft']),
+    usageType: z.enum(['Bekliyor', 'Satilik', 'Kiralık']),
     netM2: z.string().optional(),
     grossM2: z.string().optional(),
     island: z.string().optional(),
@@ -160,7 +160,7 @@ const setPropertyInput = z.object({
     buildingPermitDate: z.string().optional(),
     purchaseDate: z.string().optional(),
     purchasePrice: z.string().optional(),
-    facades: z.enum(['','Kuzey', 'Guney', 'Yol', 'Cephe']).optional(),
+    facades: z.enum(['', 'Kuzey', 'Guney', 'Yol', 'Cephe']).optional(),
     referenceCode: z.string().optional(),
     zoningStatus: z.enum(['',
       'NazımImarPlani', 'MekansalImarPlani', 'CevreDuzeniPlani', 'UygulamaImarPlani',
@@ -191,11 +191,11 @@ const setPropertyInput = z.object({
 
 
     forownerpurchaseDate: z.string().optional(),
-   
+
     nonRentStatus: z.string().optional(),
     mortgageStatus: z.string().optional(),
     propertyTransactionStatus: z.string().optional(),
- 
+
   }).optional(),
   otherDetails: z.object({
     facade: z.array(z.enum(['West', 'East', 'North', 'South'])).optional(),
@@ -223,33 +223,33 @@ const setPropertyInput = z.object({
     ])).optional(),
     external: z.array(z.enum([
       'Elevator',
-            'Balcony',
-            'Garden',
-            'Penthouse',
-            'SeaBus',
-            'CoveredGarage',
-            'Nursery',
-            'PrivatePool',
-            'ParkingLot',
-            'SwimmingPool',
-            'SteamRoom',
-            'Security',
-            'TurkishBath',
-            'Hydrophore',
-            'ThermalInsulation',
-            'Generator',
-            'CableTV',
-            'DaycareCenter',
-            'Playground',
-            'Sauna',
-            'SoundInsulation',
-            'Siding',
-            'SportsArea',
-            'WaterTank',
-            'TennisCourt',
-            'Satellite',
-            'FireEscape',
-            'SwimmingPool(Outdoor)'
+      'Balcony',
+      'Garden',
+      'Penthouse',
+      'SeaBus',
+      'CoveredGarage',
+      'Nursery',
+      'PrivatePool',
+      'ParkingLot',
+      'SwimmingPool',
+      'SteamRoom',
+      'Security',
+      'TurkishBath',
+      'Hydrophore',
+      'ThermalInsulation',
+      'Generator',
+      'CableTV',
+      'DaycareCenter',
+      'Playground',
+      'Sauna',
+      'SoundInsulation',
+      'Siding',
+      'SportsArea',
+      'WaterTank',
+      'TennisCourt',
+      'Satellite',
+      'FireEscape',
+      'SwimmingPool(Outdoor)'
     ])).optional(),
     internal: z.array(z.enum([
       'ADSL', 'WoodenJoinery', 'SmartHome', 'BurglarAlarm', 'FireAlarm',
@@ -258,14 +258,10 @@ const setPropertyInput = z.object({
       'Dishwasher', 'Refrigerator', 'Wallpaper', 'ShowerCabin', 'MasterBathroom',
       'FiberInternet', 'Oven', 'DressingRoom', 'Built-inWardrobe',
       'VideoIntercom', 'HiltonBathroom', 'IntercomSystem', 'DoubleGlazing',
-      'Jacuzzi', 'Cornice', 'Pantry', 'AirConditioning', 'Bathtub',
-      'LaminateFlooring', 'Marley', 'Furniture', 'Built-inKitchen',
-      'LaminateKitchen', 'NaturalGasKitchen', 'PVCJoinery', 'Shutters',
-      'WoodenFlooring', 'CeramicFlooring', 'Stove', 'SpotLighting',
-      'Terrace', 'WaterHeater', 'Vestibule', 'WiFi', 'FacialRecognition&Fingerprint',
-      'ClothesDryer', 'WashingMachine', 'LaundryRoom', 'SteelDoor',
-      'InstantWaterHeater', 'Fireplace'
+      'CentralHeating', 'Carpet', 'LaundryRoom', 'Built-inKitchen',
+      'Sauna', 'FloorHeating', 'CentralVacuum' // Yeni değer eklendi
     ])).optional(),
+    
     transportation: z.array(z.enum([
       "MainRoad",
       "EurasiaTunnel",
@@ -285,30 +281,30 @@ const setPropertyInput = z.object({
       "TrainStation",
       "Pier"
     ])).optional(),
-    view: z.array(z.enum([  'Bosphorus', 'Sea', 'Lake', 'City', 'Nature', 'Mountain', 'Park'])),
+    view: z.array(z.enum(['Bosphorus', 'Sea', 'Lake', 'City', 'Nature', 'Mountain', 'Park'])),
     residentialType: z.array(z.enum([
       'IntermediateFloor', 'IntermediateFloorDuplex', 'GardenDuplex', 'Penthouse',
-          'Duplex', 'FloorDuplex', 'Detached', 'Triplex', 'GroundFloor', 'Studio'
+      'Duplex', 'FloorDuplex', 'Detached', 'Triplex', 'GroundFloor', 'Studio'
     ])).optional(),
     infrastructure: z.array(z.enum([
-      "Electricity",      
-      "IndustrialElectricity", 
-      "Water",           
-      "Telephone",         
-      "NaturalGas",       
-      "Sewage",            
-      "WaterTreatment",   
-      "WellAndBorehole",   
-      "SoilStudy",         
-      "RoadCleared",       
-      "RoadNotCleared",    
-      "NoRoad"     
+      "Electricity",
+      "IndustrialElectricity",
+      "Water",
+      "Telephone",
+      "NaturalGas",
+      "Sewage",
+      "WaterTreatment",
+      "WellAndBorehole",
+      "SoilStudy",
+      "RoadCleared",
+      "RoadNotCleared",
+      "NoRoad"
     ])).optional(),
     location: z.array(z.enum([
-      "CloseToMainRoad",     
-      "Seafront",           
-      "CloseToSea",         
-      "CloseToAirport",      
+      "CloseToMainRoad",
+      "Seafront",
+      "CloseToSea",
+      "CloseToAirport",
       "CloseToPublicTransport",
       "NearSea"
     ])).optional()
@@ -349,7 +345,7 @@ const setPropertyInput = z.object({
 
 const updatePropertyInput = z.object({
   updatedId: z.string(),
-  isActive:z.boolean(),
+  isActive: z.boolean(),
   details: z.object({
     propertyName: z.string().optional(),
     portfolioId: z.string(),
@@ -401,7 +397,7 @@ const updatePropertyInput = z.object({
     nonRentStatus: z.string().optional(),
     mortgageStatus: z.string().optional(),
     propertyTransactionStatus: z.string().optional(),
- 
+
   }).optional(),
   otherDetails: z.object({
     facade: z.array(z.enum(['West', 'East', 'North', 'South'])).optional(),
@@ -488,36 +484,36 @@ const updatePropertyInput = z.object({
       "CableCar",
       "Tram",
       "Siding",
-      
+
       "TrainStation",
       "Pier"
     ])).optional(),
     view: z.array(z.enum(['Bosphorus', 'Sea', 'Lake', 'City', 'Nature', 'Mountain', 'Park'])),
     residentialType: z.array(z.enum([
       'IntermediateFloor', 'IntermediateFloorDuplex', 'GardenDuplex', 'Penthouse',
-          'Duplex', 'FloorDuplex', 'Detached', 'Triplex', 'GroundFloor', 'Studio'
+      'Duplex', 'FloorDuplex', 'Detached', 'Triplex', 'GroundFloor', 'Studio'
     ])).optional(),
     infrastructure: z.array(z.enum([
-      "Electricity",      
-      "IndustrialElectricity", 
-      "Water",           
-      "Telephone",         
-      "NaturalGas",       
-      "Sewage",            
-      "WaterTreatment",   
-      "WellAndBorehole",   
-      "SoilStudy",         
-      "RoadCleared",       
-      "RoadNotCleared",    
-      "NoRoad"  
+      "Electricity",
+      "IndustrialElectricity",
+      "Water",
+      "Telephone",
+      "NaturalGas",
+      "Sewage",
+      "WaterTreatment",
+      "WellAndBorehole",
+      "SoilStudy",
+      "RoadCleared",
+      "RoadNotCleared",
+      "NoRoad"
     ])).optional(),
     location: z.array(z.enum([
-      "CloseToMainRoad",     
-          "Seafront",           
-          "CloseToSea",         
-          "CloseToAirport",      
-          "CloseToPublicTransport",
-          "NearSea"
+      "CloseToMainRoad",
+      "Seafront",
+      "CloseToSea",
+      "CloseToAirport",
+      "CloseToPublicTransport",
+      "NearSea"
     ])).optional()
   }).optional(),
   titledeed: z.object({
@@ -545,7 +541,7 @@ const updatePropertyInput = z.object({
     bbShareRatio: z.string().optional()
   }).optional(),
   photos: z.array(z.string()).optional()
-  
+
 
 })
 
@@ -586,102 +582,102 @@ const updatePropertyInput = z.object({
 
 
 
-  const setPortfolioInput=z.object({
+const setPortfolioInput = z.object({
 
 
-    portfoliotype:z.enum(['Site', 'Ticari', 'Endüstriyel', 'Müstakil', 'Arsa', 'Bina', 'Mix']),
-    duesM2Price: z.string().optional(),
-    portfolioName: z.string().optional(),
-    rentM2Price: z.string().optional(),
-    country: z.string().optional(),
-    province: z.string().optional(),
-    district: z.string().optional(),
-    neighborhood: z.string().optional(),
-    latitude: z.string().optional(),
-    longitude: z.string().optional(),
-    personelId:z.string().optional(),
-    propertyOwnerId: z.string().optional(),
+  portfoliotype: z.enum(['Site', 'Ticari', 'Endüstriyel', 'Müstakil', 'Arsa', 'Bina', 'Mix']),
+  duesM2Price: z.string().optional(),
+  portfolioName: z.string().optional(),
+  rentM2Price: z.string().optional(),
+  country: z.string().optional(),
+  province: z.string().optional(),
+  district: z.string().optional(),
+  neighborhood: z.string().optional(),
+  latitude: z.string().optional(),
+  longitude: z.string().optional(),
+  personelId: z.string().optional(),
+  propertyOwnerId: z.string().optional(),
 
-    photos: z.string().optional(),
+  photos: z.string().optional(),
 
-    otherDetails: z.object({
-      facade: z.array(z.enum(['West', 'East', 'North', 'South'])),
-      general: z.array(z.enum(['Subdivided', 'Parcelled', 'Project', 'CornerParcel'])),
-      environment: z.array(z.enum([
-        'ShoppingCenter', 'Municipality', 'Mosque', 'Cemetery', 'Seafront', 
-        'Pharmacy', 'EntertainmentCenter', 'Fair', 'Hospital', 'Church', 
-        'Market', 'Park', 'PoliceStation', 'HealthCenter', 'NeighborhoodMarket',
-        'Gym', 'University', 'Primary/SecondarySchool', 'CityCenter'
-      ])),
-      disabledFriendly: z.array(z.enum([
-        'ParkingSpace', 'Elevator', 'Bathroom', 'WideCorridor', 'Entrance/Ramp',
-        'Stairs', 'Kitchen', 'RoomDoor', 'ParkingSocket/ElectricSwitch',
-        'HandrailRailing', 'Toilet', 'SwimmingPool'
-      ])),
-      external: z.array(z.enum([
-        'Balcony', 'Garden', 'Penthouse', 'SeaBus', 'CoveredGarage', 'Nursery',
-        'PrivatePool', 'ParkingLot', 'SwimmingPool', 'SteamRoom', 'Security',
-        'TurkishBath', 'Hydrophore', 'ThermalInsulation', 'Generator', 'CableTV',
-        'DaycareCenter', 'Playground', 'Sauna', 'SoundInsulation', 'Siding',
-        'SportsArea', 'WaterTank', 'TennisCourt', 'Satellite', 'FireEscape',
-        'SwimmingPool(Outdoor)', 'Elevator'
-      ])),
-      internal: z.array(z.enum([
-        'ADSL', 'WoodenJoinery', 'SmartHome', 'BurglarAlarm', 'FireAlarm',
-        'SquatToilet', 'AluminumJoinery', 'AmericanKitchen', 'Built-inOven',
-        'Elevator', 'Balcony', 'Barbecue', 'WhiteGoods', 'Painted',
-        'Dishwasher', 'Refrigerator', 'Wallpaper', 'ShowerCabin', 'MasterBathroom',
-        'FiberInternet', 'Oven', 'DressingRoom', 'Built-inWardrobe', 'VideoIntercom',
-        'HiltonBathroom', 'IntercomSystem', 'DoubleGlazing', 'Jacuzzi', 'Cornice',
-        'Pantry', 'AirConditioning', 'Bathtub', 'LaminateFlooring', 'Marley',
-        'Furniture', 'Built-inKitchen', 'LaminateKitchen', 'NaturalGasKitchen',
-        'PVCJoinery', 'Shutters', 'WoodenFlooring', 'CeramicFlooring', 'Stove',
-        'SpotLighting', 'Terrace', 'WaterHeater', 'Vestibule', 'WiFi',
-        'FacialRecognition&Fingerprint', 'ClothesDryer', 'WashingMachine',
-        'LaundryRoom', 'SteelDoor', 'InstantWaterHeater', 'Fireplace'
-      ])),
-      transportation: z.array(z.enum([
-        'MainRoad', 'EurasiaTunnel', 'BosphorusBridges', 'Street', 'SeaBus',
-        'Minibus', 'E5', 'Airport', 'Marmaray', 'Metro', 'Metrobus', 'BusStop',
-        'CableCar', 'Tram', 'Highway', 'TrainStation', 'Pier'
-      ])),
-      view: z.array(z.enum(['Bosphorus', 'Sea', 'Lake', 'City', 'Nature', 'Mountain', 'Park'])),
-      residentialType: z.array(z.enum([
-        'IntermediateFloor', 'IntermediateFloorDuplex', 'GardenDuplex',
-        'Penthouse', 'Duplex', 'FloorDuplex', 'Detached', 'Triplex',
-        'GroundFloor', 'Studio'
-      ])),
-      infrastructure: z.array(z.enum([
-        'Electricity', 'IndustrialElectricity', 'Water', 'Telephone', 
-        'NaturalGas', 'Sewage', 'WaterTreatment', 'WellAndBorehole', 
-        'SoilStudy', 'RoadCleared', 'RoadNotCleared', 'NoRoad'
-      ])),
-      location: z.array(z.enum([
-        'CloseToMainRoad', 'Seafront', 'CloseToSea', 'CloseToAirport', 
-        'CloseToPublicTransport'
-      ]))
-    }).optional(),
-
-
-
-  })
+  otherDetails: z.object({
+    facade: z.array(z.enum(['West', 'East', 'North', 'South'])),
+    general: z.array(z.enum(['Subdivided', 'Parcelled', 'Project', 'CornerParcel'])),
+    environment: z.array(z.enum([
+      'ShoppingCenter', 'Municipality', 'Mosque', 'Cemetery', 'Seafront',
+      'Pharmacy', 'EntertainmentCenter', 'Fair', 'Hospital', 'Church',
+      'Market', 'Park', 'PoliceStation', 'HealthCenter', 'NeighborhoodMarket',
+      'Gym', 'University', 'Primary/SecondarySchool', 'CityCenter'
+    ])),
+    disabledFriendly: z.array(z.enum([
+      'ParkingSpace', 'Elevator', 'Bathroom', 'WideCorridor', 'Entrance/Ramp',
+      'Stairs', 'Kitchen', 'RoomDoor', 'ParkingSocket/ElectricSwitch',
+      'HandrailRailing', 'Toilet', 'SwimmingPool'
+    ])),
+    external: z.array(z.enum([
+      'Balcony', 'Garden', 'Penthouse', 'SeaBus', 'CoveredGarage', 'Nursery',
+      'PrivatePool', 'ParkingLot', 'SwimmingPool', 'SteamRoom', 'Security',
+      'TurkishBath', 'Hydrophore', 'ThermalInsulation', 'Generator', 'CableTV',
+      'DaycareCenter', 'Playground', 'Sauna', 'SoundInsulation', 'Siding',
+      'SportsArea', 'WaterTank', 'TennisCourt', 'Satellite', 'FireEscape',
+      'SwimmingPool(Outdoor)', 'Elevator'
+    ])),
+    internal: z.array(z.enum([
+      'ADSL', 'WoodenJoinery', 'SmartHome', 'BurglarAlarm', 'FireAlarm',
+      'SquatToilet', 'AluminumJoinery', 'AmericanKitchen', 'Built-inOven',
+      'Elevator', 'Balcony', 'Barbecue', 'WhiteGoods', 'Painted',
+      'Dishwasher', 'Refrigerator', 'Wallpaper', 'ShowerCabin', 'MasterBathroom',
+      'FiberInternet', 'Oven', 'DressingRoom', 'Built-inWardrobe', 'VideoIntercom',
+      'HiltonBathroom', 'IntercomSystem', 'DoubleGlazing', 'Jacuzzi', 'Cornice',
+      'Pantry', 'AirConditioning', 'Bathtub', 'LaminateFlooring', 'Marley',
+      'Furniture', 'Built-inKitchen', 'LaminateKitchen', 'NaturalGasKitchen',
+      'PVCJoinery', 'Shutters', 'WoodenFlooring', 'CeramicFlooring', 'Stove',
+      'SpotLighting', 'Terrace', 'WaterHeater', 'Vestibule', 'WiFi',
+      'FacialRecognition&Fingerprint', 'ClothesDryer', 'WashingMachine',
+      'LaundryRoom', 'SteelDoor', 'InstantWaterHeater', 'Fireplace'
+    ])),
+    transportation: z.array(z.enum([
+      'MainRoad', 'EurasiaTunnel', 'BosphorusBridges', 'Street', 'SeaBus',
+      'Minibus', 'E5', 'Airport', 'Marmaray', 'Metro', 'Metrobus', 'BusStop',
+      'CableCar', 'Tram', 'Highway', 'TrainStation', 'Pier'
+    ])),
+    view: z.array(z.enum(['Bosphorus', 'Sea', 'Lake', 'City', 'Nature', 'Mountain', 'Park'])),
+    residentialType: z.array(z.enum([
+      'IntermediateFloor', 'IntermediateFloorDuplex', 'GardenDuplex',
+      'Penthouse', 'Duplex', 'FloorDuplex', 'Detached', 'Triplex',
+      'GroundFloor', 'Studio'
+    ])),
+    infrastructure: z.array(z.enum([
+      'Electricity', 'IndustrialElectricity', 'Water', 'Telephone',
+      'NaturalGas', 'Sewage', 'WaterTreatment', 'WellAndBorehole',
+      'SoilStudy', 'RoadCleared', 'RoadNotCleared', 'NoRoad'
+    ])),
+    location: z.array(z.enum([
+      'CloseToMainRoad', 'Seafront', 'CloseToSea', 'CloseToAirport',
+      'CloseToPublicTransport'
+    ]))
+  }).optional(),
 
 
-const testPhotoInput=z.object({
 
-userId:z.string().optional(),
-propertyId:z.string()
+})
+
+
+const testPhotoInput = z.object({
+
+  userId: z.string().optional(),
+  propertyId: z.string()
 });
 
-const testFileInput=z.object({
+const testFileInput = z.object({
 
-  userId:z.string().optional(),
-  rentId:z.string(),
-  paymentDate:z.string(),
-  rentAmount:z.string()
+  userId: z.string().optional(),
+  rentId: z.string(),
+  paymentDate: z.string(),
+  rentAmount: z.string()
 
 
-  });
+});
 
 
 
@@ -705,9 +701,9 @@ const adminLoginInput = z.object({
   password: z.string(),
 })
 
- 
-   
- 
+
+
+
 
 
 
@@ -792,17 +788,17 @@ const updateRentInput = z.object({
 
 
 
-const updateExpenseInput=z.object({
+const updateExpenseInput = z.object({
 
-  updatedId:z.string(),
-  isActive:z.boolean(),
-  expenseDescription:z.string(),
-  expenseName:z.string(),
-  expenseAmount:z.string(),
-  expensePaymentDate:z.string(),
+  updatedId: z.string(),
+  isActive: z.boolean(),
+  expenseDescription: z.string(),
+  expenseName: z.string(),
+  expenseAmount: z.string(),
+  expensePaymentDate: z.string(),
   expenseStatus: z.enum([
     'odendi', 'odenmedi'
-   
+
   ]),
 })
 
@@ -817,125 +813,125 @@ const updateExpenseInput=z.object({
 
 
 
-const getRentInput=z.object({
-  
-// propertyId:z.string()
+const getRentInput = z.object({
+
+  // propertyId:z.string()
 })
 
 
 
 
-const getRentByIdInput=z.object({
-  
-  rentId:z.string()
-  })
+const getRentByIdInput = z.object({
 
-  const getExpenseByIdInput=z.object({
-  
-    expenseId:z.string()
-    })
+  rentId: z.string()
+})
+
+const getExpenseByIdInput = z.object({
+
+  expenseId: z.string()
+})
 
 
-const setExpenseInput=z.object({
+const setExpenseInput = z.object({
 
-  propertyId:z.string(),
-expenseDescription:z.string(),
-  expenseName:z.string(),
-  expenseAmount:z.string(),
-  expensePaymentDate:z.string(),
+  propertyId: z.string(),
+  expenseDescription: z.string(),
+  expenseName: z.string(),
+  expenseAmount: z.string(),
+  expensePaymentDate: z.string(),
   expenseStatus: z.enum([
     'odendi', 'odenmedi'
-   
+
   ]),
 
 
- 
+
 
 })
 
-const getExpenseInput=z.object({
-  
-  propertyId:z.string()
-  })
+const getExpenseInput = z.object({
 
-  const photoSchema = z.object({
-    // Bu, yüklenmiş dosyaların doğrulanması ile ilgili olabilir.
-    // Örneğin, dosya türleri ve boyutları burada kontrol edilebilir.
-    files: z.array(z.object({
-      originalname: z.string(),
-      mimetype: z.string(),
-      size: z.number().min(1) // Dosya boyutu en az 1 byte olabilir.
-    }))
-  });
+  propertyId: z.string()
+})
 
-
-
-  const deleteRentInput = z.object({
-    rentId: z.string(),
-  })
-  
-
-  const deleteExpenseInput = z.object({
-    expenseId: z.string(),
-  })
-  
+const photoSchema = z.object({
+  // Bu, yüklenmiş dosyaların doğrulanması ile ilgili olabilir.
+  // Örneğin, dosya türleri ve boyutları burada kontrol edilebilir.
+  files: z.array(z.object({
+    originalname: z.string(),
+    mimetype: z.string(),
+    size: z.number().min(1) // Dosya boyutu en az 1 byte olabilir.
+  }))
+});
 
 
-  const setPhotoInput =z.object({
-  propertyId:z.string()
+
+const deleteRentInput = z.object({
+  rentId: z.string(),
+})
 
 
-  })
-  const getFileInput=z.object({
-  
-    propertyId:z.string()
-    })
-
-    const getTitleDeedInput=z.object({
-  
-      propertyId:z.string()
-      })
+const deleteExpenseInput = z.object({
+  expenseId: z.string(),
+})
 
 
-      const deletePhotoInput=z.object({
-  
-        propertyId:z.string(),
-        photoName:z.string(),
-        })
-  
 
-        const markPaymentAsPaidInput = z.object({
-          rentId:z.string(),
-          paymentDate: z.string(),
-          rentAmount: z.string(),
-          isPaid: z.boolean(),  
-          paidDate: z.string(),
-          receipt: z.string()
-        });
-        
+const setPhotoInput = z.object({
+  propertyId: z.string()
 
 
-        const updateStatusTenantInput = z.object({
-          updatedId: z.string(),
-          isActive: z.boolean(),
-        })
-        
-        const updateStatusPropertyInput = z.object({
-          updatedId: z.string(),
-          isActive: z.boolean(),
-        })
-        
-        
-        const loginUserInput = z.object({
-          email: z.string(),
-          password: z.string(),
-        })
+})
+const getFileInput = z.object({
+
+  propertyId: z.string()
+})
+
+const getTitleDeedInput = z.object({
+
+  propertyId: z.string()
+})
 
 
-        const getPropertyCountInput=z.object({
-        personelId:z.string().optional()
-      
-        })
+const deletePhotoInput = z.object({
+
+  propertyId: z.string(),
+  photoName: z.string(),
+})
+
+
+const markPaymentAsPaidInput = z.object({
+  rentId: z.string(),
+  paymentDate: z.string(),
+  rentAmount: z.string(),
+  isPaid: z.boolean(),
+  paidDate: z.string(),
+  receipt: z.string()
+});
+
+
+
+const updateStatusTenantInput = z.object({
+  updatedId: z.string(),
+  isActive: z.boolean(),
+})
+
+const updateStatusPropertyInput = z.object({
+  updatedId: z.string(),
+  isActive: z.boolean(),
+})
+
+
+const loginUserInput = z.object({
+  email: z.string(),
+  password: z.string(),
+})
+
+
+const getPropertyCountInput = z.object({
+  personelId: z.string().optional()
+
+})
 
 
 
@@ -958,7 +954,7 @@ module.exports = {
   deletePropertyInput,
   updateStatusPersonelInput,
   updateStatusTenantInput,
-  getLocationInput,updateStatusCustomerInput,updateStatusPropertyInput,adminLoginInput,
+  getLocationInput, updateStatusCustomerInput, updateStatusPropertyInput, adminLoginInput,
   setRentInput,
   getRentInput,
   setExpenseInput,
@@ -968,13 +964,13 @@ module.exports = {
   updateRentInput,
   getRentByIdInput,
   getExpenseByIdInput,
-  setPhotoInput,photoSchema,testPhotoInput,updateExpenseInput,testFileInput,getFileInput,
+  setPhotoInput, photoSchema, testPhotoInput, updateExpenseInput, testFileInput, getFileInput,
   getTitleDeedInput,
   deletePhotoInput,
   setPortfolioInput,
   getPortfolioInput,
   loginUserInput,
   getPropertyCountInput,
-  
+
   markPaymentAsPaidInput
 }

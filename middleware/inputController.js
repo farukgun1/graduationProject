@@ -18,6 +18,8 @@ const inputControllerMiddleware = (inputModel, updateFunction, type, pass, schem
 
             const validatedData = await inputModel.safeParse(input);
 
+            console.log("aaaaaa",validatedData.error)
+
             if (!validatedData.success) {
                 const missingInputPath = validatedData.error.errors[0].path[0];
                 return next(

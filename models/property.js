@@ -90,7 +90,7 @@ const DetailSchema = new mongoose.Schema({
   },
   bbNo: {
     type: String,
-    required: true 
+    required: true
   },
   attribute: {
     type: String,
@@ -99,29 +99,29 @@ const DetailSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum:['1+0', '1+1', '2+1','3+1','4+1','3+1Dblx','2+1Dblx','1+1Loft','2+1Loft' ,'StudyoLoft'],
+    enum: ['1+0', '1+1', '2+1', '3+1', '4+1', '3+1Dblx', '2+1Dblx', '1+1Loft', '2+1Loft', 'StudyoLoft'],
     required: true
   },
   usageType: {
     type: String,
-    enum: ['Bekliyor', 'Satılık', 'Kiralık'], 
-    required: true 
+    enum: ['Bekliyor', 'Satilik', 'Kiralık'],
+    required: true
   },
   netM2: {
     type: String,
-    required: false 
+    required: false
   },
   grossM2: {
     type: String,
-    required: false 
+    required: false
   },
   island: {
     type: String,
-    required: false 
+    required: false
   },
   parcel: {
     type: String,
-    required: false 
+    required: false
   },
   onShelf: {
     type: String,
@@ -129,57 +129,57 @@ const DetailSchema = new mongoose.Schema({
   },
 
   //Mülk Bilgileri
-  propertyNumber: { 
+  propertyNumber: {
     type: String,
     required: false
   },
-  numberOfFloors: { 
+  numberOfFloors: {
     type: String,
     required: false
   },
-  floor: { 
+  floor: {
     type: String,
     required: false
   },
-  buildingPermitDate: { 
+  buildingPermitDate: {
     type: String,
     required: false
   },
-  purchaseDate: { 
+  purchaseDate: {
     type: String,
     required: false
   },
-  purchasePrice: { 
+  purchasePrice: {
     type: String,
     required: false
   },
- 
-  facades: { 
-    type: String, 
-    enum:['','Kuzey','Guney','Yol','Cephe'],
+
+  facades: {
+    type: String,
+    enum: ['', 'Kuzey', 'Guney', 'Yol', 'Cephe'],
 
     required: false
   },
-  referenceCode: { 
+  referenceCode: {
     type: String,
 
     required: false
   },
-  zoningStatus: { 
+  zoningStatus: {
     type: String,
     enum: [
-     '', 'NazımImarPlani', 'MekansalImarPlani', 'CevreDuzeniPlani', 'UygulamaImarPlani',
+      '', 'NazımImarPlani', 'MekansalImarPlani', 'CevreDuzeniPlani', 'UygulamaImarPlani',
       'ParselasyonPlani', 'IlaveImarPlani', 'KorumaAmacliImarPlani', 'MevziImarPlani'
     ],
-   
+
     required: false
-}
-,
-  benchmark: { 
+  }
+  ,
+  benchmark: {
     type: String,
     required: false
   },
-  integrationCode: { 
+  integrationCode: {
     type: String,
     required: false
   },
@@ -187,35 +187,35 @@ const DetailSchema = new mongoose.Schema({
 
   //Fiyat Bilgileri
 
-  listingPrice: { 
+  listingPrice: {
     type: String,
     required: false
   },
-  costPrice: { 
+  costPrice: {
     type: String,
     required: false
   },
-  bookValue: { 
+  bookValue: {
     type: String,
     required: false
   },
-  marketValue: { 
+  marketValue: {
     type: String,
     required: false
   },
-  specialPrice: { 
+  specialPrice: {
     type: String,
     required: false
   },
-  downPaymentPrice: { 
+  downPaymentPrice: {
     type: String,
     required: false
   },
-  exchangeRate: { 
+  exchangeRate: {
     type: String,
     required: false
   },
-  maintenanceFee: { 
+  maintenanceFee: {
     type: String,
     required: false
   },
@@ -223,7 +223,7 @@ const DetailSchema = new mongoose.Schema({
 
 
   //Konum Bilgileri
-  country2: { 
+  country2: {
     type: String,
     required: false
   },
@@ -231,15 +231,15 @@ const DetailSchema = new mongoose.Schema({
     type: String,
     required: false
   },
-  district: { 
+  district: {
     type: String,
     required: false
   },
-  neighborhood: { 
+  neighborhood: {
     type: String,
     required: false
   },
-  address1: { 
+  address1: {
     type: String,
     required: false
   },
@@ -247,11 +247,11 @@ const DetailSchema = new mongoose.Schema({
     type: String,
     required: false
   },
-  latitude: { 
+  latitude: {
     type: String,
     required: false
   },
-  longitude: { 
+  longitude: {
     type: String,
     required: false
   },
@@ -261,16 +261,16 @@ const DetailSchema = new mongoose.Schema({
     type: String,
     required: false
   },
-  daskEndDate: { 
+  daskEndDate: {
     type: String,
     required: false
   },
-  daskPolicyNumber: { 
+  daskPolicyNumber: {
     type: String,
     required: false
   },
   //Mülk Sahibi Bilgileri
-  propertyOwnerName: { 
+  propertyOwnerName: {
     type: String,
     required: false
   },
@@ -282,21 +282,21 @@ const DetailSchema = new mongoose.Schema({
   },
 
 
- 
+
   //Durum Bilgileri
-  nonRentStatus: { 
+  nonRentStatus: {
     type: String,
-    enum:['Bos','Dolu'],
+    enum: ['Bos', 'Dolu'],
     required: false
   },
-  mortgageStatus: { 
+  mortgageStatus: {
     type: String,
-    enum:['Aktif','Pasif'],
+    enum: ['Aktif', 'Pasif'],
     required: false
   },
-  propertyTransactionStatus: { 
+  propertyTransactionStatus: {
     type: String,
-    enum:['Kiralanabilir','Satilabilir'],
+    enum: ['Kiralanabilir', 'Satilabilir'],
     required: false
   }
 
@@ -304,178 +304,167 @@ const DetailSchema = new mongoose.Schema({
 });
 
 
-
-
-
-
-
-
 //Diğer Özelliker Şeması
-const OtherDetailSchema=new mongoose.Schema({
-    facade: {
-        type: [String],
-        enum: [
-          'West', 'East', 'North', 'South'
-        ],
-        required: false
-      },
-      general: {
-        type: [String],
-        enum: [
-          'Subdivided', 'Parcelled', 'Project', 'CornerParcel'
-        ],
-        required: false
-      },
-      environment: {
-        type: [String],
-        enum: [
-          'ShoppingCenter', 'Municipality', 'Mosque', 'Cemetery',
-          'Seafront', 'Pharmacy', 'EntertainmentCenter', 'Fair',
-          'Hospital', 'Church', 'Market', 'Park', 'PoliceStation',
-          'HealthCenter', 'NeighborhoodMarket', 'Gym', 'University',
-          'Primary/SecondarySchool', 'CityCenter'
-        ],
-        required: false
-      },
-      disabledFriendly: {
-        type: [String],
-        enum: [
-            'ParkingSpace',
-            'Elevator',
-            'Bathroom',
-            'WideCorridor',
-            'Entrance/Ramp',
-            'Stairs',
-            'Kitchen',
-            'RoomDoor',
-            'ParkingSocket/ElectricSwitch',
-            'HandrailRailing',
-            'Toilet',
-            'SwimmingPool'
-          ],
-        required: false
-      },
-      external: {
-        type: [String],
-        enum: [
-          'Elevator',
-            'Balcony',
-            'Garden',
-            'Penthouse',
-            'SeaBus',
-            'CoveredGarage',
-            'Nursery',
-            'PrivatePool',
-            'ParkingLot',
-            'SwimmingPool',
-            'SteamRoom',
-            'Security',
-            'TurkishBath',
-            'Hydrophore',
-            'ThermalInsulation',
-            'Generator',
-            'CableTV',
-            'DaycareCenter',
-            'Playground',
-            'Sauna',
-            'SoundInsulation',
-            'Siding',
-            'SportsArea',
-            'WaterTank',
-            'TennisCourt',
-            'Satellite',
-            'FireEscape',
-            'SwimmingPool(Outdoor)'
-        ],
-        required: false
-      },
-      internal: {
-        type: [String],
-        enum: [
-          'ADSL', 'WoodenJoinery', 'SmartHome', 'BurglarAlarm', 'FireAlarm',
-          'SquatToilet', 'AluminumJoinery', 'AmericanKitchen', 'Built-inOven',
-          'Elevator', 'Balcony', 'Barbecue', 'WhiteGoods', 'Painted',
-          'Dishwasher', 'Refrigerator', 'Wallpaper', 'ShowerCabin', 'MasterBathroom',
-          'FiberInternet', 'Oven', 'DressingRoom', 'Built-inWardrobe',
-          'VideoIntercom', 'HiltonBathroom', 'IntercomSystem', 'DoubleGlazing',
-          'Jacuzzi', 'Cornice', 'Pantry', 'AirConditioning', 'Bathtub',
-          'LaminateFlooring', 'Marley', 'Furniture', 'Built-inKitchen',
-          'LaminateKitchen', 'NaturalGasKitchen', 'PVCJoinery', 'Shutters',
-          'WoodenFlooring', 'CeramicFlooring', 'Stove', 'SpotLighting',
-          'Terrace', 'WaterHeater', 'Vestibule', 'WiFi', 'FacialRecognition&Fingerprint',
-          'ClothesDryer', 'WashingMachine', 'LaundryRoom', 'SteelDoor',
-          'InstantWaterHeater', 'Fireplace'
-        ],
-        required: false
-      },
-      transportation: {
-        type: [String],
-        enum: [
-          "MainRoad",
-          "EurasiaTunnel",
-          "BosphorusBridges",
-          "Street",
-          "SeaBus",
-          "Minibus",
-          "E5",
-          "Airport",
-          "Marmaray",
-          "Metro",
-          "Metrobus",
-          "BusStop",
-          "CableCar",
-          "Tram",
-          "Siding",
-          "TrainStation",
-          "Pier"
-        ],
-        required: false
-      },
-      view: {
-        type: [String],
-        enum: [
-          'Bosphorus', 'Sea', 'Lake', 'City', 'Nature', 'Mountain', 'Park'
-        ],
-        required: false
-      },
-      residentialType: {
-        type: [String],
-        enum: [
-          'IntermediateFloor', 'IntermediateFloorDuplex', 'GardenDuplex', 'Penthouse',
-          'Duplex', 'FloorDuplex', 'Detached', 'Triplex', 'GroundFloor', 'Studio'
-        ],
-        required: false
-      },
-      infrastructure: {
-        type: [String],
-        enum: [
-        "Electricity",      
-      "IndustrialElectricity", 
-      "Water",           
-      "Telephone",         
-      "NaturalGas",       
-      "Sewage",            
-      "WaterTreatment",   
-      "WellAndBorehole",   
-      "SoilStudy",         
-      "RoadCleared",       
-      "RoadNotCleared",    
-      "NoRoad"             
-        ],
-        required: false
-      },
-      location: {
-        type: [String],
-        enum: [
-          "CloseToMainRoad",
-          "Seafront",
-          "CloseToSea",
-          "CloseToAirport",
-          "CloseToPublicTransport",
-          "NearSea"
-        ],
-        required: false
-      }
+const OtherDetailSchema = new mongoose.Schema({
+  facade: {
+    type: [String],
+    enum: [
+      'West', 'East', 'North', 'South'
+    ],
+    required: false
+  },
+  general: {
+    type: [String],
+    enum: [
+      'Subdivided', 'Parcelled', 'Project', 'CornerParcel'
+    ],
+    required: false
+  },
+  environment: {
+    type: [String],
+    enum: [
+      'ShoppingCenter', 'Municipality', 'Mosque', 'Cemetery',
+      'Seafront', 'Pharmacy', 'EntertainmentCenter', 'Fair',
+      'Hospital', 'Church', 'Market', 'Park', 'PoliceStation',
+      'HealthCenter', 'NeighborhoodMarket', 'Gym', 'University',
+      'Primary/SecondarySchool', 'CityCenter'
+    ],
+    required: false
+  },
+  disabledFriendly: {
+    type: [String],
+    enum: [
+      'ParkingSpace',
+      'Elevator',
+      'Bathroom',
+      'WideCorridor',
+      'Entrance/Ramp',
+      'Stairs',
+      'Kitchen',
+      'RoomDoor',
+      'ParkingSocket/ElectricSwitch',
+      'HandrailRailing',
+      'Toilet',
+      'SwimmingPool'
+    ],
+    required: false
+  },
+  external: {
+    type: [String],
+    enum: [
+      'Elevator',
+      'Balcony',
+      'Garden',
+      'Penthouse',
+      'SeaBus',
+      'CoveredGarage',
+      'Nursery',
+      'PrivatePool',
+      'ParkingLot',
+      'SwimmingPool',
+      'SteamRoom',
+      'Security',
+      'TurkishBath',
+      'Hydrophore',
+      'ThermalInsulation',
+      'Generator',
+      'CableTV',
+      'DaycareCenter',
+      'Playground',
+      'Sauna',
+      'SoundInsulation',
+      'Siding',
+      'SportsArea',
+      'WaterTank',
+      'TennisCourt',
+      'Satellite',
+      'FireEscape',
+      'SwimmingPool(Outdoor)'
+    ],
+    required: false
+  },
+  internal: {
+    type: [String],
+    enum: [
+      'ADSL', 'WoodenJoinery', 'SmartHome', 'BurglarAlarm', 'FireAlarm',
+      'SquatToilet', 'AluminumJoinery', 'AmericanKitchen', 'Built-inOven',
+      'Elevator', 'Balcony', 'Barbecue', 'WhiteGoods', 'Painted',
+      'Dishwasher', 'Refrigerator', 'Wallpaper', 'ShowerCabin', 'MasterBathroom',
+      'FiberInternet', 'Oven', 'DressingRoom', 'Built-inWardrobe',
+      'VideoIntercom', 'HiltonBathroom', 'IntercomSystem', 'DoubleGlazing',
+      'CentralHeating', 'Carpet', 'LaundryRoom', 'Built-inKitchen',
+      'Sauna', 'FloorHeating', 'CentralVacuum' // Yeni değer eklendi
+    ],
+    required: false
+  },
+  transportation: {
+    type: [String],
+    enum: [
+      "MainRoad",
+      "EurasiaTunnel",
+      "BosphorusBridges",
+      "Street",
+      "SeaBus",
+      "Minibus",
+      "E5",
+      "Airport",
+      "Marmaray",
+      "Metro",
+      "Metrobus",
+      "BusStop",
+      "CableCar",
+      "Tram",
+      "Siding",
+      "TrainStation",
+      "Pier"
+    ],
+    required: false
+  },
+  view: {
+    type: [String],
+    enum: [
+      'Bosphorus', 'Sea', 'Lake', 'City', 'Nature', 'Mountain', 'Park'
+    ],
+    required: false
+  },
+  residentialType: {
+    type: [String],
+    enum: [
+      'IntermediateFloor', 'IntermediateFloorDuplex', 'GardenDuplex', 'Penthouse',
+      'Duplex', 'FloorDuplex', 'Detached', 'Triplex', 'GroundFloor', 'Studio'
+    ],
+    required: false
+  },
+  infrastructure: {
+    type: [String],
+    enum: [
+      "Electricity",
+      "IndustrialElectricity",
+      "Water",
+      "Telephone",
+      "NaturalGas",
+      "Sewage",
+      "WaterTreatment",
+      "WellAndBorehole",
+      "SoilStudy",
+      "RoadCleared",
+      "RoadNotCleared",
+      "NoRoad"
+    ],
+    required: false
+  },
+  location: {
+    type: [String],
+    enum: [
+      "CloseToMainRoad",
+      "Seafront",
+      "CloseToSea",
+      "CloseToAirport",
+      "CloseToPublicTransport",
+      "NearSea"
+    ],
+    required: false
+  }
 
 
 
@@ -493,27 +482,27 @@ const RentSchema = new mongoose.Schema({
   }
 }, { _id: false });
 
-const ExpenseSchema=new mongoose.Schema({
+const ExpenseSchema = new mongoose.Schema({
   expenseId: {
-    type:String,
+    type: String,
     required: false,
-   
+
   },
   isActive: {
     type: Boolean,
     required: false,
-    default:true,
+    default: true,
   },
 
 
 }, { _id: false })
 
 //Tapu Şeması
-const TitleDeed=new mongoose.Schema({
+const TitleDeed = new mongoose.Schema({
 
- 
 
-  location: { 
+
+  location: {
     type: String,
     required: false
   },
@@ -521,31 +510,31 @@ const TitleDeed=new mongoose.Schema({
     type: String,
     required: false
   },
-  parcelShare: { 
+  parcelShare: {
     type: String,
     required: false
   },
-  parcelShareholder: { 
+  parcelShareholder: {
     type: String,
     required: false
   },
-  description: { 
+  description: {
     type: String,
     required: false
   },
-  independentSectionDescription: { 
+  independentSectionDescription: {
     type: String,
     required: false
   },
-  volumeNumber: { 
+  volumeNumber: {
     type: String,
     required: false
   },
-  journalNumber: { 
+  journalNumber: {
     type: String,
     required: false
   },
-  page: { 
+  page: {
     type: String,
     required: false
   },
@@ -553,27 +542,27 @@ const TitleDeed=new mongoose.Schema({
     type: String,
     required: false
   },
-  titleDeedType: { 
+  titleDeedType: {
     type: String,
     required: false
   },
-  titleDeedTransferMethod: { 
+  titleDeedTransferMethod: {
     type: String,
     required: false
   },
-  titleDeedTransferDate: { 
+  titleDeedTransferDate: {
     type: String,
     required: false
   },
-  titledeedcountry: { 
+  titledeedcountry: {
     type: String,
     required: false
   },
-  titledeedprovince: { 
+  titledeedprovince: {
     type: String,
     required: false
   },
-  titledeeddistrict: { 
+  titledeeddistrict: {
     type: String,
     required: false
   },
@@ -581,45 +570,45 @@ const TitleDeed=new mongoose.Schema({
     type: String,
     required: false
   },
-  ownership: { 
+  ownership: {
     type: String,
     required: false
   },
-  mainPropertyDescription: { 
+  mainPropertyDescription: {
     type: String,
-    enum:['Arsa','BetonermeBinaveArsası'],
+    enum: ['Arsa', 'BetonermeBinaveArsası'],
     required: false
   },
-  restrictionStatus: { 
+  restrictionStatus: {
     type: String,
-    enum:['Kisitli','KisitliDegil'],
+    enum: ['Kisitli', 'KisitliDegil'],
     required: false
   },
-  shareType: { 
+  shareType: {
     type: String,
-    enum:['Payli','ElBirligi'],
+    enum: ['Payli', 'Paylasilmis', 'Tam', 'Bagimsiz'],
     required: false
   },
-  bbShareRatio: { 
+  bbShareRatio: {
     type: String,
     required: false
   }
 
 
-},{ _id: false });
+}, { _id: false });
 
 
 const AssetSchema = new mongoose.Schema({
-  assetName: { 
+  assetName: {
     type: String,
     required: false
   },
   quantity: {
-    type: String, 
+    type: String,
     required: false
   },
-  price: { 
-    type: String, 
+  price: {
+    type: String,
     required: false
   },
 }, { _id: false });
@@ -636,46 +625,46 @@ const AssetSchema = new mongoose.Schema({
 
 // Ana Konu Şeması
 
-const property= new mongoose.Schema({
+const property = new mongoose.Schema({
 
-      details: [DetailSchema],
-      otherDetails:[OtherDetailSchema],
-      titledeed:TitleDeed,
-      rents:[RentSchema],
-      expenses:[ExpenseSchema],
-      asset:[AssetSchema],
-      photos: [{ 
-        type: String, 
-        required: false
-      }],
-      propertyOwnerId: { 
-        type: String,
-        required: false
-      },
-      personelId: { 
-        type: String,
-        required: false
-      },
-    
-      
-      isActive: {
-        type: Boolean,
-        required: false,
-        default:true,
-      },
+  details: [DetailSchema],
+  otherDetails: [OtherDetailSchema],
+  titledeed: TitleDeed,
+  rents: [RentSchema],
+  expenses: [ExpenseSchema],
+  asset: [AssetSchema],
+  photos: [{
+    type: String,
+    required: false
+  }],
+  propertyOwnerId: {
+    type: String,
+    required: false
+  },
+  personelId: {
+    type: String,
+    required: false
+  },
 
-      createdAt: {
-        type: Number,
-        required: false,
-      },
-      updatedAt: {
-        type: Number,
-        required: false,
-      },
-      actions: {
-        type: Array,
-        default: [],
-      },
+
+  isActive: {
+    type: Boolean,
+    required: false,
+    default: true,
+  },
+
+  createdAt: {
+    type: Number,
+    required: false,
+  },
+  updatedAt: {
+    type: Number,
+    required: false,
+  },
+  actions: {
+    type: Array,
+    default: [],
+  },
 
 });
 
