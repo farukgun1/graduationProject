@@ -242,7 +242,7 @@ const setPropertyInput = z.object({
     residentialType: z.array(z.enum([
       'IntermediateFloor', 'IntermediateFloorDuplex', 'GardenDuplex',
       'Penthouse', 'Duplex', 'FloorDuplex', 'Detached', 'Triplex',
-      'GroundFloor', 'Studio'
+      'GroundFloor', 'Studio','Elevator'
     ])).optional(),
     infrastructure: z.array(z.enum([
       'Electricity', 'IndustrialElectricity', 'Water', 'Telephone', 
@@ -398,7 +398,7 @@ const updatePropertyInput = z.object({
     ])).optional(),
     location: z.array(z.enum([
       'CloseToMainRoad', 'Seafront', 'CloseToSea', 'CloseToAirport', 
-      'CloseToPublicTransport'
+      'CloseToPublicTransport','NearSea'
     ])).optional()
   }).optional(),
   titledeed: z.object({
@@ -814,7 +814,7 @@ const getExpenseInput=z.object({
 
 
         const getPropertyCountInput=z.object({
-
+        personelId:z.string().optional()
       
         })
 

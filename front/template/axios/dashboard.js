@@ -45,11 +45,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
-
-
-
-
     async function fetchPersonelCount() {
         try {
             const response = await axios.post('http://localhost:3001/api/v1/emlakze/admin/getpersonelcount', {}, {
@@ -76,16 +71,6 @@ document.addEventListener('DOMContentLoaded', function () {
     window.onload = fetchPropertyCount;
 
    
-
-
-
-
-
-
-
-
-
-
 
 
 

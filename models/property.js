@@ -343,9 +343,9 @@ const OtherDetailSchema=new mongoose.Schema({
         enum: [
           'ShoppingCenter', 'Municipality', 'Mosque', 'Cemetery',
           'Seafront', 'Pharmacy', 'EntertainmentCenter', 'Fair',
-          'Hospital', 'Church', 'Market', 'Park', 'Police Station',
-          'Health Center', 'NeighborhoodMarket', 'Gym', 'University',
-          'Primary/Secondary School', 'CityCenter'
+          'Hospital', 'Church', 'Market', 'Park', 'PoliceStation',
+          'HealthCenter', 'NeighborhoodMarket', 'Gym', 'University',
+          'Primary/SecondarySchool', 'CityCenter'
         ],
         required: false
       },
@@ -370,6 +370,7 @@ const OtherDetailSchema=new mongoose.Schema({
       external: {
         type: [String],
         enum: [
+          'Elevator',
             'Balcony',
             'Garden',
             'Penthouse',
@@ -391,7 +392,7 @@ const OtherDetailSchema=new mongoose.Schema({
             'Sauna',
             'SoundInsulation',
             'Siding',
-            'Sports Area',
+            'SportsArea',
             'WaterTank',
             'TennisCourt',
             'Satellite',
@@ -453,7 +454,7 @@ const OtherDetailSchema=new mongoose.Schema({
         type: [String],
         enum: [
           'IntermediateFloor', 'IntermediateFloorDuplex', 'GardenDuplex', 'Penthouse',
-          'Duplex', 'FloorDuplex', 'Detached', 'Triplex', 'GroundFloor', 'Studio', 'Elevator'
+          'Duplex', 'FloorDuplex', 'Detached', 'Triplex', 'GroundFloor', 'Studio'
         ],
         required: false
       },
@@ -482,7 +483,8 @@ const OtherDetailSchema=new mongoose.Schema({
           "Seafront",           
           "CloseToSea",         
           "CloseToAirport",      
-          "CloseToPublicTransport" 
+          "CloseToPublicTransport",
+          "NearSea"
         ],
         required: false
       }

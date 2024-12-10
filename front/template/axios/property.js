@@ -146,15 +146,15 @@ console.log("filteredData",filteredData)
             if (result.isConfirmed) {
                 try {
                     const response = await axios.post(
-                        "http://localhost:3001/api/v1/emlakze/admin/deletepersonel",
-                        { deletedId: id },
+                        "http://localhost:3001/api/v1/emlakze/admin/deleteproperty",
+                        { deleteId: id },
                         { headers: { "Content-Type": "application/json" } }
                     );
 
                     if (response.status === 200) {
                         Swal.fire({
                             icon: 'success',
-                            title: 'Kişi başarıyla silindi!',
+                            title: 'Mülk  başarıyla silindi!',
                             showConfirmButton: true,
                             timer: 1500
                         }).then((result) => {

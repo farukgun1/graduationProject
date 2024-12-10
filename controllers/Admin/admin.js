@@ -949,7 +949,7 @@ const setRent = async (input, res, next) => {
 
     // İlk ödeme bilgilerini oluştur, ancak rentAmount'u hesaplama
     const firstPayment = {
-      paymentDate: moment(startingRentAmount, 'YYYY-MM-DD').add(paymentDay - 1, 'days').format('YYYY-MM-DD'),
+      paymentDate: startingRentAmount,
       rentAmount: rentalfee,  // Kira tutarını hesaplamıyoruz, null bırakıyoruz
       isPaid: false,
       paidDate: null,
@@ -1675,14 +1675,20 @@ const deletePhoto = async (input, res, next) => {
 
 const getPropertyCount = async (input, res, next) => {
   try {
-  
-    const propertyCount = await propertySchema.countDocuments({});
-    console.log(propertyCount)
+    // Req.body veya query'den personelId'yi alıyoruz
+    const { personelId } = input; // Alternatif olarak req.body'den alınabilir
 
+    // Eğer personelId gelmezse hata döndür
+    if (!personelId) {
+      return res.status(400).json({ msg: "personelId eksik." });
+    }
+
+    // personelId'ye göre belge sayısını al
+    const propertyCount = await propertySchema.countDocuments({ personelId });
+    console.log(propertyCount);
 
     res.status(200).json({ propertyCount });
   } catch (err) {
-   
     console.error(err);
     next(createCustomError(9000, errorRoute.Enum.general));
   }
