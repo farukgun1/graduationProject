@@ -340,6 +340,7 @@ const setPropertyInput = z.object({
   })).optional(),
   propertyOwnerId: z.string().optional(),
   personelId: z.string().optional(),
+  portfolioId:z.string().optional(),
   photos: z.array(z.string()).optional()
 })
 
