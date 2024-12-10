@@ -674,6 +674,7 @@ const updateStatusTenant = async (input, res, next, results) => {
 //property
 const setProperty = async (input, res, next, results) => {
   try {
+    console.log("hereee")
   
     const newProperty = new propertySchema({
       ...input,

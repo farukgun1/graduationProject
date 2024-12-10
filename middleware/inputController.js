@@ -12,6 +12,7 @@ const {
 const inputControllerMiddleware = (inputModel, updateFunction, type, pass, schema, existControl, filterValue) => {
     return async (req, res, next) => {
 
+        console.log("here")
         try {
             let input = type === 'post' ? req.body : req.params
 

@@ -310,18 +310,6 @@ const DetailSchema = new mongoose.Schema({
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 //Diğer Özelliker Şeması
 const OtherDetailSchema=new mongoose.Schema({
     facade: {
@@ -437,7 +425,8 @@ const OtherDetailSchema=new mongoose.Schema({
           "BusStop",
           "CableCar",
           "Tram",
-          "Highway",
+          "Siding",
+          
           "TrainStation",
           "Pier"
         ],
