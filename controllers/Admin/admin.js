@@ -851,6 +851,63 @@ const getProperty = async (req, res, next) => {
     next(createCustomError(9000, errorRoute.Enum.general));
   }
 };
+const getProperty2 = async (input, res, next) => {
+  try {
+    const { personelId, portfolioId } = input;
+    console.log("input", input);
+
+    // Filtreleme kriterleri
+    const filter = {
+      personelId: personelId,
+    };
+
+    // Eğer portfolioId varsa filtreye ekle
+    if (portfolioId) {
+      filter.details = { $elemMatch: { portfolioId: portfolioId } };
+    }
+    console.log("filter", filter);
+
+    // Mülkleri getir
+    const properties = await propertySchema.find(filter);
+
+    // Eğer mülk bulunamadıysa
+    if (!properties.length) {
+      return res.status(404).json({ message: "Hiçbir mülk bulunamadı." });
+    }
+
+    // Müşteri ID'lerini topla
+    const customerIds = properties
+      .map((property) => property.details?.[0]?.propertyOwnerId)
+      .filter((id) => id);
+
+    // Müşteri bilgilerini getir
+    const customers = await customerSchema.find(
+      { _id: { $in: customerIds } },
+      "name surname"
+    );
+
+    // Müşteri bilgilerini bir haritada düzenle
+    const customerMap = customers.reduce((map, customer) => {
+      map[customer._id] = `${customer.name} ${customer.surname}`;
+      return map;
+    }, {});
+
+    // Sonuçları zenginleştir
+    const results = properties.map((property) => {
+      const propertyOwnerName = customerMap[property.details?.[0]?.propertyOwnerId] || "Bilinmiyor";
+      return {
+        ...property.toObject(),
+        propertyOwnerName,
+      };
+    });
+
+    // Sonuçları döndür
+    res.status(200).json(results);
+  } catch (err) {
+    console.error(err);
+    next(createCustomError(9000, errorRoute.Enum.general));
+  }
+};
 
 
 
@@ -1818,5 +1875,6 @@ module.exports = {
   getRentCount,
   getPersonelCount,
   setPersonel2,
-  getPortfolio
+  getPortfolio,
+  getProperty2
 }

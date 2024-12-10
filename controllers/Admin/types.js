@@ -684,6 +684,8 @@ const testFileInput = z.object({
 
 const getPropertyInput = z.object({
   propertyId: z.string().optional(),
+  portfolioId:z.string().optional(),
+  personelId:z.string().optional(),
 })
 const getPortfolioInput = z.object({
   portfolioId: z.string().optional(),
