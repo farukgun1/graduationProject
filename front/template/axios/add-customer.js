@@ -136,9 +136,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         console.log('JWT cookie bulunamadı veya geçersiz formatta.');
     }
      // Payload'dan gelen name'i span içine yazıyoruz
-     if (payload && payload.name) {
-        document.getElementById("user-name").textContent = payload.name; // "Berfin Kale" yerine customer-name'i yerleştiriyoruz
-    }
+     if (payload && payload.name && payload.surname) {
+        document.getElementById("user-name").textContent = `${payload.name} ${payload.surname}`;
+    }
 
     console.log("payloadpayload",payload)
     await populatePersonel();

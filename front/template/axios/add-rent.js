@@ -103,9 +103,8 @@ async function populateTenant(personelId) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-
     function base64UrlDecode(str) {
-      
+        // Base64url formatındaki token'ı base64 formatına çeviriyoruz
         return atob(str.replace(/-/g, '+').replace(/_/g, '/'));
     }
     
@@ -128,6 +127,9 @@ document.addEventListener('DOMContentLoaded', function () {
         //window.location.href = '/giris';
         console.log('JWT cookie bulunamadı veya geçersiz formatta.');
     }
+    if (payload && payload.name && payload.surname) {
+        document.getElementById("user-name").textContent = `${payload.name} ${payload.surname}`;
+          }
 
     console.log("payloadpayload",payload)
     // DataTables'ı başlat

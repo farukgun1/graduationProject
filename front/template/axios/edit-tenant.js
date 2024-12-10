@@ -1,4 +1,49 @@
+function getJWTFromCookie() {
+    const name = "token=";
+    const cookieArray = document.cookie.split(';');
+    for (let i = 0; i < cookieArray.length; i++) {
+        let cookie = cookieArray[i].trim(); // trim ile baştaki ve sondaki boşlukları temizleyin
+        if (cookie.indexOf(name) === 0) {
+            return decodeURIComponent(cookie.substring(name.length, cookie.length)); // Değerini decode edin
+        }
+    }
+    return null;
+}
+const jwt = getJWTFromCookie();
+
+console.log("jwt",jwt)
+
+
 $(document).ready(function() {
+    function base64UrlDecode(str) {
+        // Base64url formatındaki token'ı base64 formatına çeviriyoruz
+        return atob(str.replace(/-/g, '+').replace(/_/g, '/'));
+    }
+    
+    let payload;
+    
+    if (jwt && jwt.split('.').length === 3) {
+        console.log('Cookie içindeki JWT:', jwt);
+        try {
+            const parts = jwt.split('.');
+            const header = JSON.parse(base64UrlDecode(parts[0]));
+            payload = JSON.parse(decodeURIComponent(escape(base64UrlDecode(parts[1]))));
+    
+            console.log('Header:', header);
+            console.log('Payload:', payload);
+        } catch (error) {
+            console.error('Geçersiz JWT formatı:', error);
+            //window.location.href = '/giris';
+        }
+    } else {
+        //window.location.href = '/giris';
+        console.log('JWT cookie bulunamadı veya geçersiz formatta.');
+    }
+    if (payload && payload.name && payload.surname) {
+        document.getElementById("user-name").textContent = `${payload.name} ${payload.surname}`;
+          }
+
+    console.log("payloadpayload",payload)
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('id');

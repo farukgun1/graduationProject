@@ -43,10 +43,9 @@ $(document).ready(function() {
     }
 
     console.log("payloadpayload",payload)
-    if (payload && payload.name) {
-        document.getElementById("user-name").textContent = payload.name; // "Berfin Kale" yerine customer-name'i yerleştiriyoruz
-    }
-
+    if (payload && payload.name && payload.surname) {
+        document.getElementById("user-name").textContent = `${payload.name} ${payload.surname}`;
+    }
     // DataTables'ı başlat
     // DataTables'ı başlat
     const table = $('#tenantTable').DataTable({
