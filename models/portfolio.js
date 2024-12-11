@@ -1,174 +1,170 @@
 const mongoose = require('mongoose');
 
 
-const OtherDetailSchema=new mongoose.Schema({
-    facade: {
-        type: [String],
-        enum: [
-          'West', 'East', 'North', 'South'
-        ],
-        required: true
-      },
-      general: {
-        type: [String],
-        enum: [
-          'Subdivided', 'Parcelled', 'Project', 'CornerParcel'
-        ],
-        required: true
-      },
-      environment: {
-        type: [String],
-        enum: [
-          'ShoppingCenter', 'Municipality', 'Mosque', 'Cemetery',
-          'Seafront', 'Pharmacy', 'EntertainmentCenter', 'Fair',
-          'Hospital', 'Church', 'Market', 'Park', 'Police Station',
-          'Health Center', 'NeighborhoodMarket', 'Gym', 'University',
-          'Primary/Secondary School', 'CityCenter'
-        ],
-        required: true
-      },
-      disabledFriendly: {
-        type: [String],
-        enum: [
-            'ParkingSpace',
-            'Elevator',
-            'Bathroom',
-            'WideCorridor',
-            'Entrance/Ramp',
-            'Stairs',
-            'Kitchen',
-            'RoomDoor',
-            'ParkingSocket/ElectricSwitch',
-            'HandrailRailing',
-            'Toilet',
-            'SwimmingPool'
-          ],
-        required: true
-      },
-      external: {
-        type: [String],
-        enum: [
-            'Balcony',
-            'Garden',
-            'Penthouse',
-            'SeaBus',
-            'CoveredGarage',
-            'Nursery',
-            'PrivatePool',
-            'ParkingLot',
-            'SwimmingPool',
-            'SteamRoom',
-            'Security',
-            'TurkishBath',
-            'Hydrophore',
-            'ThermalInsulation',
-            'Generator',
-            'CableTV',
-            'DaycareCenter',
-            'Playground',
-            'Sauna',
-            'SoundInsulation',
-            'Siding',
-            'Sports Area',
-            'WaterTank',
-            'TennisCourt',
-            'Satellite',
-            'FireEscape',
-            'SwimmingPool(Outdoor)'
-        ],
-        required: true
-      },
-      internal: {
-        type: [String],
-        enum: [
-          'ADSL', 'WoodenJoinery', 'SmartHome', 'BurglarAlarm', 'FireAlarm',
-          'SquatToilet', 'AluminumJoinery', 'AmericanKitchen', 'Built-inOven',
-          'Elevator', 'Balcony', 'Barbecue', 'WhiteGoods', 'Painted',
-          'Dishwasher', 'Refrigerator', 'Wallpaper', 'ShowerCabin', 'MasterBathroom',
-          'FiberInternet', 'Oven', 'DressingRoom', 'Built-inWardrobe',
-          'VideoIntercom', 'HiltonBathroom', 'IntercomSystem', 'DoubleGlazing',
-          'Jacuzzi', 'Cornice', 'Pantry', 'AirConditioning', 'Bathtub',
-          'LaminateFlooring', 'Marley', 'Furniture', 'Built-inKitchen',
-          'LaminateKitchen', 'NaturalGasKitchen', 'PVCJoinery', 'Shutters',
-          'WoodenFlooring', 'CeramicFlooring', 'Stove', 'SpotLighting',
-          'Terrace', 'WaterHeater', 'Vestibule', 'WiFi', 'FacialRecognition&Fingerprint',
-          'ClothesDryer', 'WashingMachine', 'LaundryRoom', 'SteelDoor',
-          'InstantWaterHeater', 'Fireplace'
-        ],
-        required: true
-      },
-      transportation: {
-        type: [String],
-        enum: [
-          "MainRoad",
-          "EurasiaTunnel",
-          "BosphorusBridges",
-          "Street",
-          "SeaBus",
-          "Minibus",
-          "E5",
-          "Airport",
-          "Marmaray",
-          "Metro",
-          "Metrobus",
-          "BusStop",
-          "CableCar",
-          "Tram",
-          "Highway",
-          "TrainStation",
-          "Pier"
-        ],
-        required: true
-      },
-      view: {
-        type: [String],
-        enum: [
-          'Bosphorus', 'Sea', 'Lake', 'City', 'Nature', 'Mountain', 'Park'
-        ],
-        required: true
-      },
-      residentialType: {
-        type: [String],
-        enum: [
-          'IntermediateFloor', 'IntermediateFloorDuplex', 'GardenDuplex', 'Penthouse',
-          'Duplex', 'FloorDuplex', 'Detached', 'Triplex', 'GroundFloor', 'Studio', 'Elevator'
-        ],
-        required: true
-      },
-      infrastructure: {
-        type: [String],
-        enum: [
-        "Electricity",       // Elektrik
-      "IndustrialElectricity", // Sanayi Elektriği
-      "Water",             // Su
-      "Telephone",         // Telefon
-      "NaturalGas",        // Doğalgaz
-      "Sewage",            // Kanalizasyon
-      "WaterTreatment",    // Arıtma
-      "WellAndBorehole",   // Sondaj & Kuyu
-      "SoilStudy",         // Zemin Etüdü
-      "RoadCleared",       // Yolu Açılmış
-      "RoadNotCleared",    // Yolu Açılmamış
-      "NoRoad"             // Yolu Yok
-        ],
-        required: true
-      },
-      location: {
-        type: [String],
-        enum: [
-          "CloseToMainRoad",     // Ana Yola Yakın
-          "Seafront",            // Denize Sıfır
-          "CloseToSea",          // Denize Yakın
-          "CloseToAirport",      // Havaalanına Yakın
-          "CloseToPublicTransport" // Toplu Ulaşıma Yakın
-        ],
-        required: false
-      }
+const OtherDetailSchema = new mongoose.Schema({
+  facade: {
+    type: [String],
+    enum: [
+      'West', 'East', 'North', 'South'
+    ],
+    required: false
+  },
+  general: {
+    type: [String],
+    enum: [
+      'Subdivided', 'Parcelled', 'Project', 'CornerParcel'
+    ],
+    required: false
+  },
+  environment: {
+    type: [String],
+    enum: [
+      'ShoppingCenter', 'Municipality', 'Mosque', 'Cemetery',
+      'Seafront', 'Pharmacy', 'EntertainmentCenter', 'Fair',
+      'Hospital', 'Church', 'Market', 'Park', 'PoliceStation',
+      'HealthCenter', 'NeighborhoodMarket', 'Gym', 'University',
+      'Primary/SecondarySchool', 'CityCenter'
+    ],
+    required: false
+  },
+  disabledFriendly: {
+    type: [String],
+    enum: [
+      'ParkingSpace',
+      'Elevator',
+      'Bathroom',
+      'WideCorridor',
+      'Entrance/Ramp',
+      'Stairs',
+      'Kitchen',
+      'RoomDoor',
+      'ParkingSocket/ElectricSwitch',
+      'HandrailRailing',
+      'Toilet',
+      'SwimmingPool'
+    ],
+    required: false
+  },
+  external: {
+    type: [String],
+    enum: [
+      'Elevator',
+      'Balcony',
+      'Garden',
+      'Penthouse',
+      'SeaBus',
+      'CoveredGarage',
+      'Nursery',
+      'PrivatePool',
+      'ParkingLot',
+      'SwimmingPool',
+      'SteamRoom',
+      'Security',
+      'TurkishBath',
+      'Hydrophore',
+      'ThermalInsulation',
+      'Generator',
+      'CableTV',
+      'DaycareCenter',
+      'Playground',
+      'Sauna',
+      'SoundInsulation',
+      'Siding',
+      'SportsArea',
+      'WaterTank',
+      'TennisCourt',
+      'Satellite',
+      'FireEscape',
+      'SwimmingPool(Outdoor)'
+    ],
+    required: false
+  },
+  internal: {
+    type: [String],
+    enum: [
+      'ADSL', 'WoodenJoinery', 'SmartHome', 'BurglarAlarm', 'FireAlarm',
+      'SquatToilet', 'AluminumJoinery', 'AmericanKitchen', 'Built-inOven',
+      'Elevator', 'Balcony', 'Barbecue', 'WhiteGoods', 'Painted',
+      'Dishwasher', 'Refrigerator', 'Wallpaper', 'ShowerCabin', 'MasterBathroom',
+      'FiberInternet', 'Oven', 'DressingRoom', 'Built-inWardrobe',
+      'VideoIntercom', 'HiltonBathroom', 'IntercomSystem', 'DoubleGlazing',
+      'CentralHeating', 'Carpet', 'LaundryRoom', 'Built-inKitchen',
+      'Sauna', 'FloorHeating', 'CentralVacuum' // Yeni değer eklendi
+    ],
+    required: false
+  },
+  transportation: {
+    type: [String],
+    enum: [
+      "MainRoad",
+      "EurasiaTunnel",
+      "BosphorusBridges",
+      "Street",
+      "SeaBus",
+      "Minibus",
+      "E5",
+      "Airport",
+      "Marmaray",
+      "Metro",
+      "Metrobus",
+      "BusStop",
+      "CableCar",
+      "Tram",
+      "Siding",
+      "TrainStation",
+      "Pier"
+    ],
+    required: false
+  },
+  view: {
+    type: [String],
+    enum: [
+      'Bosphorus', 'Sea', 'Lake', 'City', 'Nature', 'Mountain', 'Park'
+    ],
+    required: false
+  },
+  residentialType: {
+    type: [String],
+    enum: [
+      'IntermediateFloor', 'IntermediateFloorDuplex', 'GardenDuplex', 'Penthouse',
+      'Duplex', 'FloorDuplex', 'Detached', 'Triplex', 'GroundFloor', 'Studio'
+    ],
+    required: false
+  },
+  infrastructure: {
+    type: [String],
+    enum: [
+      "Electricity",
+      "IndustrialElectricity",
+      "Water",
+      "Telephone",
+      "NaturalGas",
+      "Sewage",
+      "WaterTreatment",
+      "WellAndBorehole",
+      "SoilStudy",
+      "RoadCleared",
+      "RoadNotCleared",
+      "NoRoad"
+    ],
+    required: false
+  },
+  location: {
+    type: [String],
+    enum: [
+      "CloseToMainRoad",
+      "Seafront",
+      "CloseToSea",
+      "CloseToAirport",
+      "CloseToPublicTransport",
+      "NearSea"
+    ],
+    required: false
+  }
 
 
 
 });
-
 
 
 const portfolio = new mongoose.Schema({

@@ -81,7 +81,7 @@ $(document).ready(function() {
     async function getPortfolio(personelId) {
         try {
             const response = await axios.post(
-                "http://localhost:3001/api/v1/emlakze/admin/getportfolio",
+                "http://localhost:3001/api/v1/emlakze/admin/getportfoliolist",
                 { personelId },
                 { headers: { "Content-Type": "application/json" } }
             );
@@ -99,7 +99,9 @@ $(document).ready(function() {
                 table.clear().draw();
                 portfolioData.forEach(portfolio => {
                     table.row.add([
-                        portfolio.portfolioName, 
+                        portfolio.portfolioName,
+                    
+
                         portfolio.isActive ? 'Aktif' : 'Pasif',
                         `
                          <button class="btn btn-danger btn-sm delete-btn" title="Sil" data-id="${portfolio._id}"><i class="fas fa-trash"></i></button>`

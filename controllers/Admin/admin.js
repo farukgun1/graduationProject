@@ -714,7 +714,7 @@ const setPortfolio = async (input, res, next) => {
 
 const getPortfolio = async (input, res, next) => {
   try {
-    // Gelen input'tan personelId alın
+
     const personelId = input.personelId;
 
     // personelId ile portföyleri sorgula
@@ -729,6 +729,22 @@ const getPortfolio = async (input, res, next) => {
 
     // Başarı mesajı ile sonuç döndür
     return next(createSuccessMessage(2007, portfolios));
+  } catch (err) {
+    console.error(err);
+    return next(createCustomError(9000, errorRoute.Enum.general));
+  }
+};
+const getPortfolioList = async (input, res, next) => {
+  try {
+    // Tüm portföyleri tüm alanlarıyla getir
+    const portfolios = await portfolioSchema.find();
+
+    if (!portfolios.length) {
+      return next(createCustomError(404, "Portföy bulunamadı."));
+    }
+
+    // Başarı mesajı ile sonuç döndür
+    return next(createSuccessMessage(2008, portfolios));
   } catch (err) {
     console.error(err);
     return next(createCustomError(9000, errorRoute.Enum.general));
@@ -1622,14 +1638,16 @@ const setFile = async (input, res, next, results, req) => {
       // E-posta göndermek için mülk sahibini bul
       const propertyId = rent.propertyId;
       const property = await propertySchema.findById(propertyId);
+      const propertyname = property.details[0].propertyName;
       const propertyownerId = property.propertyOwnerId;
+
       const owner = await customerSchema.findById(propertyownerId);
 
       // E-posta gönderimi
       await sendEmail({
         to: owner.email,
         subject: 'Ödeme Bilgilendirme',
-        text: `Sayın ${owner.name} ${owner.surname}, kira ödemeniz başarıyla alınmıştır. \n\nÖdeme Detayları:\n- Ödeme Tarihi: ${paymentDate}\n- Tutar: ${rentAmount} TL.`
+        text: `Sayın ${owner.name} ${owner.surname}, ${propertyname} adlı mülkünüzün kira ödemesi başarıyla alınmıştır. \n\nÖdeme Detayları:\n- Ödeme Tarihi: ${paymentDate}\n- Tutar: ${rentAmount} TL.`
       }).catch(error => {
         console.error('Error sending email:', error);
         throw new Error('E-posta gönderimi başarısız oldu');
@@ -1876,5 +1894,6 @@ module.exports = {
   getPersonelCount,
   setPersonel2,
   getPortfolio,
-  getProperty2
+  getProperty2,
+  getPortfolioList
 }

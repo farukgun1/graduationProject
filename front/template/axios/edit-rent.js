@@ -1,6 +1,50 @@
-const { getPortfolio } = require("../../../controllers/Admin/admin");
+
+function getJWTFromCookie() {
+    const name = "token=";
+    const cookieArray = document.cookie.split(';');
+    for (let i = 0; i < cookieArray.length; i++) {
+        let cookie = cookieArray[i].trim(); // trim ile baştaki ve sondaki boşlukları temizleyin
+        if (cookie.indexOf(name) === 0) {
+            return decodeURIComponent(cookie.substring(name.length, cookie.length)); // Değerini decode edin
+        }
+    }
+    return null;
+}
+const jwt = getJWTFromCookie();
+
+console.log("jwt",jwt)
+
 
 $(document).ready(function() {
+    function base64UrlDecode(str) {
+        // Base64url formatındaki token'ı base64 formatına çeviriyoruz
+        return atob(str.replace(/-/g, '+').replace(/_/g, '/'));
+    }
+    
+    let payload;
+    
+    if (jwt && jwt.split('.').length === 3) {
+        console.log('Cookie içindeki JWT:', jwt);
+        try {
+            const parts = jwt.split('.');
+            const header = JSON.parse(base64UrlDecode(parts[0]));
+            payload = JSON.parse(decodeURIComponent(escape(base64UrlDecode(parts[1]))));
+    
+            console.log('Header:', header);
+            console.log('Payload:', payload);
+        } catch (error) {
+            console.error('Geçersiz JWT formatı:', error);
+            //window.location.href = '/giris';
+        }
+    } else {
+        //window.location.href = '/giris';
+        console.log('JWT cookie bulunamadı veya geçersiz formatta.');
+    }
+    if (payload && payload.name && payload.surname) {
+        document.getElementById("user-name").textContent = `${payload.name} ${payload.surname}`;
+          }
+
+    console.log("payloadpayload",payload)
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('id');
@@ -11,6 +55,99 @@ $(document).ready(function() {
         console.error('Kira ID bulunamadı.');
         return;
     }
+    async function getPortfolio(personelId, selectedPortfolioId = null) {
+        try {
+            const url = 'http://localhost:3001/api/v1/emlakze/admin/getportfolio';
+            const response = await axios.post(url, { personelId });
+    
+            const portfolioselectElement = $('#portfolioId');
+            portfolioselectElement.empty(); // Önceki seçenekleri temizle
+    
+            if (response.data && Array.isArray(response.data.data)) {
+                // Seçili olanı başa eklemek için seçenekleri ayarla
+                if (selectedPortfolioId) {
+                    const selectedPortfolio = response.data.data.find(
+                        (portfolio) => portfolio._id === selectedPortfolioId
+                    );
+                    if (selectedPortfolio) {
+                        portfolioselectElement.append(
+                            `<option value="${selectedPortfolio._id}" selected>${selectedPortfolio.portfolioName || "Bilinmiyor"}</option>`
+                        );
+                    }
+                }
+    
+                // Diğer seçenekleri ekle
+                response.data.data.forEach((portfolio) => {
+                    if (portfolio._id !== selectedPortfolioId) {
+                        portfolioselectElement.append(
+                            `<option value="${portfolio._id}">${portfolio.portfolioName || "Bilinmiyor"}</option>`
+                        );
+                    }
+                });
+            }
+    
+            // Select2 ile yeniden başlat
+            portfolioselectElement.select2();
+              // Change olayında propertyId temizle ve yeni listeyi getir
+        $('#portfolioId').on('change', function () {
+            const selectedPortfolioId = $(this).val();
+
+            // propertyId listesini temizle
+            const propertySelect = document.getElementById("propertyId");
+            propertySelect.innerHTML = '<option value="">Seç</option>';
+
+            console.log("Selected Portfolio ID:", selectedPortfolioId);
+            if (selectedPortfolioId) {
+                populateProperty(personelId, selectedPortfolioId);
+            }
+        });
+    
+        } catch (error) {
+            console.error('Portfolio verileri alınırken hata oluştu:', error.message);
+        }
+    }
+    
+    async function populateProperty(personelId, portfolioId, selectedPropertyId = null) {
+        try {
+            const url = "http://localhost:3001/api/v1/emlakze/admin/getproperty2";
+            const response = await axios.post(url, { personelId, portfolioId });
+    
+            const selectElement = $('#propertyId');
+            selectElement.empty(); // Önceki seçenekleri temizle
+    
+            if (response.data && Array.isArray(response.data)) {
+                // Seçili olan mülkü başa ekle
+                if (selectedPropertyId) {
+                    const selectedProperty = response.data.find(
+                        (property) => property._id === selectedPropertyId
+                    );
+                    if (selectedProperty && selectedProperty.details.length > 0) {
+                        selectElement.append(
+                            `<option value="${selectedProperty._id}" selected>${selectedProperty.details[0].propertyName || "Bilinmiyor"}</option>`
+                        );
+                    }
+                }
+    
+                // Diğer mülkleri ekle
+                response.data
+                    .filter((property) => property._id !== selectedPropertyId && property.isActive)
+                    .forEach((property) => {
+                        if (property.details.length > 0) {
+                            selectElement.append(
+                                `<option value="${property._id}">${property.details[0].propertyName || "Bilinmiyor"}</option>`
+                            );
+                        }
+                    });
+            }
+    
+            // Select2 ile yeniden başlat
+            selectElement.select2();
+    
+        } catch (error) {
+            console.error("Property verileri alınırken hata oluştu:", error.message);
+        }
+    }
+    
 
     // Kira verilerini almak için API çağrısı
     async function getRent() {
@@ -30,45 +167,7 @@ $(document).ready(function() {
     }
 
 
-    async function getProperty(propertyId) {
-        try {
-            const url = "http://localhost:3001/api/v1/emlakze/admin/getproperty";
-            const response = await axios.post(url, {});
-    
-            // Eğer response içinde data yoksa hata fırlatıyoruz
-            if (!response.data || response.data.length === 0) {
-                throw new Error("Property verisi boş geldi");
-            }
-    
-            const rentProperty = document.getElementById("propertyId");
-    
-            // Mevcut seçenekleri temizliyoruz
-            rentProperty.innerHTML = "";
-    
-            response.data.forEach(property => {
-                const option = document.createElement("option");
-                option.value = property._id;
-    
-                // Property name var mı yok mu kontrol edip ekliyoruz
-                if (property.details.length > 0 && property.details[0].propertyName) {
-                    option.textContent = property.details[0].propertyName;
-                } else {
-                    option.textContent = "Belirtilmemiş";
-                }
-    
-                // Eğer seçilen propertyId ile eşleşiyorsa seçili yapıyoruz
-                if (propertyId === property._id) {
-                    option.selected = true;
-                }
-    
-                rentProperty.appendChild(option);
-            });
-    
-        } catch (error) {
-            console.error("Property verileri alınırken bir hata oluştu:", error);
-        }
-    }
-    
+
     async function getTenant(tenantId) {
         try {
             const url = "http://localhost:3001/api/v1/emlakze/admin/gettenant";
@@ -109,10 +208,16 @@ $(document).ready(function() {
 
     // Formu doldurmak için verileri yerleştirin
     async  function populateForm(data) {
-        if (!data || !data.rent) return;
-        await getProperty(data.rent.propertyId);
-        const personelId=payload.id
-await getPortfolio(personelId)
+        const personelId = payload.id;
+
+        await getPortfolio(personelId, data.rent.portfolioId);
+
+        // Seçili portföy ve mülkleri doldur
+        document.getElementById('portfolioId').value = data.rent.portfolioId || '';
+        if (data.rent.portfolioId) {
+            await populateProperty(personelId, data.rent.portfolioId);
+        }
+        document.getElementById('propertyId').value = data.rent.propertyId || '';
         await getTenant(data.rent.tenantId);
         const rent = data.rent;
       

@@ -102,7 +102,7 @@ async function populateNeighborhoodsTwo(district) {
       })
     }
   }
-
+ 
 
 document.addEventListener('DOMContentLoaded', async function () {
     function base64UrlDecode(str) {
@@ -273,7 +273,52 @@ document.addEventListener('DOMContentLoaded', async function () {
     districtSelectElement.addEventListener("change", async function () {
         await populateNeighborhoods(this.value);
     });
-
+    async function populatePortfolio(personelId, selectedPortfolioId = null) {
+        console.log("personelId",personelId)
+        try {
+            const url = 'http://localhost:3001/api/v1/emlakze/admin/getportfolio';
+            const response = await axios.post(url, { personelId });
+    
+            const selectElement = document.getElementById('portfolioId');
+            selectElement.innerHTML = '<option value="">Seçiniz</option>';
+    
+            if (response.data && Array.isArray(response.data.data)) {
+                response.data.data.forEach((portfolio) => {
+                    const option = document.createElement('option');
+                    option.value = portfolio._id;
+                    option.textContent = portfolio.portfolioName || "Bilinmiyor";
+    
+                    // Eğer selectedPortfolioId ile eşleşiyorsa seçili yap
+                    if (selectedPortfolioId && portfolio._id === selectedPortfolioId) {
+                        option.selected = true;
+                    }
+    
+                    selectElement.appendChild(option);
+                });
+            }
+    
+            // Select2 ile seçim kutusunu yeniden başlat
+            $('#portfolioId').select2();
+    
+            // Portföy değişiminde propertyId'yi sıfırla
+            $('#portfolioId').on('change', function () {
+                const selectedPortfolioId = $(this).val();
+    
+                // Property seçim kutusunu sıfırla
+                const propertySelect = document.getElementById("propertyId");
+                propertySelect.innerHTML = '<option value="">Seç</option>';
+    
+                console.log("Selected Portfolio ID:", selectedPortfolioId);
+                if (selectedPortfolioId) {
+                    populateProperty(personelId, selectedPortfolioId);
+                }
+            });
+    
+        } catch (error) {
+            console.error('Portfolio verileri alınırken hata oluştu:', error.message);
+        }
+    }
+    
 
     async function getProperty() {
         try {
@@ -310,6 +355,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         try {
             const propertyData = await getProperty();
             const property = propertyData.find(p => p._id === id);
+            
 
             console.log(propertyData)
             debugger;
@@ -463,6 +509,14 @@ document.addEventListener('DOMContentLoaded', async function () {
     
             const otherDetails = property.otherDetails[0] || {};
             const details = property.details[0];
+            const personelId = payload.id
+            const portfolioId = property.details[0].portfolioId;
+            const propertyownername=property.propertyOwnerName;
+    
+            // Portföyleri doldur ve seçili portföy ID'yi gönder
+            await populatePortfolio(personelId, portfolioId);
+    
+          
             const assets = property.asset;
             const titledeed = property.titledeed;
             const baseURL = 'http://localhost:3001/public/';
@@ -599,7 +653,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             setInputValue('#daskStartDate', details.daskStartDate);
             setInputValue('#daskEndDate', details.daskEndDate);
             setInputValue('#daskPolicyNumber', details.daskPolicyNumber);
-            setInputValue('#propertyOwnerName', details.propertyOwnerName);
+            setInputValue('#propertyOwnerName', propertyownername);
             setInputValue('#forownerpurchaseDate', details.forownerpurchaseDate);
       
 
@@ -825,6 +879,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 area: document.querySelector('#area').value,
                 parcelShare: document.querySelector('#parcelShare').value,
                 parcelShareholder: document.querySelector('#parcelShareholder').value,
+                description: document.querySelector('#description').value,
                 independentSectionDescription: document.querySelector('#independentSectionDescription').value,
                 volumeNumber: document.querySelector('#volumeNumber').value,
                 journalNumber: document.querySelector('#journalNumber').value,

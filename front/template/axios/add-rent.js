@@ -18,85 +18,72 @@ console.log("jwt",jwt)
 
 
 
-
-
 async function populatePortfolio(personelId) {
     try {
         const url = 'http://localhost:3001/api/v1/emlakze/admin/getportfolio';
-        const response = await axios.post(url, { personelId }); // API'ye personelId gönderiliyor
-        console.log("Portfolio Response:", response.data);
+        const response = await axios.post(url, { personelId });
 
         const selectElement = document.getElementById('portfolioId');
-
-        // Mevcut seçenekleri temizle
         selectElement.innerHTML = '<option value="">Seçiniz</option>';
 
-        // Gelen verilerle seçim kutusunu doldur
         if (response.data && Array.isArray(response.data.data)) {
             response.data.data.forEach((portfolio) => {
                 const option = document.createElement('option');
-                option.value = portfolio._id; // Portfolio ID
-                option.textContent = portfolio.portfolioName || "Bilinmiyor"; // Portfolio adı
+                option.value = portfolio._id;
+                option.textContent = portfolio.portfolioName || "Bilinmiyor";
                 selectElement.appendChild(option);
             });
-        } else {
-            console.error("Portfolio verileri beklenen formatta değil:", response.data);
         }
 
-        // Select2 kütüphanesini tekrar başlat
         $('#portfolioId').select2();
 
-        // Portföy seçiminde tetiklenen event
-        selectElement.addEventListener('change', function () {
-            const selectedPortfolioId = this.value; // Seçilen portföy ID
-            populateProperty(personelId, selectedPortfolioId); // Property listesini güncelle
-        });
+        // Change olayında propertyId temizle ve yeni listeyi getir
+        $('#portfolioId').on('change', function () {
+            const selectedPortfolioId = $(this).val();
 
-        // İlk yüklemede tüm mülkleri getir
-        populateProperty(personelId, null);
+            // propertyId listesini temizle
+            const propertySelect = document.getElementById("propertyId");
+            propertySelect.innerHTML = '<option value="">Seç</option>';
+
+            console.log("Selected Portfolio ID:", selectedPortfolioId);
+            if (selectedPortfolioId) {
+                populateProperty(personelId, selectedPortfolioId);
+            }
+        });
 
     } catch (error) {
         console.error('Portfolio verileri alınırken hata oluştu:', error.message);
     }
 }
 
-
-async function populateProperty(personelId, portfolioId ) {
+async function populateProperty(personelId, portfolioId) {
     try {
         const url = "http://localhost:3001/api/v1/emlakze/admin/getproperty2";
-        const response = await axios.post(url, { personelId, portfolioId }); // API'ye personelId ve isteğe bağlı portfolioId gönderiliyor
-        console.log("Property Response:", response.data);
+        const response = await axios.post(url, { personelId, portfolioId });
 
         const selectElement = document.getElementById("propertyId");
-
-        // Seçim kutusunu temizle ve varsayılan bir seçenek ekle
         selectElement.innerHTML = '<option value="">Seç</option>';
 
-        // Gelen verilerle seçim kutusunu doldur
         if (response.data && Array.isArray(response.data)) {
-            response.data.forEach((property) => {
-                if (property.details && property.details.length > 0) {
-                    const detail = property.details[0];
-
-                    // Yeni bir seçenek oluştur
-                    const option = document.createElement("option");
-                    option.value = property._id; // Property ID
-                    option.textContent = detail.propertyName || "Bilinmiyor"; // Property adı
-                    selectElement.appendChild(option);
-                }
-            });
-        } else {
-            console.error("Property verileri beklenen formatta değil:", response.data);
+            response.data
+                .filter(property => property.isActive) // Yalnızca isActive true olanları filtrele
+                .forEach((property) => {
+                    if (property.details && property.details.length > 0) {
+                        const detail = property.details[0];
+                        const option = document.createElement("option");
+                        option.value = property._id;
+                        option.textContent = detail.propertyName || "Bilinmiyor";
+                        selectElement.appendChild(option);
+                    }
+                });
         }
 
-        // Select2 kütüphanesini tekrar başlat
         $('#propertyId').select2();
 
     } catch (error) {
         console.error("Property verileri alınırken hata oluştu:", error.message);
     }
 }
-
 
 
 
@@ -181,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
     const personelId=payload.id;
-    populateProperty(personelId);
+
     populateTenant(personelId);
   populatePortfolio(personelId)
     document.querySelector('.btn-submit-all').addEventListener('click', async function () {

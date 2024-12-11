@@ -154,17 +154,20 @@ async function populatePortfolio(personelId) {
     
     // API'den verileri alın
     const response = await axios.post(url, { personelId });
-    const selectElement = document.getElementById('portfolioId');
+    const portfolioselectElement = document.getElementById('portfolioId');
+  
+const portfolioId = portfolioselectElement.value; // Seçilen değeri alın
+
 
     // Önceki seçenekleri temizle
-    selectElement.innerHTML = '<option value="">Seçiniz</option>';
+    portfolioselectElement.innerHTML = '<option value="">Seçiniz</option>';
 
     // Gelen verileri işle ve seçim kutusuna ekle
     response.data.data.forEach((portfolio) => {
       const option = document.createElement('option');
       option.value = portfolio._id; // ID değerini value olarak ayarla
       option.textContent = portfolio.portfolioName || "Bilinmiyor"; // portfolioName alanını ayarla, yoksa "Bilinmiyor" yaz
-      selectElement.appendChild(option);
+      portfolioselectElement.appendChild(option);
     });
   } catch (error) {
     console.error('Portfolio data retrieval error:', error);
@@ -357,7 +360,9 @@ console.log("payloadpayload",payload)
   const propertyOwnerId = propertyOwnerSelect.value; // Get the selected value
   const personelId=payload.id;
 
-
+  const portfolioSelect = document.getElementById('portfolioId');
+  const portfolioId = portfolioSelect.value; // Seçilen değeri alın
+  console.log("Selected Portfolio ID:", portfolioId);
 
       // Handle files
       const files = document.getElementById('formFileMultiple').files
@@ -376,6 +381,7 @@ console.log("payloadpayload",payload)
         asset: [],
         propertyOwnerId:propertyOwnerId,
         personelId:personelId,
+        portfolioId:portfolioId,
         
       }
       console.log(personelId)

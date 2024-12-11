@@ -90,30 +90,34 @@ async function getCustomer() {
 }
 
 async function populatePersonel(personelId) {
-    try {
+  try {
       let url = "http://localhost:3001/api/v1/emlakze/admin/getPersonel";
-      let requestData = {};
+      let requestData = {}; // Boş gönderiyoruz, tüm personelleri alacak
+
       const response = await axios.post(url, requestData);
       const customerPersonel = document.getElementById("customer-personel");
-  
+      customerPersonel.innerHTML = ""; // Mevcut seçenekleri temizle
 
-      response.data.data.forEach(personel => {
-  
-        const option = document.createElement("option");
-        option.value = personel._id; 
-        option.textContent = `${personel.name} ${personel.surname}`; 
+      // Gelen personeller arasında personelId'yi filtrele
+      const filteredPersonel = response.data.data.filter(personel => personel._id === personelId);
 
-        if (personelId === personel._id) {
-            option.selected = true;
-        }
+      // Eğer eşleşen personel varsa listeye ekle
+      if (filteredPersonel.length > 0) {
+          const personel = filteredPersonel[0];
+          const option = document.createElement("option");
+          option.value = personel._id;
+          option.textContent = `${personel.name} ${personel.surname}`;
+          option.selected = true; // Seçili yap
+          customerPersonel.appendChild(option);
+      } else {
+          console.warn("Eşleşen personel bulunamadı.");
+      }
 
-        customerPersonel.appendChild(option);
-      });
-  
-    } catch (error) {
+  } catch (error) {
       console.error("Personel verileri alınırken hata oluştu:", error);
-    }
+  }
 }
+
 
 async function fillFormWithData(id) {
     try {
