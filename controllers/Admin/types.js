@@ -354,7 +354,7 @@ const updatePropertyInput = z.object({
     bbNo: z.string(),
     attribute: z.enum(['konut', 'isyeri', 'ofis', 'dukkan', 'arsa']),
     type: z.enum(['1+0', '1+1', '2+1']),
-    usageType: z.enum(['Bekliyor', 'Satılık', 'Kiralık']),
+    usageType: z.enum(['Bekliyor', 'Satilik', 'Kiralık']),
     netM2: z.string().optional(),
     grossM2: z.string().optional(),
     island: z.string().optional(),
