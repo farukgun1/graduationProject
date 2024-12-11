@@ -10,7 +10,8 @@ const setPersonelInput = z.object({
   surname: z.string(),
   email: z.string(),
   phoneNumber: z.string(),
-  password: z.string()
+  password: z.string(),
+  type:z.string()
 
 })
 

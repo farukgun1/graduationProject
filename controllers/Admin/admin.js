@@ -182,7 +182,7 @@ const setPersonel2 = async (input, res, next, results) => {
 };
 
 const setPersonel = async (input, res, next) => {
-  const { name, surname, email, phoneNumber,password } = input;
+  const { name, surname, email, phoneNumber,password,type } = input;
 
   try {
     // Yeni personel nesnesi oluşturma
@@ -191,7 +191,8 @@ const setPersonel = async (input, res, next) => {
       surname,
       email,
       phoneNumber,
-      password
+      password,
+      type
     });
 
     // Personeli veritabanına kaydetme
@@ -262,7 +263,8 @@ const loginUser = async (input, res, next) => {
         id: user._id,
         name: user.name,
         surname: user.surname,
-        userType: userType
+        userType: userType,
+        role:user.type
       },
       process.env.JWT_SECRET,
       { expiresIn: '1h' } // Token süresi

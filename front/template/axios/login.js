@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     title: 'Başarılı!',
                     text: 'Giriş başarılı.',
                 }).then(() => {
-                    window.location.href = 'add-personel.html';
+                    window.location.href = 'add-customer.html';
                 });
             } else {
                 Swal.fire({

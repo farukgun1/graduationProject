@@ -17,6 +17,10 @@ const personel = new mongoose.Schema({
         type: String,
         required: true
     },
+    type:{
+        type:String,
+        required:true
+    },
     password:{
         type:String,
         required:false
