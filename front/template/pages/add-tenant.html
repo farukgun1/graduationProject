@@ -279,6 +279,12 @@
                                             </div>
                                             <div class="col-md-4 col-12">
                                                 <div class="mb-1">
+                                                    <label class="form-label" for="country-floating">Kefil Tc</label>
+                                                    <input type="number" id="tenant-secondPersonTc" class="form-control" name="Email" placeholder="Tc"  maxlength="11" required/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-12">
+                                                <div class="mb-1">
                                                     <label class="form-label" for="country-floating">Kefil Telefon Numarası</label>
                                                     <input 
                                                         type="text" 
@@ -329,6 +335,39 @@
     <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
     <!-- END: Footer-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script>
+        // Telefon numarası ve TC için kısıtlama ekleme
+function restrictInput(event) {
+    var value = event.target.value;
+
+    // Sadece rakamları al
+    value = value.replace(/\D/g, ''); // \D, sayılar dışındaki karakterleri temizler.
+
+    // Eğer telefon numarası ise, 10 haneli kısıtlama uygula
+    if (event.target.id === 'tenant-phone' || event.target.id === 'tenant-secondPersonPhone') {
+        if (value.length > 10) {
+            value = value.substring(0, 10); // Sadece ilk 10 karakteri al
+        }
+    }
+
+    // Eğer TC numarası ise, 11 haneli kısıtlama uygula
+    if (event.target.id === 'tenant-tc' || event.target.id === 'tenant-secondPersonTc') {
+        if (value.length > 11) {
+            value = value.substring(0, 11); // Sadece ilk 11 karakteri al
+        }
+    }
+
+    // Değeri input'a yaz
+    event.target.value = value;
+}
+
+// Telefon ve TC inputları için event listener ekleyelim
+document.getElementById('tenant-phone').addEventListener('input', restrictInput);
+document.getElementById('tenant-tc').addEventListener('input', restrictInput);
+document.getElementById('tenant-secondPersonTc').addEventListener('input', restrictInput);
+document.getElementById('tenant-secondPersonPhone').addEventListener('input', restrictInput);
+
+    </script>
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
