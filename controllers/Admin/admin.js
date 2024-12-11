@@ -734,22 +734,48 @@ const getPortfolio = async (input, res, next) => {
     return next(createCustomError(9000, errorRoute.Enum.general));
   }
 };
-const getPortfolioList = async (input, res, next) => {
+const getPortfolioList = async (req, res, next) => {
   try {
-    // Tüm portföyleri tüm alanlarıyla getir
+    // Tüm portföyleri al
     const portfolios = await portfolioSchema.find();
 
-    if (!portfolios.length) {
+    // Her portföy için müşteri bilgilerini ekle
+    const results = await Promise.all(
+      portfolios.map(async (portfolio) => {
+        let propertyOwnerName = null;
+
+        // Eğer propertyOwnerId varsa müşteri bilgilerini getir
+        if (portfolio.propertyOwnerId) {
+          const customer = await customerSchema.findOne(
+            { _id: portfolio.propertyOwnerId },
+            "name surname"
+          );
+
+          if (customer) {
+            propertyOwnerName = `${customer.name} ${customer.surname}`;
+          }
+        }
+
+        return {
+          ...portfolio.toObject(),
+          propertyOwnerName,
+        };
+      })
+    );
+
+    if (!results.length) {
       return next(createCustomError(404, "Portföy bulunamadı."));
     }
 
-    // Başarı mesajı ile sonuç döndür
-    return next(createSuccessMessage(2008, portfolios));
+    // Başarı yanıtı döndür
+    return next(createSuccessMessage(2008, results));
   } catch (err) {
     console.error(err);
     return next(createCustomError(9000, errorRoute.Enum.general));
   }
 };
+
+
 
 
 
@@ -950,6 +976,26 @@ const deleteProperty = async (input, res, next, results) => {
 }
 
 //
+const deletePortfoy = async (input, res, next, results) => {
+  const deleteId = input.deleteId
+  try {
+    const updatedProperty = await portfolioSchema.findByIdAndUpdate(
+      deleteId,
+      { isActive: false },
+      { new: true },
+    )
+
+    if (!updatedProperty) {
+      return res.status(404).json({ message: 'Mülk bulunamadı' })
+    }
+
+    res
+      .status(200)
+      .json({ message: 'Mülk devre dışı bırakıldı', updatedProperty })
+  } catch (err) {
+    return next(createCustomError(9000, 'Bir hata oluştu')) // Genel bir hata mesajı verildi
+  }
+}
 
 
 
@@ -1895,5 +1941,6 @@ module.exports = {
   setPersonel2,
   getPortfolio,
   getProperty2,
-  getPortfolioList
+  getPortfolioList,
+  deletePortfoy
 }

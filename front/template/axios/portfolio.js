@@ -81,7 +81,7 @@ $(document).ready(function() {
     async function getPortfolio(personelId) {
         try {
             const response = await axios.post(
-                "http://localhost:3001/api/v1/emlakze/admin/getportfoliolist",
+                "http://localhost:3001/api/v1/emlakze/admin/getlistportfolio",
                 { personelId },
                 { headers: { "Content-Type": "application/json" } }
             );
@@ -90,27 +90,94 @@ $(document).ready(function() {
                 throw new Error("Network response was not ok");
             }
     
-            const portfolioData = response.data.data; // Veriyi alıyoruz
+            const portfolioData = response.data.data; // API'den dönen veriyi al
             console.log("Portfolio Data:", portfolioData); // Yanıtı kontrol edin
     
             if (!portfolioData || portfolioData.length === 0) {
                 console.log("Portföy verisi bulunamadı.");
             } else {
-                table.clear().draw();
+                // Tablonun içeriğini temizle
+                const tableBody = document.querySelector("#portfolioTable tbody");
+                tableBody.innerHTML = "";
+    
                 portfolioData.forEach(portfolio => {
-                    table.row.add([
-                        portfolio.portfolioName,
-                    
-
-                        portfolio.isActive ? 'Aktif' : 'Pasif',
-                        `
-                         <button class="btn btn-danger btn-sm delete-btn" title="Sil" data-id="${portfolio._id}"><i class="fas fa-trash"></i></button>`
-                    ]).draw();
+                    // Yeni bir tablo satırı oluştur
+                    const row = document.createElement("tr");
+    
+                    // Portföy bilgilerini içeren hücreleri ekle
+                    row.innerHTML = `
+                        <td>${portfolio.portfolioName || "Belirtilmemiş"}</td>
+                        <td>${portfolio.propertyOwnerName || "Belirtilmemiş"}</td>
+                        <td>${portfolio.isActive ? "Aktif" : "Pasif"}</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm delete-btn" title="Sil" data-id="${portfolio._id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    `;
+    
+                    // Satırı tabloya ekle
+                    tableBody.appendChild(row);
+                });
+    
+                // Silme butonları için olay dinleyicisi ekle
+                document.querySelectorAll(".delete-btn").forEach(button => {
+                    button.addEventListener("click", async function () {
+                        const portfolioId = this.getAttribute("data-id");
+                        if (confirm("Bu portföyü silmek istediğinize emin misiniz?")) {
+                            await deletePortfolio(portfolioId);
+                            // Tablonun yeniden yüklenmesi
+                            getPortfolio(personelId);
+                        }
+                    });
                 });
             }
         } catch (error) {
             console.error("Portföy verileri alınırken bir hata oluştu:", error);
         }
+    }
+    
+    function handleDeletePerson(id) {
+        Swal.fire({
+            title: 'Emin misiniz?',
+            text: "Bu kişiyi silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, sil!',
+            cancelButtonText: 'İptal',
+            reverseButtons: true
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const response = await axios.post(
+                        "http://localhost:3001/api/v1/emlakze/admin/deleteportfolio",
+                        { deleteId: id },
+                        { headers: { "Content-Type": "application/json" } }
+                    );
+
+                    if (response.status === 200) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Portfolyo  başarıyla silindi!',
+                            showConfirmButton: true,
+                            timer: 1500
+                        }).then((result) => {
+                            if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+                                getPersonel(); // Güncel personel listesini almak için tabloyu güncelle
+                            }
+                        });
+                    }
+                } catch (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Bir hata oluştu!',
+                        text: 'Lütfen tekrar deneyin.',
+                        showConfirmButton: true
+                    });
+                    console.error("Hata:", error.response ? error.response.data : error.message);
+                }
+            }
+        });
     }
     
 
@@ -121,7 +188,7 @@ $(document).ready(function() {
 
     $('#portfolioTable').on('click', '.delete-btn', function() {
         const id = $(this).data('id');
-        handleDeleteTenant(id);
+        handleDeletePerson(id);
     });
 
     $('#portfolioTable').on('click', '.edit-btn', function() {
