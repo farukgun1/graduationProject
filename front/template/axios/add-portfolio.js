@@ -254,7 +254,7 @@ async function populateCustomer(personelId) {
   
           Swal.fire({
             icon: 'success',
-            title: 'Data saved successfully!',
+            title: 'Portföyle Başarıyla Eklendi!',
             showConfirmButton: true,
             timer: 1500,
           }).then((result) => {
@@ -277,7 +277,7 @@ async function populateCustomer(personelId) {
           )
           Swal.fire({
             icon: 'error',
-            title: 'An error occurred!',
+            title: 'Portföyle Eklenemedi!',
             text: 'Please try again.',
             showConfirmButton: true,
           })

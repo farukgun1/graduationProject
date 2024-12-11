@@ -112,14 +112,15 @@ console.log("filteredData",filteredData)
                 table.row.add([
                     property.details[0].propertyName,
                     property.propertyOwnerName,
-                    property.details[0].bbNo,
-                    property.details[0].type,
-                    property.details[0].attribute,
                     property.details[0].usageType,
+                    property.isActive ? 'Aktif' : 'Pasif',
                     property.details[0].netM2,
                     property.details[0].grossM2,
+                    property.details[0].attribute,
+                    property.details[0].bbNo,
+                    property.details[0].type,
                     property.details[0].listingPrice,
-                    property.isActive ? 'Aktif' : 'Pasif',
+                    
                     rentStatus,
                     `<div class="btn-group">
                     <button class="btn btn-success btn-sm edit-btn" title="Düzenle" data-id="${property._id}"><i class="fas fa-edit"></i></button>

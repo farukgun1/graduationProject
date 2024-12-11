@@ -443,7 +443,7 @@ console.log("payloadpayload",payload)
 
         Swal.fire({
           icon: 'success',
-          title: 'Data saved successfully!',
+          title: 'Mülk Başarıyla Eklendi!',
           showConfirmButton: true,
           timer: 1500,
         }).then((result) => {
@@ -466,7 +466,7 @@ console.log("payloadpayload",payload)
         )
         Swal.fire({
           icon: 'error',
-          title: 'An error occurred!',
+          title: 'Mülk Eklenemedi!',
           text: 'Please try again.',
           showConfirmButton: true,
         })
