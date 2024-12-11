@@ -655,7 +655,7 @@ await populateCustomer(personelId)
 
 
 
-            setInputValue('#country2', details.country2);
+          
              setInputValue('#province', details.province);
             setInputValue('#district', details.district);
             setInputValue('#neighborhood', details.neighborhood);
@@ -780,7 +780,7 @@ await populateCustomer(personelId)
             setInputValue('#titleDeedType', titledeed.titleDeedType);
             setInputValue('#titleDeedTransferMethod', titledeed.titleDeedTransferMethod);
             setInputValue('#titleDeedTransferDate', titledeed.titleDeedTransferDate);
-            setInputValue('#titledeedcountry', titledeed.titledeedcountry);
+          
             setInputValue('#titledeedprovince', titledeed.titledeedprovince);
             setInputValue('#titledeeddistrict', titledeed.titledeeddistrict);
             setInputValue('#titledeedneighborhood', titledeed.titledeedneighborhood);
@@ -832,7 +832,7 @@ await populateCustomer(personelId)
                 bookValue: document.querySelector('#bookValue').value,
 
 
-                country2: document.querySelector('#country2').value,
+              
                 province: document.querySelector('#province').value,
                 district: document.querySelector('#district').value,
                 neighborhood: document.querySelector('#neighborhood').value,
@@ -896,7 +896,7 @@ await populateCustomer(personelId)
                 titleDeedType: document.querySelector('#titleDeedType').value,
                 titleDeedTransferMethod: document.querySelector('#titleDeedTransferMethod').value,
                 titleDeedTransferDate: document.querySelector('#titleDeedTransferDate').value,
-                titledeedcountry: document.querySelector('#titledeedcountry').value,
+       
                 titledeedprovince: document.querySelector('#titledeedprovince').value,
                 titledeeddistrict: document.querySelector('#titledeeddistrict').value,
                 titledeedneighborhood: document.querySelector('#titledeedneighborhood').value,
