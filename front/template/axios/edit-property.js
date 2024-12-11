@@ -216,62 +216,62 @@ await populateCustomer(personelId)
     const demirbasForm = document.getElementById('demirbas-form')
 
     if (demirbasForm) {
-      // "Demirbaş Ekle" butonuna tıklandığında yeni satır ekle
-      document
-        .getElementById('data-repeater-create')
-        .addEventListener('click', function () {
-          const assetContainer = demirbasForm.querySelector(
-            '[data-repeater-list="assets"]',
-          )
-          const newAssetRow = `
-                  <div data-repeater-item>
-                      <div class="row d-flex align-items-end">
-                          <div class="col-md-4 col-12">
-                              <div class="mb-1">
-                                  <label class="form-label" for="assetName">Demirbaş Adı</label>
-                                  <input type="text" name="assetName" class="form-control" placeholder="Demirbaş adı" />
-                              </div>
-                          </div>
-                          <div class="col-md-2 col-12">
-                              <div class="mb-1">
-                                  <label class="form-label" for="quantity">Miktar</label>
-                                  <input type="number" name="quantity" class="form-control" placeholder="1" />
-                              </div>
-                          </div>
-                          <div class="col-md-2 col-12">
-                              <div class="mb-1">
-                                  <label class="form-label" for="price">Fiyat</label>
-                                  <input type="text" name="price" class="form-control" placeholder="Fiyat" />
-                              </div>
-                          </div>
-                          <div class="col-md-2 col-12 ">
-                              <div class="mb-1">
-                                  <button class="btn btn-outline-danger text-nowrap px-1" data-repeater-delete type="button">
-                                      <i class="fa-solid fa-x"></i>
-                                   
-                                  </button>
-                              </div>
+        // "Demirbaş Ekle" butonuna tıklandığında yeni satır ekle
+        document
+          .getElementById('data-repeater-create')
+          .addEventListener('click', function () {
+            const assetContainer = demirbasForm.querySelector(
+              '[data-repeater-list="assets"]',
+            )
+            const newAssetRow = `
+              <div data-repeater-item>
+                  <div class="row d-flex align-items-end">
+                      <div class="col-md-4 col-12">
+                          <div class="mb-1">
+                              <label class="form-label" for="assetName">Demirbaş Adı</label>
+                              <input type="text" name="assetName" class="form-control" placeholder="Demirbaş adı" />
                           </div>
                       </div>
-                      <hr />
+                      <div class="col-md-2 col-12">
+                          <div class="mb-1">
+                              <label class="form-label" for="quantity">Miktar</label>
+                              <input type="number" name="quantity" class="form-control" placeholder="1" />
+                          </div>
+                      </div>
+                      <div class="col-md-2 col-12">
+                          <div class="mb-1">
+                              <label class="form-label" for="price">Fiyat</label>
+                              <input type="text" name="price" class="form-control" placeholder="Fiyat" />
+                          </div>
+                      </div>
+                      <div class="col-md-2 col-12 mb-50">
+                          <div class="mb-1">
+                              <button class="btn btn-outline-danger text-nowrap px-1" data-repeater-delete type="button">
+                                  <i class="fa-solid fa-x"></i>
+                              </button>
+                          </div>
+                      </div>
                   </div>
-              `
-          assetContainer.insertAdjacentHTML('beforeend', newAssetRow)
-        })
-  
-      // Kaldırma işlemi için olay dinleyici
-      demirbasForm.addEventListener('click', function (e) {
-        if (e.target.matches('[data-repeater-delete]')) {
-          const itemToRemove = e.target.closest('[data-repeater-item]')
-          if (itemToRemove) {
-            itemToRemove.remove() // Satırı kaldır
-          }
-        }
-      })
+                  <hr />
+              </div>
+            `
+            // Satırı ekle
+            assetContainer.insertAdjacentHTML('beforeend', newAssetRow)
+          })
       
-    } else {
-      console.error('Demirbaş formu bulunamadı!')
-    }
+        // Kaldırma işlemi için olay dinleyici
+        demirbasForm.addEventListener('click', function (e) {
+          if (e.target.matches('[data-repeater-delete]')) {
+            const itemToRemove = e.target.closest('[data-repeater-item]')
+            if (itemToRemove) {
+              itemToRemove.remove() // Satırı kaldır
+            }
+          }
+        })
+      } else {
+        console.error('Demirbaş formu bulunamadı!')
+      }
+      
 
     const dataa = await populateStates();
 
