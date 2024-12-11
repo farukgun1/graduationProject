@@ -637,7 +637,7 @@ const deleteTenant = async (input, res, next, results) => {
       return next(createCustomError(1001, errorRoute.Enum.general))
     }
 
-    return next(createSuccessMessage(2004, updatedCustomer));
+    return next(createSuccessMessage(2004, updatedTenant));
   } catch (err) {
     return next(createCustomError(9000, errorRoute.Enum.general))
   }
@@ -781,54 +781,33 @@ const getPortfolioList = async (req, res, next) => {
 
 
 const updateProperty = async (input, res, next, results) => {
-  const {
-    updatedId,
-    propertyOwner,
-    propertyName,
-    status,
-    propertyStatus,
-    realEstateCode,
-    country,
-    city,
-    district,
-    neighborhood,
-    street,
-    avenue,
-    externalDoorNumber,
-    internalDoorNumber,
-    address,
-    latitude,
-    longitude,
-    titleDeedCount,
-    actualUsageType,
-    actualUsagePurpose,
-    photo,
-    details,
-    otherDetails,
-    isActive,
-  } = input
-
   try {
+    // `updatedId`'yi `input`'tan ayır ve geri kalan her şeyi al
+    const { updatedId, ...updateFields } = input;
+
+    // Mülkü güncelle
     const updatedProperty = await propertySchema.findByIdAndUpdate(
-      updatedId,
-      {
-        ...input,
-      },
-      { new: true },
-    )
+      updatedId, // Güncellenmesi gereken ID
+      { ...updateFields }, // Geri kalan tüm alanlar güncellemeye dahil edilir
+      { new: true, runValidators: true } // Güncellenmiş belgeyi döndür ve şema doğrulamasını çalıştır
+    );
 
     if (!updatedProperty) {
-      return res.status(404).json({ message: 'Property not found' })
+      return res.status(404).json({ message: 'Property not found' }); // Mülk bulunamazsa hata döndür
     }
 
-    res
-      .status(200)
-      .json({ message: 'Property updated successfully', updatedProperty })
+    res.status(200).json({
+      message: 'Property updated successfully',
+      updatedProperty,
+    }); // Başarılı güncelleme yanıtı
   } catch (err) {
-    console.error(err)
-    return next(createCustomError(9000, errorRoute.Enum.general))
+    console.error('Error updating property:', err);
+
+    // Genel bir hata durumu
+    return next(createCustomError(9000, errorRoute.Enum.general));
   }
-}
+};
+
 const updateStatusProperty = async (input, res, next, results) => {
   const { updatedId, status } = input
 
@@ -862,12 +841,12 @@ const getProperty = async (req, res, next) => {
     const results = await Promise.all(
       properties.map(async (property) => {
         let propertyOwnerName = null;
-        console.log(property.details[0].propertyOwnerName)
+        console.log(property.propertyOwnerId)
 
-        if (property.details[0].propertyOwnerName) {
+        if (property.propertyOwnerId) {
           // Müşteri bilgilerini ID ile al
           const customer = await customerSchema.findOne(
-            { _id: property.details[0].propertyOwnerName },
+            { _id: property.propertyOwnerId },
             'name surname'
           );
        
@@ -896,61 +875,61 @@ const getProperty = async (req, res, next) => {
 const getProperty2 = async (input, res, next) => {
   try {
     const { personelId, portfolioId } = input;
-    console.log("input", input);
 
-    // Filtreleme kriterleri
     const filter = {
       personelId: personelId,
     };
 
-    // Eğer portfolioId varsa filtreye ekle
     if (portfolioId) {
       filter.details = { $elemMatch: { portfolioId: portfolioId } };
     }
-    console.log("filter", filter);
 
-    // Mülkleri getir
     const properties = await propertySchema.find(filter);
 
-    // Eğer mülk bulunamadıysa
     if (!properties.length) {
       return res.status(404).json({ message: "Hiçbir mülk bulunamadı." });
     }
 
-    // Müşteri ID'lerini topla
-    const customerIds = properties
-      .map((property) => property.details?.[0]?.propertyOwnerId)
-      .filter((id) => id);
+    const results = await Promise.all(
+      properties.map(async (property) => {
+        let propertyOwnerName = "Bilinmiyor";
+        const propertyOwnerId = property.propertyOwnerId;
 
-    // Müşteri bilgilerini getir
-    const customers = await customerSchema.find(
-      { _id: { $in: customerIds } },
-      "name surname"
+        if (propertyOwnerId) {
+          try {
+            const customer = await customerSchema.findOne(
+              { _id: propertyOwnerId },
+              "name surname"
+            );
+        
+            if (customer) {
+              propertyOwnerName = `${customer.name} ${customer.surname}`;
+            } else {
+              console.warn(`Müşteri kaydı bulunamadı. ID: ${propertyOwnerId}`);
+            }
+          } catch (err) {
+            console.error(
+              `Müşteri bilgisi alınırken hata oluştu: ${err.message}`
+            );
+          }
+        } else {
+          console.warn("Geçersiz veya boş bir propertyOwnerId mevcut.");
+        }
+        
+
+        return {
+          ...property.toObject(),
+          propertyOwnerName,
+        };
+      })
     );
 
-    // Müşteri bilgilerini bir haritada düzenle
-    const customerMap = customers.reduce((map, customer) => {
-      map[customer._id] = `${customer.name} ${customer.surname}`;
-      return map;
-    }, {});
-
-    // Sonuçları zenginleştir
-    const results = properties.map((property) => {
-      const propertyOwnerName = customerMap[property.details?.[0]?.propertyOwnerId] || "Bilinmiyor";
-      return {
-        ...property.toObject(),
-        propertyOwnerName,
-      };
-    });
-
-    // Sonuçları döndür
     res.status(200).json(results);
   } catch (err) {
     console.error(err);
     next(createCustomError(9000, errorRoute.Enum.general));
   }
 };
-
 
 
 
@@ -1818,20 +1797,24 @@ const getPropertyCount = async (input, res, next) => {
 
 const getRentCount = async (input, res, next) => {
   try {
-    // isActive: true olan ve rents dizisi bulunan mülklerin sayısını al
+    const { personelId } = input; // İlgili personelId'yi al
+
+    // personelId ve diğer kriterlere göre filtrele
     const propertyCount = await propertySchema.countDocuments({
-      isActive: true,
+      personelId, // Belirli personelId'ye sahip olan mülkler
+      isActive: true, // Aktif mülkler
       rents: { $exists: true, $ne: [] } // rents dizisi boş olmamalı
     });
 
-    console.log(propertyCount);
+    console.log(`Personel ID: ${personelId} için mülk sayısı:`, propertyCount);
 
     res.status(200).json({ propertyCount });
   } catch (err) {
-    console.error(err);
+    console.error('Error fetching rent count:', err);
     next(createCustomError(9000, errorRoute.Enum.general));
   }
 };
+
 
 
 //

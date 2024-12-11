@@ -82,7 +82,7 @@ $(document).ready(function() {
         try {
             const response = await axios.post(
                 "http://localhost:3001/api/v1/emlakze/admin/getlistportfolio",
-                { personelId },
+                {},
                 { headers: { "Content-Type": "application/json" } }
             );
     
@@ -96,11 +96,21 @@ $(document).ready(function() {
             if (!portfolioData || portfolioData.length === 0) {
                 console.log("Portföy verisi bulunamadı.");
             } else {
+                // personelId ile eşleşen verileri filtrele
+                const filteredData = portfolioData.filter(
+                    (portfolio) => portfolio.personelId === personelId
+                );
+    
+                if (filteredData.length === 0) {
+                    console.log("Filtrelenmiş portföy verisi bulunamadı.");
+                    return;
+                }
+    
                 // Tablonun içeriğini temizle
                 const tableBody = document.querySelector("#portfolioTable tbody");
                 tableBody.innerHTML = "";
     
-                portfolioData.forEach(portfolio => {
+                filteredData.forEach((portfolio) => {
                     // Yeni bir tablo satırı oluştur
                     const row = document.createElement("tr");
     
@@ -121,7 +131,7 @@ $(document).ready(function() {
                 });
     
                 // Silme butonları için olay dinleyicisi ekle
-                document.querySelectorAll(".delete-btn").forEach(button => {
+                document.querySelectorAll(".delete-btn").forEach((button) => {
                     button.addEventListener("click", async function () {
                         const portfolioId = this.getAttribute("data-id");
                         if (confirm("Bu portföyü silmek istediğinize emin misiniz?")) {

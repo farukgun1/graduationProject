@@ -29,6 +29,30 @@ async function populateStates(citycode) {
         console.error("İl verileri alınırken hata oluştu:", error);
     }
 }
+// Populate customer dropdown
+async function populateCustomer(personelId) {
+    try {
+      const url = 'http://localhost:3001/api/v1/emlakze/admin/getcustomer';
+      const response = await axios.post(url, {});
+      const selectElement = document.getElementById('propertyOwnerName');
+  
+      // Clear previous options
+      selectElement.innerHTML = '';
+  
+      // Filter customers by personelId
+      response.data.data
+        .filter(customer => customer.personelId === personelId) // Filter logic
+        .forEach((customer) => {
+          const option = document.createElement('option');
+          option.value = customer._id;
+          option.textContent = `${customer.name} ${customer.surname}`;
+          selectElement.appendChild(option);
+        });
+    } catch (error) {
+      console.error('Customer data retrieval error:', error);
+    }
+  }
+  
 // İlçeleri doldur
 async function populateDistricts(stateCode) {
     try {
@@ -102,7 +126,7 @@ async function populateNeighborhoodsTwo(district) {
       })
     }
   }
- 
+
 
 document.addEventListener('DOMContentLoaded', async function () {
     function base64UrlDecode(str) {
@@ -183,7 +207,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('id');
-
+    const personelId=payload.id
+await populateCustomer(personelId)
     if (!id) {
         console.error('Mülk ID bulunamadı.');
         return;
@@ -300,19 +325,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             // Select2 ile seçim kutusunu yeniden başlat
             $('#portfolioId').select2();
     
-            // Portföy değişiminde propertyId'yi sıfırla
-            $('#portfolioId').on('change', function () {
-                const selectedPortfolioId = $(this).val();
-    
-                // Property seçim kutusunu sıfırla
-                const propertySelect = document.getElementById("propertyId");
-                propertySelect.innerHTML = '<option value="">Seç</option>';
-    
-                console.log("Selected Portfolio ID:", selectedPortfolioId);
-                if (selectedPortfolioId) {
-                    populateProperty(personelId, selectedPortfolioId);
-                }
-            });
+           
     
         } catch (error) {
             console.error('Portfolio verileri alınırken hata oluştu:', error.message);
@@ -755,11 +768,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 
 
-
-
-
-
-
             setInputValue('#location', titledeed.location);
              setInputValue('#area', titledeed.area);
             setInputValue('#parcelShare', titledeed.parcelShare);
@@ -797,6 +805,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             details: {
                 propertyName: document.querySelector('#propertyName').value,
                 portfolioId: document.querySelector('#portfolioId').value,
+                propertyOwnerId: document.querySelector('#propertyOwnerName').value, // propertyOwnerId burada alınıyor
                 block: document.querySelector('#block').value,
                 bbNo: document.querySelector('#bbNo').value,
                 attribute: document.querySelector('#attribute').value,
@@ -834,7 +843,6 @@ document.addEventListener('DOMContentLoaded', async function () {
                 daskStartDate: document.querySelector('#daskStartDate').value,
                 daskEndDate: document.querySelector('#daskEndDate').value,
                 daskPolicyNumber: document.querySelector('#daskPolicyNumber').value,
-                propertyOwnerName: document.querySelector('#propertyOwnerName').value,
                 forownerpurchaseDate: document.querySelector('#forownerpurchaseDate').value,
                
                 nonRentStatus: document.querySelector('#nonRentStatus').value,
