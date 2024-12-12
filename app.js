@@ -41,15 +41,24 @@ app.disable('x-powered-by')
 
 const pagesConfig = JSON.parse(fs.readFileSync(path.join(__dirname, 'pages.json'), 'utf-8'));
 
-app.get('/', (req, res) => {
-  res.sendFile(
-    path.join(__dirname, 'front', 'template', 'pages', 'list-customer.html')
-  );
+app.get('', (req, res) => {
+  res.redirect('login'); // Ana sayfayı /login'e yönlendir
+});
+
+// Login sayfası rotası
+app.get('/login', (req, res) => {
+
+
+ 
+  console.log(path.join(__dirname, 'front','template','pages', 'index.html')) 
+  res.sendFile(path.join(__dirname, 'front','template','pages', 'index.html')); // Örnek olarak bir login sayfası döndür
 });
 
 app.get('/:page', (req, res) => {
 
+
   const page = req.params.page;
+  console.log("hii", page)
 
   let fileName = pagesConfig[page];  
 

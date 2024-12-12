@@ -81,7 +81,7 @@ $(document).ready(function() {
     async function getProperty() {
         try {
             const response = await axios.post(
-                "http://localhost:3001/api/v1/emlakze/admin/getproperty",
+                "https://emlak.dveb.com.tr/api/v1/emlakze/admin/getproperty",
                 {},
                 {
                     headers: { "Content-Type": "application/json" },
@@ -146,7 +146,7 @@ console.log("filteredData",filteredData)
             if (result.isConfirmed) {
                 try {
                     const response = await axios.post(
-                        "http://localhost:3001/api/v1/emlakze/admin/deleteproperty",
+                        "https://emlak.dveb.com.tr/api/v1/emlakze/admin/deleteproperty",
                         { deleteId: id },
                         { headers: { "Content-Type": "application/json" } }
                     );

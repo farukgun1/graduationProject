@@ -17,7 +17,7 @@ console.log("jwt",jwt)
 
 async function populateStates(citycode) {
     try {
-        let url = "http://localhost:3001/api/v1/emlakze/admin/getLocation";
+        let url = "https://emlak.dveb.com.tr/api/v1/emlakze/admin/getLocation";
         let requestData = {};
 
         if (citycode) {
@@ -69,7 +69,7 @@ async function populateNeighborhoods(district) {
 
 async function populatePersonel() {
     try {
-        let url = "http://localhost:3001/api/v1/emlakze/admin/getPersonel";
+        let url = "https://emlak.dveb.com.tr/api/v1/emlakze/admin/getPersonel";
         const response = await axios.post(url, {});
         const selectElement = document.getElementById("customer-personel");
 
@@ -88,7 +88,7 @@ async function populatePersonel() {
 async function submitForm(formData) {
     try {
         const response = await axios.post(
-            "http://localhost:3001/api/v1/emlakze/admin/setcustomer",
+            "https://emlak.dveb.com.tr/api/v1/emlakze/admin/setcustomer",
             JSON.stringify(formData),
             { headers: { "Content-Type": "application/json" } }
         );

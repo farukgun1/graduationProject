@@ -80,7 +80,7 @@ $(document).ready(function() {
     async function getTenant() {
         try {
             const response = await axios.post(
-                "http://localhost:3001/api/v1/emlakze/admin/gettenant",
+                "https://emlak.dveb.com.tr/api/v1/emlakze/admin/gettenant",
                 {},
                 {
                     headers: { "Content-Type": "application/json" },
@@ -126,7 +126,7 @@ $(document).ready(function() {
             if (result.isConfirmed) {
                 try {
                     const response = await axios.post(
-                        "http://localhost:3001/api/v1/emlakze/admin/deletetenant",
+                        "https://emlak.dveb.com.tr/api/v1/emlakze/admin/deletetenant",
                         { deletedId: id },
                         { headers: { "Content-Type": "application/json" } }
                     );

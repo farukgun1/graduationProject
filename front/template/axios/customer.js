@@ -80,7 +80,7 @@ $(document).ready(function() {
     async function getCustomer() {
         try {
             const response = await axios.post(
-                "http://localhost:3001/api/v1/emlakze/admin/getCustomer",
+                "https://emlak.dveb.com.tr/api/v1/emlakze/admin/getCustomer",
                 {},
                 { headers: { "Content-Type": "application/json" } }
             );
@@ -137,7 +137,7 @@ $(document).ready(function() {
             if (result.isConfirmed) {
                 try {
                     const response = await axios.post(
-                        "http://localhost:3001/api/v1/emlakze/admin/deletecustomer",
+                        "https://emlak.dveb.com.tr/api/v1/emlakze/admin/deletecustomer",
                         { deletedId: id },
                         { headers: { "Content-Type": "application/json" } }
                     );

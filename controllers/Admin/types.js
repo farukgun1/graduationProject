@@ -409,6 +409,9 @@ const updatePropertyInput = z.object({
     nonRentStatus: z.string().optional(),
     mortgageStatus: z.string().optional(),
     propertyTransactionStatus: z.string().optional(),
+    
+    propertyId: z.string().optional(), // Gayrimenkul ID'si//
+    realEstateInvestmentsPortfolio: z.string().optional(), // Gayrimenkul Yatırımları Portföyü//
 
   }).optional(),
   otherDetails: z.object({
@@ -542,7 +545,7 @@ const updatePropertyInput = z.object({
     titledeeddistrict: z.string().optional(),
     titledeedneighborhood: z.string().optional(),
     ownership: z.string().optional(),
-    mainPropertyDescription: z.enum(['Arsa', 'BetonermeBinaveArsası']).optional(),
+    mainPropertyDescription: z.enum(['','Arsa', 'BetonermeBinaveArsası']).optional(),
     restrictionStatus: z.enum(['Kisitli', 'KisitliDegil']).optional(),
     shareType: z.enum(['Payli', 'Paylasilmis', 'Tam', 'Bagimsiz']).optional(),
     bbShareRatio: z.string().optional()

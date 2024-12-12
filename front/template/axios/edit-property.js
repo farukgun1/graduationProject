@@ -16,7 +16,7 @@ console.log("jwt",jwt)
 
 async function populateStates(citycode) {
     try {
-        let url = "http://localhost:3001/api/v1/emlakze/admin/getLocation";
+        let url = "https://emlak.dveb.com.tr/api/v1/emlakze/admin/getLocation";
         let requestData = {};
 
         if (citycode) {
@@ -32,7 +32,7 @@ async function populateStates(citycode) {
 // Populate customer dropdown
 async function populateCustomer(personelId) {
     try {
-      const url = 'http://localhost:3001/api/v1/emlakze/admin/getcustomer';
+      const url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getcustomer';
       const response = await axios.post(url, {});
       const selectElement = document.getElementById('propertyOwnerName');
   
@@ -301,7 +301,7 @@ await populateCustomer(personelId)
     async function populatePortfolio(personelId, selectedPortfolioId = null) {
         console.log("personelId",personelId)
         try {
-            const url = 'http://localhost:3001/api/v1/emlakze/admin/getportfolio';
+            const url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getportfolio';
             const response = await axios.post(url, { personelId });
     
             const selectElement = document.getElementById('portfolioId');
@@ -335,7 +335,7 @@ await populateCustomer(personelId)
 
     async function getProperty() {
         try {
-            const response = await axios.post('http://localhost:3001/api/v1/emlakze/admin/getproperty', {}, {
+            const response = await axios.post('https://emlak.dveb.com.tr/api/v1/emlakze/admin/getproperty', {}, {
                 headers: { 'Content-Type': 'application/json' }
             });
 
@@ -348,7 +348,7 @@ await populateCustomer(personelId)
     }
     async function deletePhoto(photoId, photoName) {
         try {
-            const response = await axios.post('http://localhost:3001/api/v1/emlakze/admin/deletePhoto', 
+            const response = await axios.post('https://emlak.dveb.com.tr/api/v1/emlakze/admin/deletePhoto', 
             {
                 propertyId: photoId,
                 photoName: photoName
@@ -532,7 +532,7 @@ await populateCustomer(personelId)
           
             const assets = property.asset;
             const titledeed = property.titledeed;
-            const baseURL = 'http://localhost:3001/public/';
+            const baseURL = 'https://emlak.dveb.com.tr/public/';
     
             // Fotoğrafları ekle
             const swiperWrapper = document.querySelector('.swiper-wrapper');
@@ -834,7 +834,11 @@ await populateCustomer(personelId)
                 bookValue: document.querySelector('#bookValue').value,
                 marketValue: document.querySelector('#marketValue').value,
                 specialPrice: document.querySelector('#specialPrice').value,
+
+                valuationPricePerM2:document.querySelector('#valuationPricePerM2').value,
+
                 downPaymentPrice: document.querySelector('#downPaymentPrice').value,
+              
 
             
 
@@ -958,7 +962,7 @@ await populateCustomer(personelId)
  
        // Fotoğrafları gönder
        photoResponse=   await axios.post(
-         "http://localhost:3001/api/v1/emlakze/admin/setphotos",
+         "https://emlak.dveb.com.tr/api/v1/emlakze/admin/setphotos",
          photoFormData,
          {
            headers: { "Content-Type": "multipart/form-data" }

@@ -14,7 +14,8 @@
    "personellistele": "list-personel.html",
    "mulklistele": "list-property.html",
    "kiracılistele": "list-tenant.html",
-   "kiralistele": "list-rent.html"
+   "kiralistele": "list-rent.html",
+   "login":"index.html"
 
 
 }

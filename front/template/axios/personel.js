@@ -32,7 +32,7 @@ $(document).ready(function() {
         loadingElement.show();
         try {
             const response = await axios.post(
-                "http://localhost:3001/api/v1/emlakze/admin/getpersonel",
+                "https://emlak.dveb.com.tr/api/v1/emlakze/admin/getpersonel",
                 {},
                 {
                     headers: { "Content-Type": "application/json" },
@@ -81,7 +81,7 @@ $(document).ready(function() {
             if (result.isConfirmed) {
                 try {
                     const response = await axios.post(
-                        "http://localhost:3001/api/v1/emlakze/admin/deletepersonel",
+                        "https://emlak.dveb.com.tr/api/v1/emlakze/admin/deletepersonel",
                         { deletedId: id },
                         { headers: { "Content-Type": "application/json" } }
                     );

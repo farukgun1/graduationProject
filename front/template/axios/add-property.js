@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 async function populateStates(citycode) {
   try {
-    let url = 'http://localhost:3001/api/v1/emlakze/admin/getLocation'
+    let url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getLocation'
     let requestData = {}
 
     if (citycode) {
@@ -126,7 +126,7 @@ async function populateNeighborhoodsTwo(district) {
 // Populate customer dropdown
 async function populateCustomer(personelId) {
   try {
-    const url = 'http://localhost:3001/api/v1/emlakze/admin/getcustomer';
+    const url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getcustomer';
     const response = await axios.post(url, {});
     const selectElement = document.getElementById('propertyOwnerName');
 
@@ -150,7 +150,7 @@ async function populateCustomer(personelId) {
 
 async function populatePortfolio(personelId) {
   try {
-    const url = 'http://localhost:3001/api/v1/emlakze/admin/getportfolio';
+    const url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getportfolio';
     
     // API'den verileri alın
     const response = await axios.post(url, { personelId });
@@ -433,7 +433,7 @@ console.log("payloadpayload",payload)
       try {
         // 1. Send form data
         const formResponse = await axios.post(
-          'http://localhost:3001/api/v1/emlakze/admin/setproperty',
+          'https://emlak.dveb.com.tr/api/v1/emlakze/admin/setproperty',
           organizedData,
           { headers: { 'Content-Type': 'application/json' } },
         )
@@ -450,7 +450,7 @@ console.log("payloadpayload",payload)
 
         // 2. Send photos
         const photoResponse = await axios.post(
-          'http://localhost:3001/api/v1/emlakze/admin/setphotos',
+          'https://emlak.dveb.com.tr/api/v1/emlakze/admin/setphotos',
           photoFormData,
           { headers: { 'Content-Type': 'multipart/form-data' } },
         )

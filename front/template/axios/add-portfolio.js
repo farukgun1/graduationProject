@@ -33,7 +33,7 @@ function getJWTFromCookie() {
   
   async function populateStates(citycode) {
     try {
-      let url = 'http://localhost:3001/api/v1/emlakze/admin/getLocation'
+      let url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getLocation'
       let requestData = {}
   
       if (citycode) {
@@ -89,7 +89,7 @@ function getJWTFromCookie() {
   // Populate customer dropdown
 async function populateCustomer(personelId) {
   try {
-    const url = 'http://localhost:3001/api/v1/emlakze/admin/getcustomer';
+    const url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getcustomer';
     const response = await axios.post(url, {});
     const selectElement = document.getElementById('propertyOwnerName');
 
@@ -256,7 +256,7 @@ if (!payload || !payload.role || payload.role.trim() === "") {
         try {
           // 1. Send form data
           const formResponse = await axios.post(
-            'http://localhost:3001/api/v1/emlakze/admin/setportfolio',
+            'https://emlak.dveb.com.tr/api/v1/emlakze/admin/setportfolio',
             organizedData,
             { headers: { 'Content-Type': 'application/json' } },
           )

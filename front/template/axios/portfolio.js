@@ -81,7 +81,7 @@ $(document).ready(function() {
     async function getPortfolio(personelId) {
         try {
             const response = await axios.post(
-                "http://localhost:3001/api/v1/emlakze/admin/getlistportfolio",
+                "https://emlak.dveb.com.tr/api/v1/emlakze/admin/getlistportfolio",
                 {},
                 { headers: { "Content-Type": "application/json" } }
             );
@@ -160,7 +160,7 @@ $(document).ready(function() {
             if (result.isConfirmed) {
                 try {
                     const response = await axios.post(
-                        "http://localhost:3001/api/v1/emlakze/admin/deleteportfolio",
+                        "https://emlak.dveb.com.tr/api/v1/emlakze/admin/deleteportfolio",
                         { deleteId: id },
                         { headers: { "Content-Type": "application/json" } }
                     );

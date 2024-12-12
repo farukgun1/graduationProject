@@ -48,7 +48,7 @@ $(document).ready(function() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const rentId = urlParams.get('id');
-    const fileURL = "http://localhost:3001";
+    const fileURL = "https://emlak.dveb.com.tr/";
 
     // DataTables'ı başlat
     const table = $('#rentpaidTable').DataTable({
@@ -105,7 +105,7 @@ $(document).ready(function() {
     async function getRent() {
         try {
             const response = await axios.post(
-                "http://localhost:3001/api/v1/emlakze/admin/getpaidrents",
+                "https://emlak.dveb.com.tr/api/v1/emlakze/admin/getpaidrents",
                 { rentId: rentId },
                 { headers: { "Content-Type": "application/json" } }
             );
@@ -137,7 +137,7 @@ $(document).ready(function() {
     async function populatePaymentForm() {
         try {
             const response = await axios.post(
-                "http://localhost:3001/api/v1/emlakze/admin/getrentbyid",
+                "https://emlak.dveb.com.tr/api/v1/emlakze/admin/getrentbyid",
                 { rentId: rentId },
                 { headers: { "Content-Type": "application/json" } }
             );
@@ -186,7 +186,7 @@ $(document).ready(function() {
         }
 
         try {
-            const response = await axios.post('http://localhost:3001/api/v1/emlakze/admin/setfiles', fileFormData, {
+            const response = await axios.post('https://emlak.dveb.com.tr/api/v1/emlakze/admin/setfiles', fileFormData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

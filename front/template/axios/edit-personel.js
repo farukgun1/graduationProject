@@ -12,7 +12,7 @@ $(document).ready(function() {
 
     async function getPersonel() {
         try {
-            const response = await axios.post('http://localhost:3001/api/v1/emlakze/admin/getpersonel', {}, {
+            const response = await axios.post('https://emlak.dveb.com.tr/api/v1/emlakze/admin/getpersonel', {}, {
                 headers: { 'Content-Type': 'application/json' }
             });
 
@@ -60,7 +60,7 @@ $(document).ready(function() {
         };
 
         try {
-            const response = await axios.post('http://localhost:3001/api/v1/emlakze/admin/updatepersonel', formData, {
+            const response = await axios.post('https://emlak.dveb.com.tr/api/v1/emlakze/admin/updatepersonel', formData, {
                 headers: { 'Content-Type': 'application/json' }
             });
             console.log('Güncelleme Yanıtı:', response.data);

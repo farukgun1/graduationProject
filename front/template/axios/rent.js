@@ -83,7 +83,7 @@ $(document).ready(function() {
     async function getRent() {
         try {
             const response = await axios.post(
-                "http://localhost:3001/api/v1/emlakze/admin/getallrent",
+                "https://emlak.dveb.com.tr/api/v1/emlakze/admin/getallrent",
                 {},
                 { headers: { "Content-Type": "application/json" } }
             );

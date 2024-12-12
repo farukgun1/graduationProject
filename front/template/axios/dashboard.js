@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     async function fetchPropertyCount() {
         try {
             const response = await axios.post(
-                'http://localhost:3001/api/v1/emlakze/admin/getpropertycount',
+                'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getpropertycount',
                 { personelId },
                 { headers: { 'Content-Type': 'application/json' } }
             );
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     async function fetchRentCount() {
         try {
             const response = await axios.post(
-                'http://localhost:3001/api/v1/emlakze/admin/getrentcount',
+                'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getrentcount',
                 { personelId },
                 { headers: { 'Content-Type': 'application/json' } }
             );
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     async function fetchPersonelCount() {
         try {
             const response = await axios.post(
-                'http://localhost:3001/api/v1/emlakze/admin/getpersonelcount',
+                'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getpersonelcount',
                 {},
                 { headers: { 'Content-Type': 'application/json' } }
             );
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     async function fetchAverageRentIncome() {
         try {
             const response = await axios.post(
-                'http://localhost:3001/api/v1/emlakze/admin/calculateAverageRentIncome',
+                'https://emlak.dveb.com.tr/api/v1/emlakze/admin/calculateAverageRentIncome',
                 { personelId },
                 { headers: { 'Content-Type': 'application/json' } }
             );

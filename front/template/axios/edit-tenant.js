@@ -57,7 +57,7 @@ $(document).ready(function() {
 
     async function getTenant() {
         try {
-            const response = await axios.post('http://localhost:3001/api/v1/emlakze/admin/gettenant', {}, {
+            const response = await axios.post('https://emlak.dveb.com.tr/api/v1/emlakze/admin/gettenant', {}, {
                 headers: { 'Content-Type': 'application/json' }
             });
 
@@ -115,7 +115,7 @@ $(document).ready(function() {
         };
 
         try {
-            const response = await axios.post('http://localhost:3001/api/v1/emlakze/admin/updatetenant', formData, {
+            const response = await axios.post('https://emlak.dveb.com.tr/api/v1/emlakze/admin/updatetenant', formData, {
                 headers: { 'Content-Type': 'application/json' }
             });
             console.log('Güncelleme Yanıtı:', response.data);

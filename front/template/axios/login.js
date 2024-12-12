@@ -9,7 +9,7 @@ async function postLogin() {
 
         console.log(requestData);
 
-        const response = await axios.post('http://http://localhost:3001/api/v1/emlakze/admin/loginuser', requestData);
+        const response = await axios.post('https://emlak.dveb.com.tr//api/v1/emlakze/admin/loginuser', requestData);
 
         console.log("Response:", response);
 
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         try {
             
-            const response = await axios.post('http://localhost:3001/api/v1/emlakze/admin/loginuser', formData, {
+            const response = await axios.post('https://emlak.dveb.com.tr/api/v1/emlakze/admin/loginuser', formData, {
                 headers: { 'Content-Type': 'application/json' }
             });
             

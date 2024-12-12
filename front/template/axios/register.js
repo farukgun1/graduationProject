@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         try {
             
-            const response = await axios.post('http://localhost:3001/api/v1/emlakze/admin/setpersonel2', formData, {
+            const response = await axios.post('https://emlak.dveb.com.tr/api/v1/emlakze/admin/setpersonel2', formData, {
                 headers: { 'Content-Type': 'application/json' }
             });
             
