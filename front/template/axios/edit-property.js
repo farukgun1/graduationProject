@@ -641,6 +641,9 @@ await populateCustomer(personelId)
 
             setInputValue('#benchmark', details.benchmark);
             setInputValue('#integrationCode', details.integrationCode);
+            setInputValue('#realEstateInvestmentsPortfolio', details.realEstateInvestmentsPortfolio);
+            
+         
             setInputValue('#listingPrice', details.listingPrice);
             setInputValue('#costPrice', details.costPrice);
             setInputValue('#grossM2', details.grossM2);

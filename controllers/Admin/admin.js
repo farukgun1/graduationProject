@@ -1147,17 +1147,16 @@ const getAllRents = async (req, res, next) => {
       rents.map(async (rent) => {
         let property = null;
         let tenant = null;
+        let propertyName = null; // propertyName değişkeni doğru şekilde tanımlandı
 
+        // Property bilgisi getiriliyor
         if (rent.propertyId) {
-          property = await propertySchema.findOne(
-            { _id: rent.propertyId }
-          );
-          
-           propertyName = property && property.details.length > 0 ? property.details[0].propertyName : null;
-          
-          console.log(propertyName); 
+          property = await propertySchema.findOne({ _id: rent.propertyId });
+          propertyName = property?.details?.length > 0 ? property.details[0].propertyName : null; // Optional chaining ile daha güvenli kontrol
+          console.log('Property Name: ', propertyName);
         }
 
+        // Tenant bilgisi getiriliyor
         if (rent.tenantId) {
           tenant = await tenantSchema.findOne(
             { _id: rent.tenantId },
@@ -1165,25 +1164,29 @@ const getAllRents = async (req, res, next) => {
           );
         }
 
+        // Sonuç nesnesini döndür
         return {
           ...rent.toObject(),
-          propertyName: propertyName,
-          tenantName: tenant ? tenant.name : null,
-          tenantSurname: tenant ? tenant.surname : null
+          propertyName,
+          tenantName: tenant?.name || null, // Optional chaining ile tenant kontrolü
+          tenantSurname: tenant?.surname || null
         };
       })
     );
 
+    // Eğer sonuç boşsa 404 döndür
     if (results.length === 0) {
       return res.status(404).json({ message: 'No rents found' });
     }
 
+    // Başarılı yanıt
     res.status(200).json({ rents: results });
   } catch (err) {
     console.error(err);
     return next(createCustomError(9000, errorRoute.Enum.general, err.message));
   }
 };
+
 
 
 
