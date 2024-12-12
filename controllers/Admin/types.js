@@ -346,9 +346,19 @@ const setPropertyInput = z.object({
 })
 
 const updatePropertyInput = z.object({
+
   updatedId: z.string(),
   isActive: z.boolean(),
   details: z.object({
+    fundShareRatio: z.string().optional(), // Fon Hisse Oranı
+    fundArea: z.string().optional(), // Fon m²
+    grossM2Cost: z.string().optional(), // Brüt m² Maliyet
+    valuationPricePerM2: z.string().optional(), // Değerleme m² Fiyatı
+    costIncludingVAT: z.string().optional(), // KDV Dahil Maliyet
+    valuationReportDate: z.string().optional(), // Değerleme Rapor Tarihi
+    valueInValuationReport: z.string().optional(), // Değerleme Raporunda Yer Alan Değer
+    portfolioValue: z.string().optional(), // Portföy Değeri//
+    reportNumber: z.string().optional(), // Rapor No//
     propertyName: z.string().optional(),
     portfolioId: z.string(),
     block: z.string().optional(),

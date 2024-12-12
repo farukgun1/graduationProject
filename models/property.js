@@ -64,18 +64,6 @@ const DetailSchema = new mongoose.Schema({
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
   propertyName: {
     type: String,
     required: false,
