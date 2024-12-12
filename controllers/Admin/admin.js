@@ -192,7 +192,7 @@ const setPersonel = async (input, res, next) => {
       email,
       phoneNumber,
       password,
-      type
+      type: type || "" // Eğer type tanımlı değilse veya boşsa, "" olarak ayarlanır
     });
 
     // Personeli veritabanına kaydetme
