@@ -635,8 +635,7 @@ await populateCustomer(personelId)
                 $('.select2').select2();
             }
 
-
-
+          
 
 
             setInputValue('#benchmark', details.benchmark);
