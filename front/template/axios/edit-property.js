@@ -654,7 +654,7 @@ await populateCustomer(personelId)
             setInputValue('#marketValue', details.marketValue);
             setInputValue('#specialPrice', details.specialPrice);
             setInputValue('#downPaymentPrice', details.downPaymentPrice);
-
+            console.log("fff", details.specialPrice)
 
 
 
@@ -770,7 +770,10 @@ await populateCustomer(personelId)
 
 
 
-
+            function setInputValue(selector, value) {
+                $(selector).val(value).trigger('change');
+            }
+            
             setInputValue('#location', titledeed.location);
              setInputValue('#area', titledeed.area);
             setInputValue('#parcelShare', titledeed.parcelShare);
@@ -788,7 +791,7 @@ await populateCustomer(personelId)
             setInputValue('#titledeeddistrict', titledeed.titledeeddistrict);
             setInputValue('#titledeedneighborhood', titledeed.titledeedneighborhood);
             setInputValue('#ownership', titledeed.ownership);
-            setInputValue('#mainPropertyDescription', titledeed.mainPropertyDescription);
+            setInputValue('#mainPropertyDescription', titledeed.mainPropertyDescriptionn);
             setInputValue('#restrictionStatus', titledeed.restrictionStatus);
             setInputValue('#shareType', titledeed.shareType);
             setInputValue('#bbShareRatio', titledeed.bbShareRatio);
@@ -906,6 +909,7 @@ await populateCustomer(personelId)
                 ownership: document.querySelector('#ownership').value,
                 
                 restrictionStatus: document.querySelector('#restrictionStatus').value,
+                mainPropertyDescription : document.querySelector('#facades').value,
                 shareType: document.querySelector('#shareType').value,
                 bbShareRatio: document.querySelector('#bbShareRatio').value
             }
