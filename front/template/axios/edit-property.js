@@ -611,7 +611,9 @@ await populateCustomer(personelId)
             }
 
 
-
+            function setInputValue(selector, value) {
+                $(selector).val(value).trigger('change');
+            }
          
             setInputValue('#netM2', details.netM2);
             setInputValue('#grossM2', details.grossM2);
@@ -634,8 +636,6 @@ await populateCustomer(personelId)
             if ($('.select2').length) {
                 $('.select2').select2();
             }
-
-          
 
 
             setInputValue('#benchmark', details.benchmark);
@@ -668,7 +668,6 @@ await populateCustomer(personelId)
             setInputValue('#daskStartDate', details.daskStartDate);
             setInputValue('#daskEndDate', details.daskEndDate);
             setInputValue('#daskPolicyNumber', details.daskPolicyNumber);
-            setInputValue('#propertyOwnerName', propertyownername);
             setInputValue('#forownerpurchaseDate', details.forownerpurchaseDate);
       
 
@@ -767,6 +766,9 @@ await populateCustomer(personelId)
             checkValues('location', otherDetails.location || []);
 
 
+
+
+          
             
             setInputValue('#location', titledeed.location);
              setInputValue('#area', titledeed.area);
