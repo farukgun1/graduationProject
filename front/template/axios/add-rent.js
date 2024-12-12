@@ -175,6 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         container.scrollTo({
                             left: scrollPosition,
                             behavior: 'smooth'
+                            // behavior: 'smooth'
                         });
                     }
                 }
