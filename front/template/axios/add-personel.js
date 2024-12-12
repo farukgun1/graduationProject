@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const personelSurnameInput = document.getElementById('personel-surname');
         const personelPhoneInput = document.getElementById('personel-phonenumber');
         const personelEmailInput = document.getElementById('personel-email');
+        const personelPasswordInput = document.getElementById('personel-password');
 
        
         const formData = {
@@ -61,6 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
             surname: personelSurnameInput.value.trim(),
             phoneNumber: personelPhoneInput.value.trim(),
             email: personelEmailInput.value.trim(),
+            password:personelPasswordInput.value.trim(),
         };
 
         try {
