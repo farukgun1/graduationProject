@@ -129,7 +129,7 @@
             </div>
             <div class="shadow-bottom"></div>
             <!-- Horizontal menu content-->
-            <div class="navbar-container main-menu-content  container-xxl" data-menu="menu-container">
+            <div class="navbar-container main-menu-content  container-xxl" data-menu="menu-container" id="header">
                 <!-- include ../../../includes/mixins-->
                 <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
                     <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="index.html" data-bs-toggle="dropdown"><i data-feather="home"></i><span data-i18n="Dashboards">Genel</span></a>
@@ -185,6 +185,24 @@
                           
                         </ul>
                     </li>
+                    <li class="dropdown nav-item" id="personel">
+                        <a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown">
+                            <i class="fa-solid fa-user-plus"></i><span data-i18n="Pages">Personeller</span>
+                        </a>
+                        <ul class="dropdown-menu" data-bs-popper="none">
+                            <li data-menu="">
+                                <a class="dropdown-item d-flex align-items-center" href="list-personel.html" data-bs-toggle="">
+                                    <span data-i18n="Typography">Personel Listesi</span>
+                                </a>
+                            </li>
+                            <li data-menu="">
+                                <a class="dropdown-item d-flex align-items-center" href="add-personel.html" data-bs-toggle="">
+                                    <span data-i18n="Typography">Personel Ekle</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    
                     
                 </ul>
             </div>
@@ -365,8 +383,9 @@
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
-    <script src="../app-assets/js/core/app-menu.js"></script>
     <script src="../app-assets/js/core/app.js"></script>
+
+    <script src="../app-assets/js/core/app-menu.js"></script>
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
@@ -379,6 +398,7 @@
 
     <script src="./axios/add-customer.js"></script>
 
+   
     <script>
         $(window).on('load', function() {
             if (feather) {

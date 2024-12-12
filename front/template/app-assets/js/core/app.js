@@ -1111,3 +1111,45 @@ if (typeof jQuery.validator === 'function') {
     invalidEl.closest('.input-group').removeClass('.is-valid is-invalid').addClass('is-invalid');
   }
 } */
+
+
+  function getJWTFromCookiee() {
+    const name = "token=";
+    const cookieArray = document.cookie.split(';');
+    for (let i = 0; i < cookieArray.length; i++) {
+        let cookie = cookieArray[i].trim(); // trim ile baştaki ve sondaki boşlukları temizleyin
+        if (cookie.indexOf(name) === 0) {
+            return decodeURIComponent(cookie.substring(name.length, cookie.length)); // Değerini decode edin
+        }
+    }
+    return null;
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  const jwt = getJWTFromCookiee();
+
+if (jwt && jwt.split('.').length === 3) {
+  console.log('Cookie içindeki JWT:', jwt);
+  try {
+      const parts = jwt.split('.');
+      const header = JSON.parse(atob(parts[0]));
+      payload = JSON.parse(decodeURIComponent(escape(window.atob(parts[1]))));
+
+      console.log('Payloaddddd:', payload);
+
+      if(payload.role === ""){
+        setTimeout(()=> {
+          document.querySelector("#main-menu-navigation #personel").classList.add("d-none")
+        },1)
+        
+      }
+  } catch (error) {
+      console.error('Geçersiz JWT formatı:', error);
+      //window.location.href = '/giris';
+  }
+
+
+}
+});
+
+

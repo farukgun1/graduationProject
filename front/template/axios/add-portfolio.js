@@ -139,7 +139,19 @@ async function populateCustomer(personelId) {
   if (payload && payload.name && payload.surname) {
     document.getElementById("user-name").textContent = `${payload.name} ${payload.surname}`;
     }
+if (!payload || !payload.role || payload.role.trim() === "") {
+  console.log('Role boş veya tanımlanmamış, personel menüsü gizlenmeli.');
 
+  const personelMenu = document.getElementById("personel");
+  if (personelMenu) {
+      personelMenu.add("d-none");
+          
+      console.log("Personel menüsü gizlendi.");
+  } else {
+      console.log("Personel menüsü bulunamadı.");
+  }
+  console.log("fff", personelMenu)
+}
  const  personelId=payload.id
   await populateCustomer(personelId)
         

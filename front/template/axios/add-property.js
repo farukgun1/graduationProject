@@ -200,9 +200,24 @@ if (jwt && jwt.split('.').length === 3) {
     //window.location.href = '/giris';
     console.log('JWT cookie bulunamadı veya geçersiz formatta.');
 }
+
 if (payload && payload.name && payload.surname) {
   document.getElementById("user-name").textContent = `${payload.name} ${payload.surname}`;
     }
+  // Payload’ı kontrol et
+  if (!payload || !payload.role || payload.role.trim() === "") {
+    console.log('Role boş veya tanımlanmamış, personel menüsü gizlenmeli.');
+
+    const personelMenu = document.getElementById("personel");
+    if (personelMenu) {
+        personelMenu.add("d-none");
+            
+        console.log("Personel menüsü gizlendi.");
+    } else {
+        console.log("Personel menüsü bulunamadı.");
+    }
+    console.log("fff", personelMenu)
+}
 
 console.log("payloadpayload",payload)
   const demirbasForm = document.getElementById('demirbas-form')

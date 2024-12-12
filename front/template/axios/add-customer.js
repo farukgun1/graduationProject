@@ -140,6 +140,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.getElementById("user-name").textContent = `${payload.name} ${payload.surname}`;
     }
 
+
     console.log("payloadpayload",payload)
     await populatePersonel();
   

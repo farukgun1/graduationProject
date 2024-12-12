@@ -139,6 +139,20 @@ document.addEventListener('DOMContentLoaded', function () {
     if (payload && payload.name && payload.surname) {
         document.getElementById("user-name").textContent = `${payload.name} ${payload.surname}`;
           }
+    // Payload’ı kontrol et
+    if (!payload || !payload.role || payload.role.trim() === "") {
+        console.log('Role boş veya tanımlanmamış, personel menüsü gizlenmeli.');
+
+        const personelMenu = document.getElementById("personel");
+        if (personelMenu) {
+            personelMenu.add("d-none");
+                
+            console.log("Personel menüsü gizlendi.");
+        } else {
+            console.log("Personel menüsü bulunamadı.");
+        }
+        console.log("fff", personelMenu)
+    }
 
     console.log("payloadpayload",payload)
     // DataTables'ı başlat
