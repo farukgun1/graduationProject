@@ -832,7 +832,11 @@ await populateCustomer(personelId)
                 listingPrice: document.querySelector('#listingPrice').value,
                 costPrice: document.querySelector('#costPrice').value,
                 bookValue: document.querySelector('#bookValue').value,
+                marketValue: document.querySelector('#marketValue').value,
+                specialPrice: document.querySelector('#specialPrice').value,
+                downPaymentPrice: document.querySelector('#downPaymentPrice').value,
 
+            
 
               
                 province: document.querySelector('#province').value,

@@ -68,6 +68,46 @@ $(document).ready(function() {
 
     // İlk verileri yükle
     getPersonel();
+    function handleDeletePerson(id) {
+        Swal.fire({
+            title: 'Emin misiniz?',
+            text: "Bu kişiyi silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, sil!',
+            cancelButtonText: 'İptal',
+            reverseButtons: true
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const response = await axios.post(
+                        "http://localhost:3001/api/v1/emlakze/admin/deletepersonel",
+                        { deletedId: id },
+                        { headers: { "Content-Type": "application/json" } }
+                    );
+
+                    if (response.status === 200) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Kişi başarıyla silindi!',
+                            showConfirmButton: true,
+                            timer: 1500
+                        }).then(() => {
+                            getCustomer(); // Güncel müşteri listesini almak için tabloyu güncelle
+                        });
+                    }
+                } catch (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Bir hata oluştu!',
+                        text: 'Lütfen tekrar deneyin.',
+                        showConfirmButton: true
+                    });
+                    console.error("Hata:", error.response ? error.response.data : error.message);
+                }
+            }
+        });
+    }
 
     // Silme ve düzenleme butonlarına tıklama olayları
     $('#personelTable').on('click', '.delete-btn', function() {
@@ -79,4 +119,10 @@ $(document).ready(function() {
         const id = $(this).data('id');
         editPerson(id);
     });
+
+
+    function editPerson(id) {
+        window.location.href = `edit-personel.html?id=${id}`;
+    }
+
 });
