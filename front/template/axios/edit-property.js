@@ -767,11 +767,6 @@ await populateCustomer(personelId)
             checkValues('location', otherDetails.location || []);
 
 
-
-
-            function setInputValue(selector, value) {
-                $(selector).val(value).trigger('change');
-            }
             
             setInputValue('#location', titledeed.location);
              setInputValue('#area', titledeed.area);
@@ -908,7 +903,7 @@ await populateCustomer(personelId)
                 ownership: document.querySelector('#ownership').value,
                 
                 restrictionStatus: document.querySelector('#restrictionStatus').value,
-                mainPropertyDescription : document.querySelector('#facades').value,
+                mainPropertyDescription : document.querySelector('#mainPropertyDescription').value,
                 shareType: document.querySelector('#shareType').value,
                 bbShareRatio: document.querySelector('#bbShareRatio').value
             }

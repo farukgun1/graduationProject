@@ -329,7 +329,7 @@ const setPropertyInput = z.object({
     titledeeddistrict: z.string().optional(),
     titledeedneighborhood: z.string().optional(),
     ownership: z.string().optional(),
-    mainPropertyDescription: z.enum(['Arsa', 'BetonermeBinaveArsası']).optional(),
+    mainPropertyDescription: z.enum(['','Arsa', 'BetonermeBinaveArsası']).optional(),
     restrictionStatus: z.enum(['Kisitli', 'KisitliDegil']).optional(),
     shareType: z.enum(['Payli', 'Paylasilmis', 'Tam', 'Bagimsiz']).optional(),
     bbShareRatio: z.string().optional()
