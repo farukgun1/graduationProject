@@ -1036,24 +1036,42 @@
                             <div id="durumbilgiler-info" class="content" role="tabpanel" aria-labelledby="durumbilgiler-info-trigger">
                                 <div class="content-header">
                                     <h5 class="mb-0">Durum Bilgileri</h5>
-                                  
+                                    
                                 </div>
+                            
                                 <form id="durumbilgiler-form">
                                     <div class="row">
+                                       
                                         <div class="mb-1 col-md-4">
                                             <label class="form-label" for="nonRentStatus">Kira Harici Durumu</label>
-                                            <input type="text" id="nonRentStatus" name="nonRentStatus" class="form-control" placeholder="" />
+                                            <select class="select2 w-100" name="nonRentStatus" id="nonRentStatus" required>
+                                                <option value="">Seçiniz</option>
+                                                <option value="Bos">Boş</option>
+                                                <option value="Dolu">Dolu</option>
+                                               
+                                            </select>
                                         </div>
+                                  
                                         <div class="mb-1 col-md-4">
-                                            <label class="form-label" for="mortgageStatus">İpotek Durumu</label>
-                                            <input type="text" name="mortgageStatus" id="mortgageStatus" class="form-control" placeholder="" />
+                                            <label class="form-label" for="mortgageStatus">ipotek Durumu</label required>
+                                            <select class="select2 w-100" name="mortgageStatus" id="mortgageStatus">
+                                                <option value="">Seçiniz</option>
+                                                <option value="Aktif">Aktif</option>
+                                                <option value="Pasif">Pasif</option>
+                                               
+                                            </select>
                                         </div>
                                         <div class="mb-1 col-md-4">
                                             <label class="form-label" for="propertyTransactionStatus">Mülk İşlem Durumu</label>
-                                            <input type="text" id="propertyTransactionStatus" name="propertyTransactionStatus" class="form-control" placeholder="" />
+                                            <select class="select2 w-100" name="propertyTransactionStatus" id="propertyTransactionStatus" required>
+                                                <option value="">Seçiniz</option>
+                                                <option value="Kiralanabilir">Kiralanabilir</option>
+                                                <option value="Satilabilir">Satılabilir</option>
+                                               
+                                            </select>
                                         </div>
                                     </div>
-                                    
+
                                 </form>
                                 <div class="d-flex justify-content-between">
                                     <button class="btn btn-primary btn-prev">
