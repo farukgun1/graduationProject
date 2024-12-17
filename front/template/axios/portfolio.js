@@ -123,6 +123,7 @@ $(document).ready(function() {
                             <button class="btn btn-danger btn-sm delete-btn" title="Sil" data-id="${portfolio._id}">
                                 <i class="fas fa-trash"></i>
                             </button>
+                             <button class="btn btn-success btn-sm edit-btn" title="Düzenle" data-id="${portfolio._id}"><i class="fas fa-edit"></i></button>
                         </td>
                     `;
     
@@ -146,6 +147,10 @@ $(document).ready(function() {
             console.error("Portföy verileri alınırken bir hata oluştu:", error);
         }
     }
+    function editPorfoy(id) {
+        window.location.href = `edit-portfolio.html?id=${id}`;
+    }
+    
     
     function handleDeletePerson(id) {
         Swal.fire({
@@ -203,7 +208,7 @@ $(document).ready(function() {
 
     $('#portfolioTable').on('click', '.edit-btn', function() {
         const id = $(this).data('id');
-        editPerson(id);
+        editPorfoy(id);
     });
     
 });

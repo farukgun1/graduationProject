@@ -874,6 +874,55 @@ const getProperty = async (req, res, next) => {
     next(createCustomError(9000, errorRoute.Enum.general));
   }
 };
+
+const getPortfolioo = async (req, res, next) => {
+  try {
+    
+    const properties = await portfolioSchema.find({});
+
+    
+
+    // Mülkleri dönüştür ve müşteri bilgilerini ekle
+    const results = await Promise.all(
+      properties.map(async (property) => {
+        let propertyOwnerName = null;
+        console.log(property.propertyOwnerId)
+
+        if (property.propertyOwnerId) {
+          // Müşteri bilgilerini ID ile al
+          const customer = await customerSchema.findOne(
+            { _id: property.propertyOwnerId },
+            'name surname'
+          );
+       
+
+          if (customer) {
+            // Müşteri adı ve soyadı varsa tam ad oluştur
+            propertyOwnerName = `${customer.name} ${customer.surname}`;
+          }
+        }
+
+        return {
+          ...property.toObject(),
+          propertyOwnerName,
+        };
+      })
+    );
+
+    // Sonuçları döndür
+    res.status(200).json(results);
+  } catch (err) {
+    // Hata durumunda konsola yazdır ve hata işleyicisine ilet
+    console.error(err);
+    next(createCustomError(9000, errorRoute.Enum.general));
+  }
+};
+
+
+
+
+
+
 const getProperty2 = async (input, res, next) => {
   try {
     const { personelId, portfolioId } = input;
@@ -1930,5 +1979,6 @@ module.exports = {
   getPortfolio,
   getProperty2,
   getPortfolioList,
-  deletePortfoy
+  deletePortfoy,
+  getPortfolioo
 }

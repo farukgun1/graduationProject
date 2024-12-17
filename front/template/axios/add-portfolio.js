@@ -67,12 +67,49 @@ function getJWTFromCookie() {
       console.error('İlçeler verileri alınırken hata oluştu:', error)
     }
   }
+  async function populateDistrictsTwo(stateCode) {
+    try {
+      const data = await populateStates(stateCode)
+      const stateData = data[stateCode]
+      console.log(data)
+      console.log(stateCode)
+      const districtSelectElement = document.getElementById('titledeeddistrict')
+  
+      districtSelectElement.innerHTML = '<option value="">Seç</option>'
+      Object.keys(data).forEach((district) => {
+        const option = document.createElement('option')
+        option.value = district
+        option.textContent = district
+        districtSelectElement.appendChild(option)
+      })
+    } catch (error) {
+      console.error('İlçeler verileri alınırken hata oluştu:', error)
+    }
+  }
   
  
   
   async function populateNeighborhoods(district) {
     const data = await populateStates(document.getElementById('province').value)
     const neighborhoodSelectElement = document.getElementById('neighborhood')
+  
+    neighborhoodSelectElement.innerHTML = '<option value="">Seç</option>'
+    if (data[district]) {
+      data[district].forEach((neighborhood) => {
+        const option = document.createElement('option')
+        option.value = neighborhood
+        option.textContent = neighborhood
+        neighborhoodSelectElement.appendChild(option)
+      })
+    }
+  }
+  async function populateNeighborhoodsTwo(district) {
+    const data = await populateStates(
+      document.getElementById('titledeedprovince').value,
+    )
+    const neighborhoodSelectElement = document.getElementById(
+      'titledeedneighborhood',
+    )
   
     neighborhoodSelectElement.innerHTML = '<option value="">Seç</option>'
     if (data[district]) {
@@ -157,38 +194,55 @@ if (!payload || !payload.role || payload.role.trim() === "") {
         
 
   
-    const dataa = await populateStates()
-  
-    const selectElement = document.getElementById('province')
-    const districtSelectElement = document.getElementById('district')
-    const neighborhoodSelectElement = document.getElementById('neighborhood')
-  
-   
-  
-    dataa.forEach((province) => {
-      const option = document.createElement('option')
-      option.value = province.code
-      option.textContent = province.name
-      selectElement.appendChild(option)
-    })
-  
+  const dataa = await populateStates()
 
-  
-    selectElement.addEventListener('change', async function (event) {
-      districtSelectElement.innerHTML = ''
-      neighborhoodSelectElement.innerHTML = ''
-      const selectedValue = event.target.value
-      await populateDistricts(selectedValue)
-    })
-  
-  
-  
-  
-    districtSelectElement.addEventListener('change', async function () {
-      await populateNeighborhoods(this.value)
-    })
-  
-    // Populate customer dropdown
+  const selectElement = document.getElementById('province')
+  const districtSelectElement = document.getElementById('district')
+  const neighborhoodSelectElement = document.getElementById('neighborhood')
+
+  const selectElementtitledeed = document.getElementById('titledeedprovince')
+  console.log(selectElementtitledeed)
+  const titledeeddistrictSelectElement =
+    document.getElementById('titledeeddistrict')
+  const titledeedneighborhoodSelectElement = document.getElementById(
+    'titledeedneighborhood',
+  )
+
+  dataa.forEach((province) => {
+    const option = document.createElement('option')
+    option.value = province.code
+    option.textContent = province.name
+    selectElement.appendChild(option)
+  })
+
+  dataa.forEach((province) => {
+    const option = document.createElement('option')
+    option.value = province.code
+    option.textContent = province.name
+    selectElementtitledeed.appendChild(option)
+  })
+
+  selectElement.addEventListener('change', async function (event) {
+    districtSelectElement.innerHTML = ''
+    neighborhoodSelectElement.innerHTML = ''
+    const selectedValue = event.target.value
+    await populateDistricts(selectedValue)
+  })
+
+  selectElementtitledeed.addEventListener('change', async function (event) {
+    titledeeddistrictSelectElement.innerHTML = ''
+    titledeedneighborhoodSelectElement.innerHTML = ''
+    const selectedValue = event.target.value
+    await populateDistrictsTwo(selectedValue)
+  })
+
+  titledeeddistrictSelectElement.addEventListener('change', async function () {
+    await populateNeighborhoodsTwo(this.value)
+  })
+
+  districtSelectElement.addEventListener('change', async function () {
+    await populateNeighborhoods(this.value)
+  })
 
   
     // Handle form submission
@@ -207,8 +261,11 @@ if (!payload || !payload.role || payload.role.trim() === "") {
             const formId = form.id
             const formData = new FormData(form)
   
+            debugger;
+            console.log(formData)
             const formObject = {}
             formData.forEach((value, key) => {
+              console.log('22')
               if (formId === 'imkan-form') {
                 if (formObject[key]) {
                   if (Array.isArray(formObject[key])) {
@@ -250,18 +307,20 @@ if (!payload || !payload.role || payload.role.trim() === "") {
   
   
         organizedData.otherDetails = allFormData['imkan-form'] || {}
+        organizedData.titleDeeds=allFormData['tapu-form'] || {}
    
      
   
         try {
           // 1. Send form data
           const formResponse = await axios.post(
-            'https://emlak.dveb.com.tr/api/v1/emlakze/admin/setportfolio',
+            'http://localhost:3001/api/v1/emlakze/admin/setportfolio',
             organizedData,
             { headers: { 'Content-Type': 'application/json' } },
           )
   
           console.log(organizedData)
+          debugger;
           
   
           Swal.fire({

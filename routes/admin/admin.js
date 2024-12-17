@@ -4,7 +4,7 @@ const router = express.Router()
 const { inputControllerMiddleware } = require('../../middleware/inputController')
 const { setPersonelInput,updatePersonelInput,getListInput,getPersonelInput,deletePersonelInput,setCustomerInput,getCustomerInput,updateCustomerInput,deleteCustomerInput,setTenantInput,getTenantInput,updateTenantInput,deleteTenantInput,setPropertyInput,getPropertyInput,updatePropertyInput,deletePropertyInput,updateStatusPersonelInput,updateStatusTenantInput, getLocationInput,updateStatusCustomerInput,adminLoginInput, setRentInput,getRentInput,setExpenseInput,getExpenseInput,deleteRentInput,deleteExpenseInput,updateRentInput,getRentByIdInput,getExpenseByIdInput,updateExpenseInput, testPhotoInput,updateStatusPropertyInput,testFileInput, getFileInput,getTitleDeedInput,deletePhotoInput,markPaymentAsPaidInput,loginUserInput,getPropertyCountInput, setPortfolioInput} = require('../../controllers/Admin/types')
 
-const { setPersonel,updatePersonel,getPersonel,deletePersonel,getPortfolioList,deletePortfoy,calculateAverageRentIncome,getProperty2,setCustomer,getCustomer,updateCustomer,setPersonel2,deleteCustomer,settenant,getTenant,updateTenant,deleteTenant, setProperty,getProperty,updateProperty,deleteProperty,updateStatusPersonel,updateStatusTenant, getLocation,updateStatusCustomer, userLogin,setRent,getRent,setExpense,getExpense,deleteRent,deleteExpense,updateRent, getRentById,getExpenseById,updateExpense,setPhoto, updateStatusProperty,setFile,getFile, getTitleDeed,deletePhoto,getAllRents,markPaymentAsPaid,getPaidRents, loginUser,getPropertyCount,getRentCount,getPersonelCount,setPortfolio, getPortfolio} = require('../../controllers/Admin/admin')
+const { setPersonel,updatePersonel,getPersonel,deletePersonel,getPortfolioo,getPortfolioList,deletePortfoy,calculateAverageRentIncome,getProperty2,setCustomer,getCustomer,updateCustomer,setPersonel2,deleteCustomer,settenant,getTenant,updateTenant,deleteTenant, setProperty,getProperty,updateProperty,deleteProperty,updateStatusPersonel,updateStatusTenant, getLocation,updateStatusCustomer, userLogin,setRent,getRent,setExpense,getExpense,deleteRent,deleteExpense,updateRent, getRentById,getExpenseById,updateExpense,setPhoto, updateStatusProperty,setFile,getFile, getTitleDeed,deletePhoto,getAllRents,markPaymentAsPaid,getPaidRents, loginUser,getPropertyCount,getRentCount,getPersonelCount,setPortfolio, getPortfolio} = require('../../controllers/Admin/admin')
 const { upload } = require('../../helpers/multer')
 
 
@@ -39,6 +39,7 @@ router.route('/updatestatustenant').post(inputControllerMiddleware(updateStatusT
 //property
 router.route('/setproperty').post(upload.array('files'),inputControllerMiddleware(setPropertyInput, setProperty, 'post', true))
 router.route('/getproperty').post(inputControllerMiddleware(getPropertyInput, getProperty, 'post', true))
+router.route('/getportfolioo').post(inputControllerMiddleware(getPropertyInput, getPortfolioo, 'post', true))
 router.route('/getproperty2').post(inputControllerMiddleware(getPropertyInput, getProperty2, 'post', true))
 router.route('/updateproperty').post(inputControllerMiddleware(updatePropertyInput, updateProperty, 'post', true))
 router.route('/deleteproperty').post(inputControllerMiddleware(deletePropertyInput, deleteProperty, 'post', true))

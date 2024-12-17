@@ -5,21 +5,21 @@ const OtherDetailSchema = new mongoose.Schema({
   facade: {
     type: [String],
     enum: [
-      'West', 'East', 'North', 'South'
+      '','West', 'East', 'North', 'South'
     ],
     required: false
   },
   general: {
     type: [String],
     enum: [
-      'Subdivided', 'Parcelled', 'Project', 'CornerParcel'
+      '','Subdivided', 'Parcelled', 'Project', 'CornerParcel'
     ],
     required: false
   },
   environment: {
     type: [String],
     enum: [
-      'ShoppingCenter', 'Municipality', 'Mosque', 'Cemetery',
+      '','ShoppingCenter', 'Municipality', 'Mosque', 'Cemetery',
       'Seafront', 'Pharmacy', 'EntertainmentCenter', 'Fair',
       'Hospital', 'Church', 'Market', 'Park', 'PoliceStation',
       'HealthCenter', 'NeighborhoodMarket', 'Gym', 'University',
@@ -30,7 +30,7 @@ const OtherDetailSchema = new mongoose.Schema({
   disabledFriendly: {
     type: [String],
     enum: [
-      'ParkingSpace',
+      '','ParkingSpace',
       'Elevator',
       'Bathroom',
       'WideCorridor',
@@ -48,7 +48,7 @@ const OtherDetailSchema = new mongoose.Schema({
   external: {
     type: [String],
     enum: [
-      'Elevator',
+      '','Elevator',
       'Balcony',
       'Garden',
       'Penthouse',
@@ -82,7 +82,7 @@ const OtherDetailSchema = new mongoose.Schema({
   internal: {
     type: [String],
     enum: [
-      'ADSL', 'WoodenJoinery', 'SmartHome', 'BurglarAlarm', 'FireAlarm',
+      '','ADSL', 'WoodenJoinery', 'SmartHome', 'BurglarAlarm', 'FireAlarm',
       'SquatToilet', 'AluminumJoinery', 'AmericanKitchen', 'Built-inOven',
       'Elevator', 'Balcony', 'Barbecue', 'WhiteGoods', 'Painted',
       'Dishwasher', 'Refrigerator', 'Wallpaper', 'ShowerCabin', 'MasterBathroom',
@@ -96,7 +96,7 @@ const OtherDetailSchema = new mongoose.Schema({
   transportation: {
     type: [String],
     enum: [
-      "MainRoad",
+     '', "MainRoad",
       "EurasiaTunnel",
       "BosphorusBridges",
       "Street",
@@ -119,14 +119,14 @@ const OtherDetailSchema = new mongoose.Schema({
   view: {
     type: [String],
     enum: [
-      'Bosphorus', 'Sea', 'Lake', 'City', 'Nature', 'Mountain', 'Park'
+      '','Bosphorus', 'Sea', 'Lake', 'City', 'Nature', 'Mountain', 'Park'
     ],
     required: false
   },
   residentialType: {
     type: [String],
     enum: [
-      'IntermediateFloor', 'IntermediateFloorDuplex', 'GardenDuplex', 'Penthouse',
+      '','IntermediateFloor', 'IntermediateFloorDuplex', 'GardenDuplex', 'Penthouse',
       'Duplex', 'FloorDuplex', 'Detached', 'Triplex', 'GroundFloor', 'Studio'
     ],
     required: false
@@ -134,7 +134,7 @@ const OtherDetailSchema = new mongoose.Schema({
   infrastructure: {
     type: [String],
     enum: [
-      "Electricity",
+      '',"Electricity",
       "IndustrialElectricity",
       "Water",
       "Telephone",
@@ -152,7 +152,7 @@ const OtherDetailSchema = new mongoose.Schema({
   location: {
     type: [String],
     enum: [
-      "CloseToMainRoad",
+      '',"CloseToMainRoad",
       "Seafront",
       "CloseToSea",
       "CloseToAirport",
@@ -165,13 +165,118 @@ const OtherDetailSchema = new mongoose.Schema({
 
 
 });
+const TitleDeedSchema = new mongoose.Schema({
+
+
+
+  location: {
+    type: String,
+    required: false
+  },
+  area: {
+    type: String,
+    required: false
+  },
+  parcelShare: {
+    type: String,
+    required: false
+  },
+  parcelShareholder: {
+    type: String,
+    required: false
+  },
+  description: {
+    type: String,
+    required: false
+  },
+  independentSectionDescription: {
+    type: String,
+    required: false
+  },
+  volumeNumber: {
+    type: String,
+    required: false
+  },
+  journalNumber: {
+    type: String,
+    required: false
+  },
+  page: {
+    type: String,
+    required: false
+  },
+  titleDeedDate: {
+    type: String,
+    required: false
+  },
+  titleDeedType: {
+    type: String,
+    required: false
+  },
+  titleDeedTransferMethod: {
+    type: String,
+    required: false
+  },
+  titleDeedTransferDate: {
+    type: String,
+    required: false
+  },
+  titledeedcountry: {
+    type: String,
+    required: false
+  },
+  titledeedprovince: {
+    type: String,
+    required: false
+  },
+  titledeeddistrict: {
+    type: String,
+    required: false
+  },
+  titledeedneighborhood: {
+    type: String,
+    required: false
+  },
+  ownership: {
+    type: String,
+    required: false
+  },
+  mainPropertyDescription: {
+    type: String,
+    enum: ['','Arsa', 'BetonermeBinaveArsası'],
+    required: false
+  },
+  restrictionStatus: {
+    type: String,
+    enum: ['','Kisitli', 'KisitliDegil'],
+    required: false
+  },
+  shareType: {
+    type: String,
+    enum: ['','Payli', 'Paylasilmis', 'Tam', 'Bagimsiz'],
+    required: false
+  },
+  bbShareRatio: {
+    type: String,
+    required: false
+  },
+
+
+  files:{ 
+    type: String, 
+    required: false
+  },
+
+
+});
+
 
 
 const portfolio = new mongoose.Schema({
   
     portfoliotype: {
         type: String,
-        enum: ['Site', 'Ticari', 'Endüstriyel', 'Müstakil', 'Arsa', 'Bina', 'Mix'],
+        enum: ['','Site', 'Ticari', 'Endüstriyel', 'Müstakil', 'Arsa', 'Bina', 'Mix'],
         required: false
     },
     personelId:{
@@ -228,6 +333,7 @@ const portfolio = new mongoose.Schema({
       },
     
       otherDetails:[OtherDetailSchema],
+      titleDeeds:[TitleDeedSchema],
 
     
     isActive: {
