@@ -144,12 +144,12 @@ const setPropertyInput = z.object({
     propertyId: z.string().optional(), // Gayrimenkul ID'si//
     realEstateInvestmentsPortfolio: z.string().optional(), // Gayrimenkul Yatırımları Portföyü//
     propertyName: z.string().optional(),
-    portfolioId: z.string(),
+    portfolioId: z.string().optional(),
     block: z.string().optional(),
-    bbNo: z.string(),
-    attribute: z.enum(['konut', 'isyeri', 'ofis', 'dukkan', 'arsa']),
-    type: z.enum(['1+0', '1+1', '2+1', '3+1', '4+1', '3+1Dblx', '2+1Dblx', '1+1Loft', '2+1Loft', 'StudyoLoft']),
-    usageType: z.enum(['Bekliyor', 'Satilik', 'Kiralık']),
+    bbNo: z.string().optional(),
+    attribute: z.enum(['','konut', 'isyeri', 'ofis', 'dukkan', 'arsa']).optional(),
+    type: z.enum(['','1+0', '1+1', '2+1', '3+1', '4+1', '3+1Dblx', '2+1Dblx', '1+1Loft', '2+1Loft', 'StudyoLoft']).optional(),
+    usageType: z.enum(['','Bekliyor', 'Satilik', 'Kiralık']).optional(),
     netM2: z.string().optional(),
     grossM2: z.string().optional(),
     island: z.string().optional(),
@@ -199,17 +199,17 @@ const setPropertyInput = z.object({
 
   }).optional(),
   otherDetails: z.object({
-    facade: z.array(z.enum(['West', 'East', 'North', 'South'])).optional(),
-    general: z.array(z.enum(['Subdivided', 'Parcelled', 'Project', 'CornerParcel'])).optional(),
+    facade: z.array(z.enum(['','West', 'East', 'North', 'South'])).optional(),
+    general: z.array(z.enum(['','Subdivided', 'Parcelled', 'Project', 'CornerParcel'])).optional(),
     environment: z.array(z.enum([
-      'ShoppingCenter', 'Municipality', 'Mosque', 'Cemetery',
+      '','ShoppingCenter', 'Municipality', 'Mosque', 'Cemetery',
       'Seafront', 'Pharmacy', 'EntertainmentCenter', 'Fair',
       'Hospital', 'Church', 'Market', 'Park', 'PoliceStation',
       'HealthCenter', 'NeighborhoodMarket', 'Gym', 'University',
       'Primary/SecondarySchool', 'CityCenter'
     ])).optional(),
     disabledFriendly: z.array(z.enum([
-      'ParkingSpace',
+      '','ParkingSpace',
       'Elevator',
       'Bathroom',
       'WideCorridor',
@@ -223,7 +223,7 @@ const setPropertyInput = z.object({
       'SwimmingPool'
     ])).optional(),
     external: z.array(z.enum([
-      'Elevator',
+      '','Elevator',
       'Balcony',
       'Garden',
       'Penthouse',
@@ -253,7 +253,7 @@ const setPropertyInput = z.object({
       'SwimmingPool(Outdoor)'
     ])).optional(),
     internal: z.array(z.enum([
-      'ADSL', 'WoodenJoinery', 'SmartHome', 'BurglarAlarm', 'FireAlarm',
+     '', 'ADSL', 'WoodenJoinery', 'SmartHome', 'BurglarAlarm', 'FireAlarm',
       'SquatToilet', 'AluminumJoinery', 'AmericanKitchen', 'Built-inOven',
       'Elevator', 'Balcony', 'Barbecue', 'WhiteGoods', 'Painted',
       'Dishwasher', 'Refrigerator', 'Wallpaper', 'ShowerCabin', 'MasterBathroom',
@@ -264,7 +264,7 @@ const setPropertyInput = z.object({
     ])).optional(),
     
     transportation: z.array(z.enum([
-      "MainRoad",
+      '',"MainRoad",
       "EurasiaTunnel",
       "BosphorusBridges",
       "Street",
@@ -282,13 +282,13 @@ const setPropertyInput = z.object({
       "TrainStation",
       "Pier"
     ])).optional(),
-    view: z.array(z.enum(['Bosphorus', 'Sea', 'Lake', 'City', 'Nature', 'Mountain', 'Park'])),
+    view: z.array(z.enum(['','Bosphorus', 'Sea', 'Lake', 'City', 'Nature', 'Mountain', 'Park'])).optional(),
     residentialType: z.array(z.enum([
-      'IntermediateFloor', 'IntermediateFloorDuplex', 'GardenDuplex', 'Penthouse',
+      '','IntermediateFloor', 'IntermediateFloorDuplex', 'GardenDuplex', 'Penthouse',
       'Duplex', 'FloorDuplex', 'Detached', 'Triplex', 'GroundFloor', 'Studio'
     ])).optional(),
     infrastructure: z.array(z.enum([
-      "Electricity",
+      '',"Electricity",
       "IndustrialElectricity",
       "Water",
       "Telephone",
@@ -302,7 +302,7 @@ const setPropertyInput = z.object({
       "NoRoad"
     ])).optional(),
     location: z.array(z.enum([
-      "CloseToMainRoad",
+      '',"CloseToMainRoad",
       "Seafront",
       "CloseToSea",
       "CloseToAirport",
@@ -330,8 +330,8 @@ const setPropertyInput = z.object({
     titledeedneighborhood: z.string().optional(),
     ownership: z.string().optional(),
     mainPropertyDescription: z.enum(['','Arsa', 'BetonermeBinaveArsası']).optional(),
-    restrictionStatus: z.enum(['Kisitli', 'KisitliDegil']).optional(),
-    shareType: z.enum(['Payli', 'Paylasilmis', 'Tam', 'Bagimsiz']).optional(),
+    restrictionStatus: z.enum(['','Kisitli', 'KisitliDegil']).optional(),
+    shareType: z.enum(['','Payli', 'Paylasilmis', 'Tam', 'Bagimsiz']).optional(),
     bbShareRatio: z.string().optional()
   }).optional(),
   asset: z.array(z.object({
@@ -363,10 +363,10 @@ const updatePropertyInput = z.object({
     propertyName: z.string().optional(),
     portfolioId: z.string(),
     block: z.string().optional(),
-    bbNo: z.string(),
-    attribute: z.enum(['konut', 'isyeri', 'ofis', 'dukkan', 'arsa']),
-    type: z.enum(['1+0', '1+1', '2+1']),
-    usageType: z.enum(['Bekliyor', 'Satilik', 'Kiralık']),
+    bbNo: z.string().optional(),
+    attribute: z.enum(['','konut', 'isyeri', 'ofis', 'dukkan', 'arsa']).optional(),
+    type: z.enum(['','1+0', '1+1', '2+1']),
+    usageType: z.enum(['','Bekliyor', 'Satilik', 'Kiralık']).optional(),
     netM2: z.string().optional(),
     grossM2: z.string().optional(),
     island: z.string().optional(),
@@ -416,17 +416,17 @@ const updatePropertyInput = z.object({
 
   }).optional(),
   otherDetails: z.object({
-    facade: z.array(z.enum(['West', 'East', 'North', 'South'])).optional(),
-    general: z.array(z.enum(['Subdivided', 'Parcelled', 'Project', 'CornerParcel'])).optional(),
+    facade: z.array(z.enum(['','West', 'East', 'North', 'South'])).optional(),
+    general: z.array(z.enum(['','Subdivided', 'Parcelled', 'Project', 'CornerParcel'])).optional(),
     environment: z.array(z.enum([
-      'ShoppingCenter', 'Municipality', 'Mosque', 'Cemetery',
+     '', 'ShoppingCenter', 'Municipality', 'Mosque', 'Cemetery',
       'Seafront', 'Pharmacy', 'EntertainmentCenter', 'Fair',
       'Hospital', 'Church', 'Market', 'Park', 'PoliceStation',
       'HealthCenter', 'NeighborhoodMarket', 'Gym', 'University',
       'Primary/SecondarySchool', 'CityCenter'
     ])).optional(),
     disabledFriendly: z.array(z.enum([
-      'ParkingSpace',
+      '','ParkingSpace',
       'Elevator',
       'Bathroom',
       'WideCorridor',
@@ -440,7 +440,7 @@ const updatePropertyInput = z.object({
       'SwimmingPool'
     ])).optional(),
     external: z.array(z.enum([
-      'Elevator',
+      '','Elevator',
       'Balcony',
       'Garden',
       'Penthouse',
@@ -470,7 +470,7 @@ const updatePropertyInput = z.object({
       'SwimmingPool(Outdoor)'
     ])).optional(),
     internal: z.array(z.enum([
-      'ADSL', 'WoodenJoinery', 'SmartHome', 'BurglarAlarm', 'FireAlarm',
+     '', 'ADSL', 'WoodenJoinery', 'SmartHome', 'BurglarAlarm', 'FireAlarm',
       'SquatToilet', 'AluminumJoinery', 'AmericanKitchen', 'Built-inOven',
       'Elevator', 'Balcony', 'Barbecue', 'WhiteGoods', 'Painted',
       'Dishwasher', 'Refrigerator', 'Wallpaper', 'ShowerCabin', 'MasterBathroom',
@@ -481,7 +481,7 @@ const updatePropertyInput = z.object({
     ])).optional(),
     
     transportation: z.array(z.enum([
-      "MainRoad",
+     '', "MainRoad",
       "EurasiaTunnel",
       "BosphorusBridges",
       "Street",
@@ -499,13 +499,13 @@ const updatePropertyInput = z.object({
       "TrainStation",
       "Pier"
     ])).optional(),
-    view: z.array(z.enum(['Bosphorus', 'Sea', 'Lake', 'City', 'Nature', 'Mountain', 'Park'])),
+    view: z.array(z.enum(['','Bosphorus', 'Sea', 'Lake', 'City', 'Nature', 'Mountain', 'Park'])).optional(),
     residentialType: z.array(z.enum([
-      'IntermediateFloor', 'IntermediateFloorDuplex', 'GardenDuplex', 'Penthouse',
+      '','IntermediateFloor', 'IntermediateFloorDuplex', 'GardenDuplex', 'Penthouse',
       'Duplex', 'FloorDuplex', 'Detached', 'Triplex', 'GroundFloor', 'Studio'
     ])).optional(),
     infrastructure: z.array(z.enum([
-      "Electricity",
+      '',"Electricity",
       "IndustrialElectricity",
       "Water",
       "Telephone",
@@ -519,7 +519,7 @@ const updatePropertyInput = z.object({
       "NoRoad"
     ])).optional(),
     location: z.array(z.enum([
-      "CloseToMainRoad",
+      '',"CloseToMainRoad",
       "Seafront",
       "CloseToSea",
       "CloseToAirport",
@@ -547,8 +547,8 @@ const updatePropertyInput = z.object({
     titledeedneighborhood: z.string().optional(),
     ownership: z.string().optional(),
     mainPropertyDescription: z.enum(['','Arsa', 'BetonermeBinaveArsası']).optional(),
-    restrictionStatus: z.enum(['Kisitli', 'KisitliDegil']).optional(),
-    shareType: z.enum(['Payli', 'Paylasilmis', 'Tam', 'Bagimsiz']).optional(),
+    restrictionStatus: z.enum(['','Kisitli', 'KisitliDegil']).optional(),
+    shareType: z.enum(['','Payli', 'Paylasilmis', 'Tam', 'Bagimsiz']).optional(),
     bbShareRatio: z.string().optional()
   }).optional(),
   photos: z.array(z.string()).optional()
@@ -562,7 +562,172 @@ const updatePropertyInput = z.object({
 
 
 
+const updatePortfolioInput = z.object({
 
+  updatedId: z.string(),
+  isActive: z.boolean(),
+  portfoliotype: z.enum(['','Site', 'Ticari', 'Endüstriyel', 'Müstakil', 'Arsa', 'Bina', 'Mix']).optional(),
+  duesM2Price: z.string().optional(),
+  portfolioName: z.string().optional(),
+  rentM2Price: z.string().optional(),
+  country: z.string().optional(),
+  province: z.string().optional(),
+  district: z.string().optional(),
+  neighborhood: z.string().optional(),
+  latitude: z.string().optional(),
+  longitude: z.string().optional(),
+  personelId: z.string().optional(),
+  propertyOwnerId: z.string().optional(),
+
+  photos: z.string().optional(),
+
+  otherDetails: z.object({
+    facade: z.array(z.enum(['','West', 'East', 'North', 'South'])).optional(),
+    general: z.array(z.enum(['','Subdivided', 'Parcelled', 'Project', 'CornerParcel'])).optional(),
+    environment: z.array(z.enum([
+      '','ShoppingCenter', 'Municipality', 'Mosque', 'Cemetery',
+      'Seafront', 'Pharmacy', 'EntertainmentCenter', 'Fair',
+      'Hospital', 'Church', 'Market', 'Park', 'PoliceStation',
+      'HealthCenter', 'NeighborhoodMarket', 'Gym', 'University',
+      'Primary/SecondarySchool', 'CityCenter'
+    ])).optional(),
+    disabledFriendly: z.array(z.enum([
+      '','ParkingSpace',
+      'Elevator',
+      'Bathroom',
+      'WideCorridor',
+      'Entrance/Ramp',
+      'Stairs',
+      'Kitchen',
+      'RoomDoor',
+      'ParkingSocket/ElectricSwitch',
+      'HandrailRailing',
+      'Toilet',
+      'SwimmingPool'
+    ])).optional(),
+    external: z.array(z.enum([
+      '','Elevator',
+      'Balcony',
+      'Garden',
+      'Penthouse',
+      'SeaBus',
+      'CoveredGarage',
+      'Nursery',
+      'PrivatePool',
+      'ParkingLot',
+      'SwimmingPool',
+      'SteamRoom',
+      'Security',
+      'TurkishBath',
+      'Hydrophore',
+      'ThermalInsulation',
+      'Generator',
+      'CableTV',
+      'DaycareCenter',
+      'Playground',
+      'Sauna',
+      'SoundInsulation',
+      'Siding',
+      'SportsArea',
+      'WaterTank',
+      'TennisCourt',
+      'Satellite',
+      'FireEscape',
+      'SwimmingPool(Outdoor)'
+    ])).optional(),
+    internal: z.array(z.enum([
+     '', 'ADSL', 'WoodenJoinery', 'SmartHome', 'BurglarAlarm', 'FireAlarm',
+      'SquatToilet', 'AluminumJoinery', 'AmericanKitchen', 'Built-inOven',
+      'Elevator', 'Balcony', 'Barbecue', 'WhiteGoods', 'Painted',
+      'Dishwasher', 'Refrigerator', 'Wallpaper', 'ShowerCabin', 'MasterBathroom',
+      'FiberInternet', 'Oven', 'DressingRoom', 'Built-inWardrobe',
+      'VideoIntercom', 'HiltonBathroom', 'IntercomSystem', 'DoubleGlazing',
+      'CentralHeating', 'Carpet', 'LaundryRoom', 'Built-inKitchen',
+      'Sauna', 'FloorHeating', 'CentralVacuum' // Yeni değer eklendi
+    ])).optional(),
+    
+    transportation: z.array(z.enum([
+      '',"MainRoad",
+      "EurasiaTunnel",
+      "BosphorusBridges",
+      "Street",
+      "SeaBus",
+      "Minibus",
+      "E5",
+      "Airport",
+      "Marmaray",
+      "Metro",
+      "Metrobus",
+      "BusStop",
+      "CableCar",
+      "Tram",
+      "Siding",
+      "TrainStation",
+      "Pier"
+    ])).optional(),
+    view: z.array(z.enum(['','Bosphorus', 'Sea', 'Lake', 'City', 'Nature', 'Mountain', 'Park'])).optional(),
+    residentialType: z.array(z.enum([
+      '','IntermediateFloor', 'IntermediateFloorDuplex', 'GardenDuplex', 'Penthouse',
+      'Duplex', 'FloorDuplex', 'Detached', 'Triplex', 'GroundFloor', 'Studio'
+    ])).optional(),
+    infrastructure: z.array(z.enum([
+      '',"Electricity",
+      "IndustrialElectricity",
+      "Water",
+      "Telephone",
+      "NaturalGas",
+      "Sewage",
+      "WaterTreatment",
+      "WellAndBorehole",
+      "SoilStudy",
+      "RoadCleared",
+      "RoadNotCleared",
+      "NoRoad"
+    ])).optional(),
+    location: z.array(z.enum([
+      '',"CloseToMainRoad",
+      "Seafront",
+      "CloseToSea",
+      "CloseToAirport",
+      "CloseToPublicTransport",
+      "NearSea"
+    ])).optional()
+  }).optional(),
+  titleDeeds: z.object({
+    location: z.string().optional(),
+    area: z.string().optional(),
+    parcelShare: z.string().optional(),
+    parcelShareholder: z.string().optional(),
+    description: z.string().optional(),
+    independentSectionDescription: z.string().optional(),
+    volumeNumber: z.string().optional(),
+    journalNumber: z.string().optional(),
+    page: z.string().optional(),
+    titleDeedDate: z.string().optional(),
+    titleDeedType: z.string().optional(),
+    titleDeedTransferMethod: z.string().optional(),
+    titleDeedTransferDate: z.string().optional(),
+    titledeedcountry: z.string().optional(),
+    titledeedprovince: z.string().optional(),
+    titledeeddistrict: z.string().optional(),
+    titledeedneighborhood: z.string().optional(),
+    ownership: z.string().optional(),
+    mainPropertyDescription: z.enum(['','Arsa', 'BetonermeBinaveArsası']).optional(),
+    restrictionStatus: z.enum(['','Kisitli', 'KisitliDegil']).optional(),
+    shareType: z.enum(['','Payli', 'Paylasilmis', 'Tam', 'Bagimsiz']).optional(),
+    bbShareRatio: z.string().optional()
+  }).optional(),
+
+
+
+
+
+
+
+
+
+
+})
 
 
 
@@ -755,7 +920,8 @@ const setPortfolioInput = z.object({
 const testPhotoInput = z.object({
 
   userId: z.string().optional(),
-  propertyId: z.string()
+  propertyId: z.string().optional(),
+  portfolioId:z.string().optional(),
 });
 
 const testFileInput = z.object({
@@ -1065,6 +1231,7 @@ module.exports = {
   getPortfolioInput,
   loginUserInput,
   getPropertyCountInput,
+  updatePortfolioInput,
 
   markPaymentAsPaidInput
 }

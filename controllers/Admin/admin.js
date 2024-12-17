@@ -778,7 +778,33 @@ const getPortfolioList = async (req, res, next) => {
 };
 
 
+const updatePortfolio = async (input, res, next, results) => {
+  try {
+    // `updatedId`'yi `input`'tan ayır ve geri kalan her şeyi al
+    const { updatedId, ...updateFields } = input;
 
+    // Mülkü güncelle
+    const updatedProperty = await portfolioSchema.findByIdAndUpdate(
+      updatedId, // Güncellenmesi gereken ID
+      { ...updateFields }, // Geri kalan tüm alanlar güncellemeye dahil edilir
+      { new: true, runValidators: true } // Güncellenmiş belgeyi döndür ve şema doğrulamasını çalıştır
+    );
+
+    if (!updatedProperty) {
+      return res.status(404).json({ message: 'Property not found' }); // Mülk bulunamazsa hata döndür
+    }
+
+    res.status(200).json({
+      message: 'Property updated successfully',
+      updatedProperty,
+    }); // Başarılı güncelleme yanıtı
+  } catch (err) {
+    console.error('Error updating property:', err);
+
+    // Genel bir hata durumu
+    return next(createCustomError(9000, errorRoute.Enum.general));
+  }
+};
 
 
 
@@ -1664,6 +1690,53 @@ const setPhoto = async (input, res, next, results, req) => {
   }
 }
 
+const setFilesPortfolio = async (input, res, next, results, req) => {
+  try {
+    const portfolioId = input.portfolioId;
+
+    console.log("portfolioId",portfolioId)
+    console.log("portfolioId:", portfolioId);
+    console.log("Files:", req.files);
+
+    console.log("Portfolio ID:", portfolioId);
+    console.log("Uploaded Files:", req.files);
+
+    if (!portfolioId) {
+      return res.status(400).json({ error: "portfolioId ID is required" });
+    }
+
+    const files = req.files.map(file => file.filename);
+    console.log("Files to add:", files);
+
+    // Portfolioyu bul
+    const portfolio = await portfolioSchema.findById(portfolioId);
+
+    if (!portfolio) {
+      return res.status(404).json({ error: "Portfolio not found." });
+    }
+
+    // Eğer files alanı titleDeeds içindeki her nesneye eklenmeli ise
+    portfolio.titleDeeds.forEach(titleDeed => {
+      if (!titleDeed.files) {
+        titleDeed.files = [];
+      }
+      titleDeed.files.push(...files);
+    });
+
+    // Güncellenmiş portfolioyu kaydet
+    await portfolio.save();
+
+    console.log("Updated Portfolio with titleDeeds Files:", portfolio);
+    return res.status(200).json({
+      success: true,
+      message: "Files successfully uploaded to titleDeeds.",
+      portfolio
+    });
+  } catch (error) {
+    console.error("Error occurred:", error);
+    return res.status(500).json({ error: "Internal server error." });
+  }
+}
 
 
 
@@ -1980,5 +2053,7 @@ module.exports = {
   getProperty2,
   getPortfolioList,
   deletePortfoy,
-  getPortfolioo
+  getPortfolioo,
+  setFilesPortfolio,
+  updatePortfolio
 }

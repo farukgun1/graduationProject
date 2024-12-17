@@ -316,43 +316,69 @@ if (!payload || !payload.role || payload.role.trim() === "") {
           const formResponse = await axios.post(
             'http://localhost:3001/api/v1/emlakze/admin/setportfolio',
             organizedData,
-            { headers: { 'Content-Type': 'application/json' } },
-          )
-  
-          console.log(organizedData)
-          debugger;
+            { headers: { 'Content-Type': 'application/json' } }
+          );
+        
+          console.log('Form Response:', formResponse.data.data._id);
+
+          const portfolioId = formResponse.data.data._id || formResponse.data.data.savedProperty?._id;
           
-  
+          if (!portfolioId) {
+            throw new Error('Portföy ID alınamadı. Kayıt başarısız.');
+          }
+          
+        
+          if (!portfolioId) {
+            throw new Error('Portföy ID alınamadı. Kayıt başarısız.');
+          }
+        
+          const filesInput = document.getElementById('formFileMultiple');
+          const files = filesInput.files;
+          
+          if (files.length > 0) {
+            const photoFormData = new FormData();
+            photoFormData.append('portfolioId', portfolioId); // Backend bu değeri arıyor
+          
+            for (let i = 0; i < files.length; i++) {
+              photoFormData.append('files', files[i]); // Dosyaları ekle
+            }
+          
+            // Dosya yükleme isteğini gönder
+            const photoResponse = await axios.post(
+              'http://localhost:3001/api/v1/emlakze/admin/setfilesportfolio',
+              photoFormData,
+              { headers: { 'Content-Type': 'multipart/form-data' } }
+            );
+          
+            console.log('Photo Response:', photoResponse.data);
+          }
+          
+          // Başarı mesajı
           Swal.fire({
             icon: 'success',
-            title: 'Portföyle Başarıyla Eklendi!',
+            title: 'Portföy Başarıyla Eklendi!',
+            text: 'Dosyalar yüklendiyse kontrol ediniz.',
             showConfirmButton: true,
             timer: 1500,
           }).then((result) => {
-            if (
-              result.isConfirmed ||
-              result.dismiss === Swal.DismissReason.timer
-            ) {
-              tabContentContainers.forEach((container) => {
-                const form = container.querySelector('form')
-                if (form) {
-                  form.reset()
-                }
-              })
+            if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+              // Formları temizle
+              document.querySelectorAll('.bs-stepper-content .content form').forEach(form => form.reset());
             }
-          })
+          });
         } catch (error) {
           console.error(
-            'Error:',
-            error.response ? error.response.data : error.message,
-          )
+            'Hata:',
+            error.response ? error.response.data : error.message
+          );
           Swal.fire({
             icon: 'error',
-            title: 'Portföyle Eklenemedi!',
-            text: 'Please try again.',
+            title: 'Portföy Eklenemedi!',
+            text: 'Lütfen tekrar deneyiniz.',
             showConfirmButton: true,
-          })
+          });
         }
+        
       })
   })
   

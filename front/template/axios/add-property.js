@@ -433,7 +433,7 @@ console.log("payloadpayload",payload)
       try {
         // 1. Send form data
         const formResponse = await axios.post(
-          'https://emlak.dveb.com.tr/api/v1/emlakze/admin/setproperty',
+          'http://localhost:3001/api/v1/emlakze/admin/setproperty',
           organizedData,
           { headers: { 'Content-Type': 'application/json' } },
         )

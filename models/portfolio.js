@@ -262,9 +262,9 @@ const TitleDeedSchema = new mongoose.Schema({
   },
 
 
-  files:{ 
-    type: String, 
-    required: false
+  files: {
+    type: [String], // Dosya isimlerini içeren bir dizi
+    default: []     // Varsayılan olarak boş bir dizi
   },
 
 

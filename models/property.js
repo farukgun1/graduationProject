@@ -70,7 +70,7 @@ const DetailSchema = new mongoose.Schema({
   },
   portfolioId: {
     type: String,
-    required: true
+    required: false
   },
   block: {
     type: String,
@@ -78,22 +78,22 @@ const DetailSchema = new mongoose.Schema({
   },
   bbNo: {
     type: String,
-    required: true
+    required: false
   },
   attribute: {
     type: String,
-    enum: ['konut', 'isyeri', 'ofis', 'dukkan', 'arsa'],
-    required: true
+    enum: ['','konut', 'isyeri', 'ofis', 'dukkan', 'arsa'],
+   required: false
   },
   type: {
     type: String,
-    enum: ['1+0', '1+1', '2+1', '3+1', '4+1', '3+1Dblx', '2+1Dblx', '1+1Loft', '2+1Loft', 'StudyoLoft'],
-    required: true
+    enum: ['','1+0', '1+1', '2+1', '3+1', '4+1', '3+1Dblx', '2+1Dblx', '1+1Loft', '2+1Loft', 'StudyoLoft'],
+   required: false
   },
   usageType: {
     type: String,
-    enum: ['Bekliyor', 'Satilik', 'Kiralık'],
-    required: true
+    enum: ['','Bekliyor', 'Satilik', 'Kiralık'],
+   required: false
   },
   netM2: {
     type: String,
@@ -274,17 +274,17 @@ const DetailSchema = new mongoose.Schema({
   //Durum Bilgileri
   nonRentStatus: {
     type: String,
-    enum: ['Bos', 'Dolu'],
+    enum: ['','Bos', 'Dolu'],
     required: false
   },
   mortgageStatus: {
     type: String,
-    enum: ['Aktif', 'Pasif'],
+    enum: ['','Aktif', 'Pasif'],
     required: false
   },
   propertyTransactionStatus: {
     type: String,
-    enum: ['Kiralanabilir', 'Satilabilir'],
+    enum: ['','Kiralanabilir', 'Satilabilir'],
     required: false
   }
 
@@ -297,21 +297,21 @@ const OtherDetailSchema = new mongoose.Schema({
   facade: {
     type: [String],
     enum: [
-      'West', 'East', 'North', 'South'
+      '','West', 'East', 'North', 'South'
     ],
     required: false
   },
   general: {
     type: [String],
     enum: [
-      'Subdivided', 'Parcelled', 'Project', 'CornerParcel'
+      '','Subdivided', 'Parcelled', 'Project', 'CornerParcel'
     ],
     required: false
   },
   environment: {
     type: [String],
     enum: [
-      'ShoppingCenter', 'Municipality', 'Mosque', 'Cemetery',
+      '','ShoppingCenter', 'Municipality', 'Mosque', 'Cemetery',
       'Seafront', 'Pharmacy', 'EntertainmentCenter', 'Fair',
       'Hospital', 'Church', 'Market', 'Park', 'PoliceStation',
       'HealthCenter', 'NeighborhoodMarket', 'Gym', 'University',
@@ -322,7 +322,7 @@ const OtherDetailSchema = new mongoose.Schema({
   disabledFriendly: {
     type: [String],
     enum: [
-      'ParkingSpace',
+      '','ParkingSpace',
       'Elevator',
       'Bathroom',
       'WideCorridor',
@@ -340,7 +340,7 @@ const OtherDetailSchema = new mongoose.Schema({
   external: {
     type: [String],
     enum: [
-      'Elevator',
+      '','Elevator',
       'Balcony',
       'Garden',
       'Penthouse',
@@ -374,7 +374,7 @@ const OtherDetailSchema = new mongoose.Schema({
   internal: {
     type: [String],
     enum: [
-      'ADSL', 'WoodenJoinery', 'SmartHome', 'BurglarAlarm', 'FireAlarm',
+      '','ADSL', 'WoodenJoinery', 'SmartHome', 'BurglarAlarm', 'FireAlarm',
       'SquatToilet', 'AluminumJoinery', 'AmericanKitchen', 'Built-inOven',
       'Elevator', 'Balcony', 'Barbecue', 'WhiteGoods', 'Painted',
       'Dishwasher', 'Refrigerator', 'Wallpaper', 'ShowerCabin', 'MasterBathroom',
@@ -388,7 +388,7 @@ const OtherDetailSchema = new mongoose.Schema({
   transportation: {
     type: [String],
     enum: [
-      "MainRoad",
+     '', "MainRoad",
       "EurasiaTunnel",
       "BosphorusBridges",
       "Street",
@@ -411,14 +411,14 @@ const OtherDetailSchema = new mongoose.Schema({
   view: {
     type: [String],
     enum: [
-      'Bosphorus', 'Sea', 'Lake', 'City', 'Nature', 'Mountain', 'Park'
+      '','Bosphorus', 'Sea', 'Lake', 'City', 'Nature', 'Mountain', 'Park'
     ],
     required: false
   },
   residentialType: {
     type: [String],
     enum: [
-      'IntermediateFloor', 'IntermediateFloorDuplex', 'GardenDuplex', 'Penthouse',
+      '','IntermediateFloor', 'IntermediateFloorDuplex', 'GardenDuplex', 'Penthouse',
       'Duplex', 'FloorDuplex', 'Detached', 'Triplex', 'GroundFloor', 'Studio'
     ],
     required: false
@@ -426,7 +426,7 @@ const OtherDetailSchema = new mongoose.Schema({
   infrastructure: {
     type: [String],
     enum: [
-      "Electricity",
+      '',"Electricity",
       "IndustrialElectricity",
       "Water",
       "Telephone",
@@ -444,7 +444,7 @@ const OtherDetailSchema = new mongoose.Schema({
   location: {
     type: [String],
     enum: [
-      "CloseToMainRoad",
+      '',"CloseToMainRoad",
       "Seafront",
       "CloseToSea",
       "CloseToAirport",
@@ -564,17 +564,17 @@ const TitleDeed = new mongoose.Schema({
   },
   mainPropertyDescription: {
     type: String,
-    enum: ['Arsa', 'BetonermeBinaveArsası'],
+    enum: ['','Arsa', 'BetonermeBinaveArsası'],
     required: false
   },
   restrictionStatus: {
     type: String,
-    enum: ['Kisitli', 'KisitliDegil'],
+    enum: ['','Kisitli', 'KisitliDegil'],
     required: false
   },
   shareType: {
     type: String,
-    enum: ['Payli', 'Paylasilmis', 'Tam', 'Bagimsiz'],
+    enum: ['','Payli', 'Paylasilmis', 'Tam', 'Bagimsiz'],
     required: false
   },
   bbShareRatio: {
