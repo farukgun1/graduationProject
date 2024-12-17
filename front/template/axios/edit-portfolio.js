@@ -49,9 +49,11 @@ async function populateCustomer(personelId) {
           option.textContent = `${customer.name} ${customer.surname}`;
           selectElement.appendChild(option);
         });
+        console.log("ggg", response.data.data)
     } catch (error) {
       console.error('Customer data retrieval error:', error);
     }
+   
   }
   
 // İlçeleri doldur
@@ -78,7 +80,6 @@ async function populateDistricts(stateCode) {
 async function populateNeighborhoods(district) {
     const data = await populateStates(document.getElementById("province").value);
     const neighborhoodSelectElement = document.getElementById("neighborhood");
-    
     neighborhoodSelectElement.innerHTML = '<option value="">Seç</option>';
     if (data[district]) {
         data[district].forEach(neighborhood => {
@@ -203,7 +204,7 @@ await populateCustomer(personelId)
     const dataa = await populateStates();
 
     const selectElement = document.getElementById("province");
-    console.log(selectElement)
+
     const districtSelectElement = document.getElementById("district");
     const neighborhoodSelectElement = document.getElementById("neighborhood");
 
@@ -213,7 +214,10 @@ await populateCustomer(personelId)
         option.textContent = province.name;
         
         selectElement.appendChild(option);
+      
+
     });
+
 
     selectElement.addEventListener("change", async function (event) {
         districtSelectElement.innerHTML = "";
@@ -226,7 +230,8 @@ await populateCustomer(personelId)
         await populateNeighborhoods(this.value);
     });
     
-
+   
+  
 
     async function getPortfolio() {
         try {
@@ -258,13 +263,32 @@ await populateCustomer(personelId)
                 console.error('Belirtilen ID ile eşleşen mülk bulunamadı.');
                 return;
             }
+
     
             const titleDeeds = propertyData.titleDeeds?.[0] || {}; 
             const otherDetails = propertyData.otherDetails?.[0] || {};
     
             // Eyalet ve ilçe verilerini getir
-            const states = await populateStates();
+            const states = await populateStates(propertyData.province);
             let districts = {};
+
+            if (propertyData.district) {
+
+                const mahalleElement = document.getElementById("neighborhood");
+                mahalleElement.innerHTML = '<option value="">Seç</option>';
+                if (states[propertyData.district]) {
+                    states[propertyData.district].forEach(neighborhood => {
+                        const option = document.createElement("option");
+                        option.value = neighborhood;
+                        option.textContent = neighborhood;
+                        mahalleElement.appendChild(option);
+
+                        if (propertyData.neighborhood === neighborhood) {
+                            option.selected = true;
+                        }
+                    });
+                }
+            }
     
             if (titleDeeds.titledeedprovince) {
                 districts = await populateStates(titleDeeds.titledeedprovince);
@@ -272,21 +296,40 @@ await populateCustomer(personelId)
     
             // DOM elemanlarını tanımla
             const selectElement2 = document.getElementById("titledeedprovince");
+            const district = document.getElementById('district');
             const districtSelectElement2 = document.getElementById("titledeeddistrict");
             const neighborhoodSelectElement2 = document.getElementById("titledeedneighborhood");
     
             // Seçim kutularını temizle
             selectElement2.innerHTML = '<option value="">Seç</option>';
+            district.innerHTML = '<option value="">Seç</option>';
             districtSelectElement2.innerHTML = '<option value="">Seç</option>';
             neighborhoodSelectElement2.innerHTML = '<option value="">Seç</option>';
     
-            // Eyalet listesini doldur
-            states.forEach(province => {
+
+            Object.keys(states).forEach(province => {
                 const option = document.createElement("option");
-                option.value = province.code;
-                option.textContent = province.name;
+                option.value = province;
+                option.textContent = province;
+
+                console.log(propertyData.district === province)
     
-                if (titleDeeds.titledeedprovince === province.name) {
+                if (propertyData.district === province) {
+                    option.selected = true;
+                }
+                district.appendChild(option);
+            });
+
+            // Eyalet listesini doldur,
+            debugger;
+            Object.keys(states).forEach(province => {
+                const option = document.createElement("option");
+                option.value = province;
+                option.textContent = province;
+
+                console.log(propertyData.district === province)
+    
+                if (propertyData.district === province) {
                     option.selected = true;
                 }
                 selectElement2.appendChild(option);
@@ -318,13 +361,18 @@ await populateCustomer(personelId)
                 }
                 neighborhoodSelectElement2.appendChild(option);
             });
-    
             // Form verilerini doldur
+            setInputValue('#portfoliotype', propertyData.portfoliotype || '');
+            $('#portfoliotype').trigger('change');
             setInputValue('#portfolioName', propertyData.portfolioName || '');
             setInputValue('#duesM2Price', propertyData.duesM2Price || '');
             setInputValue('#latitude', propertyData.latitude || '');
             setInputValue('#longitude', propertyData.longitude || '');
-    
+            setInputValue('#province', propertyData.province || '');
+            $('#province').trigger('change');
+
+          
+
             if (titleDeeds) {
                 setInputValue('#location', titleDeeds.location || '');
                 setInputValue('#area', titleDeeds.area || '');
@@ -340,7 +388,13 @@ await populateCustomer(personelId)
                 setInputValue('#titleDeedTransferMethod', titleDeeds.titleDeedTransferMethod || '');
                 setInputValue('#titleDeedTransferDate', titleDeeds.titleDeedTransferDate || '');
                 setInputValue('#ownership', titleDeeds.ownership || '');
+                setInputValue('#mainPropertyDescription', titleDeeds.mainPropertyDescription || '');
+                $('#mainPropertyDescription').trigger('change');
                 setInputValue('#bbShareRatio', titleDeeds.bbShareRatio || '');
+                setInputValue('#restrictionStatus', titleDeeds.restrictionStatus || '');
+                $('#restrictionStatus').trigger('change');
+                setInputValue('#shareType', titleDeeds.shareType || '');
+                $('#shareType').trigger('change');
             }
     
             // Checkbox'ları işaretle
