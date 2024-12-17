@@ -787,7 +787,7 @@ await populateCustomer(personelId)
             setInputValue('#titledeeddistrict', titledeed.titledeeddistrict);
             setInputValue('#titledeedneighborhood', titledeed.titledeedneighborhood);
             setInputValue('#ownership', titledeed.ownership);
-            setInputValue('#mainPropertyDescription', titledeed.mainPropertyDescriptionn);
+            setInputValue('#mainPropertyDescription', titledeed.mainPropertyDescription);
             setInputValue('#restrictionStatus', titledeed.restrictionStatus);
             setInputValue('#shareType', titledeed.shareType);
             setInputValue('#bbShareRatio', titledeed.bbShareRatio);
