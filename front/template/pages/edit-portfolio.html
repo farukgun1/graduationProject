@@ -300,6 +300,7 @@
                                             <select class="select2 w-100" name="portfoliotype" id="portfoliotype">
                                                 <option label=""></option>
                                                 <option label="Site">Site</option>
+                                                <option label="Tarla">Tarla</option>
                                                 <option label="Ticari">Ticari</option>
                                                 <option label="Endüstriyel">Endüstriyel</option>
                                                 <option label="Müstakil">Müstakil</option>
@@ -311,13 +312,27 @@
                                     
 
                                         <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="duesM2Price">Aidat m2 Fiyatı</label>
-                                            <input type="text" name="duesM2Price" id="duesM2Price" class="form-control" placeholder="" />
+                                            <label class="form-label" for="ada">Ada</label>
+                                            <input type="text" name="ada" id="ada" class="form-control" placeholder="" />
                                         </div>
                                         <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="duesM2Price">Kira m2 Fiyatı </label>
-                                            <input type="text" name="duesM2Price" id="duesM2Price" class="form-control" placeholder="" />
+                                            <label class="form-label" for="parcel">Parcel </label>
+                                            <input type="text" name="parcel" id="parcel" class="form-control" placeholder="" />
                                         </div>
+                                        <div class="mb-1 col-md-6">
+                                            <label class="form-label" for="tasinmazno">Tasınmaz No </label>
+                                            <input type="text" name="tasinmazno" id="tasinmazno" class="form-control" placeholder="" />
+                                        </div>
+                                        <div class="mb-1 col-md-6">
+                                            <label class="form-label" for="tasinmaztipi">Taşınmaz Tipi</label>
+                                            <select class="select2 w-100" name="tasinmaztipi" id="tasinmaztipi">
+                                                <option value=""></option>
+                                                <option value="anatasinmaz">Ana Taşınmaz</option>
+                                                <option value="katmulkiyeti">Kat Mülkiyeti</option>
+                                                <option value="katirtifakı">Kat İrtifakı</option>
+                                            </select>
+                                        </div>
+                                        
                                       
                                     </div>
                                 </form>
@@ -539,6 +554,8 @@
                                             <label for="formFileMultiple" class="form-label">*Fotoğraf ekle</label>
                                             <input class="form-control" type="file" id="formFileMultiple" multiple />
                                           </div>
+
+                                          
                                     </div>
                              
                                 </form>
@@ -1411,7 +1428,7 @@
                                             <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
                                             <span class="align-middle d-sm-inline-block d-none">Geri</span>
                                         </button>
-                                        <button class="btn btn-success btn-submit-all">Kaydet</button>
+                                        <button class="btn btn-success btn-update-all">Kaydet</button>
                                     </div>
                                 </section>
                             

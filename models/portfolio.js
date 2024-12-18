@@ -276,9 +276,22 @@ const portfolio = new mongoose.Schema({
   
     portfoliotype: {
         type: String,
-        enum: ['','Site', 'Ticari', 'Endüstriyel', 'Müstakil', 'Arsa', 'Bina', 'Mix'],
+        enum: ['','Site', 'Tarla','Ticari', 'Endüstriyel', 'Müstakil', 'Arsa', 'Bina', 'Mix'],
         required: false
     },
+
+
+    tasinmaztipi:
+     {
+      type: String,
+      enum: ['','anatasinmaz', 'katmulkiyeti','katirtifakı'],
+      required: false
+  },
+
+  tasinmazno: {
+    type:String,
+    required:false
+  },
     personelId:{
       type:String,
       required:false
@@ -292,11 +305,11 @@ const portfolio = new mongoose.Schema({
       required:false
     }
     ,
-    duesM2Price:{
+    ada:{
         type:String,
         required:false
     },
-    rentM2Price:{
+    parcel:{
         type:String,
         required:false
     },

@@ -566,7 +566,9 @@ const updatePortfolioInput = z.object({
 
   updatedId: z.string(),
   isActive: z.boolean(),
-  portfoliotype: z.enum(['','Site', 'Ticari', 'Endüstriyel', 'Müstakil', 'Arsa', 'Bina', 'Mix']).optional(),
+  portfoliotype: z.enum(['','Site','Tarla', 'Ticari', 'Endüstriyel', 'Müstakil', 'Arsa', 'Bina', 'Mix']).optional(),
+  tasinmaztipi: z.enum(['','anatasinmaz','katmulkiyeti', 'katirtifakı']).optional(),
+  tasinmazno: z.string().optional(),
   duesM2Price: z.string().optional(),
   portfolioName: z.string().optional(),
   rentM2Price: z.string().optional(),
@@ -761,10 +763,12 @@ const updatePortfolioInput = z.object({
 const setPortfolioInput = z.object({
 
 
-  portfoliotype: z.enum(['','Site', 'Ticari', 'Endüstriyel', 'Müstakil', 'Arsa', 'Bina', 'Mix']).optional(),
-  duesM2Price: z.string().optional(),
+  portfoliotype: z.enum(['','Site','Tarla', 'Ticari', 'Endüstriyel', 'Müstakil', 'Arsa', 'Bina', 'Mix']).optional(),
+  tasinmaztipi: z.enum(['','anatasinmaz','katmulkiyeti', 'katirtifakı']).optional(),
+  tasinmazno: z.string().optional(),
+  ada: z.string().optional(),
   portfolioName: z.string().optional(),
-  rentM2Price: z.string().optional(),
+  parcel: z.string().optional(),
   country: z.string().optional(),
   province: z.string().optional(),
   district: z.string().optional(),

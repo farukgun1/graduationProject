@@ -111,6 +111,7 @@ $(document).ready(function() {
                 tableBody.innerHTML = "";
     
                 filteredData.forEach((portfolio) => {
+                 
                     // Yeni bir tablo satırı oluştur
                     const row = document.createElement("tr");
     
@@ -118,12 +119,14 @@ $(document).ready(function() {
                     row.innerHTML = `
                         <td>${portfolio.portfolioName || "Belirtilmemiş"}</td>
                         <td>${portfolio.propertyOwnerName || "Belirtilmemiş"}</td>
+                        <td><a href='${portfolio.titleDeeds[0].files[0]}' target="_elif">Dosyayı Görüntüle</a></td>
                         <td>${portfolio.isActive ? "Aktif" : "Pasif"}</td>
                         <td>
                             <button class="btn btn-danger btn-sm delete-btn" title="Sil" data-id="${portfolio._id}">
                                 <i class="fas fa-trash"></i>
                             </button>
                              <button class="btn btn-success btn-sm edit-btn" title="Düzenle" data-id="${portfolio._id}"><i class="fas fa-edit"></i></button>
+                              
                         </td>
                     `;
     

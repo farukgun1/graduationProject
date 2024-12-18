@@ -783,6 +783,8 @@ const updatePortfolio = async (input, res, next, results) => {
     // `updatedId`'yi `input`'tan ayır ve geri kalan her şeyi al
     const { updatedId, ...updateFields } = input;
 
+    console.log("updatedId",updatedId)
+
     // Mülkü güncelle
     const updatedProperty = await portfolioSchema.findByIdAndUpdate(
       updatedId, // Güncellenmesi gereken ID

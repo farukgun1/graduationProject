@@ -31,30 +31,34 @@ async function populateStates(citycode) {
 }
 // P
 // Populate customer dropdown
-async function populateCustomer(personelId) {
+async function populateCustomer(personelId, propertyOwnerId) {
     try {
-      const url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getcustomer';
-      const response = await axios.post(url, {});
-      const selectElement = document.getElementById('propertyOwnerName');
-  
-      // Clear previous options
-      selectElement.innerHTML = '';
-  
-      // Filter customers by personelId
-      response.data.data
-        .filter(customer => customer.personelId === personelId) // Filter logic
-        .forEach((customer) => {
-          const option = document.createElement('option');
-          option.value = customer._id;
-          option.textContent = `${customer.name} ${customer.surname}`;
-          selectElement.appendChild(option);
-        });
-        console.log("ggg", response.data.data)
+        const url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getcustomer';
+        const response = await axios.post(url, { personelId });
+        const selectElement = document.getElementById('propertyOwnerName');
+
+        // Önceki seçenekleri temizle
+        selectElement.innerHTML = '<option value="">Seçiniz</option>';
+
+        if (response.data && response.data.data) {
+            response.data.data.forEach((customer) => {
+                const option = document.createElement('option');
+                option.value = customer._id;
+                option.textContent = `${customer.name} ${customer.surname}`;
+
+                // Eğer `propertyOwnerId` ile eşleşiyorsa seçili yap
+                if (customer._id === propertyOwnerId) {
+                    option.selected = true;
+                }
+
+                selectElement.appendChild(option);
+            });
+        }
     } catch (error) {
-      console.error('Customer data retrieval error:', error);
+        console.error('Customer data retrieval error:', error);
     }
-   
-  }
+}
+
   
 // İlçeleri doldur
 async function populateDistricts(stateCode) {
@@ -246,6 +250,7 @@ await populateCustomer(personelId)
             return [];
         }
     }
+    
    
     async function populateForm(id) {
         try {
@@ -256,8 +261,14 @@ await populateCustomer(personelId)
                 console.error('API yanıtı geçersiz veya boş:', property);
                 return;
             }
-    
+          
             const propertyData = property.find(p => p._id === id);
+
+        const propertyOwnerId = propertyData.propertyOwnerId;
+        const personelId = payload.id;
+
+        // Müşteri listesini doldur
+        await populateCustomer(personelId, propertyOwnerId);
     
             if (!propertyData) {
                 console.error('Belirtilen ID ile eşleşen mülk bulunamadı.');
@@ -365,7 +376,11 @@ await populateCustomer(personelId)
             setInputValue('#portfoliotype', propertyData.portfoliotype || '');
             $('#portfoliotype').trigger('change');
             setInputValue('#portfolioName', propertyData.portfolioName || '');
-            setInputValue('#duesM2Price', propertyData.duesM2Price || '');
+            setInputValue('#ada', propertyData.ada || '');
+            setInputValue('#tasinmazno', propertyData.tasinmazno || '');
+            setInputValue('#tasinmaztipi', propertyData.tasinmaztipi || '');
+            $('#tasinmaztipi').trigger('change');
+            setInputValue('#parcel', propertyData.parcel || '');
             setInputValue('#latitude', propertyData.latitude || '');
             setInputValue('#longitude', propertyData.longitude || '');
             setInputValue('#province', propertyData.province || '');
@@ -431,32 +446,58 @@ await populateCustomer(personelId)
     
     async function updateProperty() {
         const propertyData = {
-            details: {
-                propertyName: document.querySelector('#propertyName').value,
-                portfolioId: document.querySelector('#portfolioId').value,
-                province: document.querySelector('#province').value,
-                district: document.querySelector('#district').value,
-                neighborhood: document.querySelector('#neighborhood').value,
-                grossM2: document.querySelector('#grossM2').value,
-                netM2: document.querySelector('#netM2').value
-            },
+            updatedId:id,
+            isActive:true,
+            portfolioName: document.querySelector('#portfolioName').value || '',
+            portfoliotype: document.querySelector('#portfoliotype').value || '',
+            ada: document.querySelector('#ada').value || '',
+               parcel: document.querySelector('#parcel').value || '',
+               tasinmazno: document.querySelector('#tasinmazno').value || '',
+               tasinmaztipi: document.querySelector('#tasinmaztipi').value || '',
+            latitude: document.querySelector('#latitude').value || '',
+            longitude: document.querySelector('#longitude').value || '',
+            province: document.querySelector('#province').value || '',
             titledeed: {
-                titledeedprovince: document.querySelector('#titledeedprovince').value,
-                titledeeddistrict: document.querySelector('#titledeeddistrict').value,
-                titledeedneighborhood: document.querySelector('#titledeedneighborhood').value
+                titledeedprovince: document.querySelector('#titledeedprovince').value || '',
+                location: document.querySelector('#location').value || '',
+                area: document.querySelector('#area').value || '',
+                parcelShare: document.querySelector('#parcelShare').value || '',
+                parcelShareholder: document.querySelector('#parcelShareholder').value || '',
+                description: document.querySelector('#description').value || '',
+                independentSectionDescription: document.querySelector('#independentSectionDescription').value || '',
+                volumeNumber: document.querySelector('#volumeNumber').value || '',
+                journalNumber: document.querySelector('#journalNumber').value || '',
+                page: document.querySelector('#page').value || '',
+                titleDeedDate: document.querySelector('#titleDeedDate').value || '',
+                titleDeedType: document.querySelector('#titleDeedType').value || '',
+                titleDeedTransferMethod: document.querySelector('#titleDeedTransferMethod').value || '',
+                titleDeedTransferDate: document.querySelector('#titleDeedTransferDate').value || '',
+                ownership: document.querySelector('#ownership').value || '',
+                mainPropertyDescription: document.querySelector('#mainPropertyDescription').value || '',
+                bbShareRatio: document.querySelector('#bbShareRatio').value || '',
+                restrictionStatus: document.querySelector('#restrictionStatus').value || '',
+                shareType: document.querySelector('#shareType').value || '',
             },
             otherDetails: {
                 facade: Array.from(document.querySelectorAll('input[name="facade"]:checked')).map(cb => cb.value),
                 general: Array.from(document.querySelectorAll('input[name="general"]:checked')).map(cb => cb.value),
-                environment: Array.from(document.querySelectorAll('input[name="environment"]:checked')).map(cb => cb.value)
+                environment: Array.from(document.querySelectorAll('input[name="environment"]:checked')).map(cb => cb.value),
+                disabledFriendly: Array.from(document.querySelectorAll('input[name="disabledFriendly"]:checked')).map(cb => cb.value),
+                external: Array.from(document.querySelectorAll('input[name="external"]:checked')).map(cb => cb.value),
+                internal: Array.from(document.querySelectorAll('input[name="internal"]:checked')).map(cb => cb.value),
+                transportation: Array.from(document.querySelectorAll('input[name="transportation"]:checked')).map(cb => cb.value),
+                view: Array.from(document.querySelectorAll('input[name="view"]:checked')).map(cb => cb.value),
+                residentialType: Array.from(document.querySelectorAll('input[name="residentialType"]:checked')).map(cb => cb.value),
+                infrastructure: Array.from(document.querySelectorAll('input[name="infrastructure"]:checked')).map(cb => cb.value),
+                location: Array.from(document.querySelectorAll('input[name="location"]:checked')).map(cb => cb.value),
             }
         };
-
+    
         try {
-            const response = await axios.post('https://emlak.dveb.com.tr/api/v1/emlakze/admin/updateproperty', propertyData, {
+            const response = await axios.post('http://localhost:3001/api/v1/emlakze/admin/updateportfolio', propertyData, {
                 headers: { 'Content-Type': 'application/json' }
             });
-
+    
             if (response.status === 200) {
                 Swal.fire({
                     icon: 'success',
@@ -481,10 +522,12 @@ await populateCustomer(personelId)
             });
         }
     }
-
-
+    
     // Formu doldur ve güncelleme işlemi
     populateForm(id);
+    document.querySelector('.btn-update-all').addEventListener('click', function() {
+        updateProperty();
+    });
     
     // Güncelle butonuna tıklama olayı
     
