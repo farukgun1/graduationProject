@@ -1,35 +1,33 @@
 function getJWTFromCookie() {
-  const name = "token=";
-  const cookieArray = document.cookie.split(';');
+  const name = 'token='
+  const cookieArray = document.cookie.split(';')
   for (let i = 0; i < cookieArray.length; i++) {
-      let cookie = cookieArray[i].trim(); // trim ile baştaki ve sondaki boşlukları temizleyin
-      if (cookie.indexOf(name) === 0) {
-          return decodeURIComponent(cookie.substring(name.length, cookie.length)); // Değerini decode edin
-      }
+    let cookie = cookieArray[i].trim() // trim ile baştaki ve sondaki boşlukları temizleyin
+    if (cookie.indexOf(name) === 0) {
+      return decodeURIComponent(cookie.substring(name.length, cookie.length)) // Değerini decode edin
+    }
   }
-  return null;
+  return null
 }
-const jwt = getJWTFromCookie();
+const jwt = getJWTFromCookie()
 
-console.log("jwt",jwt)
-
+console.log('jwt', jwt)
 
 document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('a[data-bs-toggle="tab"]').forEach(tabLink => {
-    tabLink.addEventListener('show.bs.tab', function(event) {
-      debugger;
-      console.log('asdaa');
-        const currentTab = document.querySelector('.tab-pane.active');
-        const form = currentTab.querySelector('form');
-  
-        if (form && !form.checkValidity()) {
-            event.preventDefault(); // Tab geçişini engelle
-            form.reportValidity(); // Hataları göster
-        }
-    });
-  });
-})
+  document.querySelectorAll('a[data-bs-toggle="tab"]').forEach((tabLink) => {
+    tabLink.addEventListener('show.bs.tab', function (event) {
+      debugger
+      console.log('asdaa')
+      const currentTab = document.querySelector('.tab-pane.active')
+      const form = currentTab.querySelector('form')
 
+      if (form && !form.checkValidity()) {
+        event.preventDefault() // Tab geçişini engelle
+        form.reportValidity() // Hataları göster
+      }
+    })
+  })
+})
 
 async function populateStates(citycode) {
   try {
@@ -46,7 +44,6 @@ async function populateStates(citycode) {
     console.error('İl verileri alınırken hata oluştu:', error)
   }
 }
-
 
 async function populateDistricts(stateCode) {
   try {
@@ -126,100 +123,98 @@ async function populateNeighborhoodsTwo(district) {
 // Populate customer dropdown
 async function populateCustomer(personelId) {
   try {
-    const url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getcustomer';
-    const response = await axios.post(url, {});
-    const selectElement = document.getElementById('propertyOwnerName');
+    const url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getcustomer'
+    const response = await axios.post(url, {})
+    const selectElement = document.getElementById('propertyOwnerName')
 
     // Clear previous options
-    selectElement.innerHTML = '';
+    selectElement.innerHTML = ''
 
     // Filter customers by personelId
     response.data.data
-      .filter(customer => customer.personelId === personelId) // Filter logic
+      .filter((customer) => customer.personelId === personelId) // Filter logic
       .forEach((customer) => {
-        const option = document.createElement('option');
-        option.value = customer._id;
-        option.textContent = `${customer.name} ${customer.surname}`;
-        selectElement.appendChild(option);
-      });
+        const option = document.createElement('option')
+        option.value = customer._id
+        option.textContent = `${customer.name} ${customer.surname}`
+        selectElement.appendChild(option)
+      })
   } catch (error) {
-    console.error('Customer data retrieval error:', error);
+    console.error('Customer data retrieval error:', error)
   }
 }
-
 
 async function populatePortfolio(personelId) {
   try {
-    const url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getportfolio';
-    
-    // API'den verileri alın
-    const response = await axios.post(url, { personelId });
-    const portfolioselectElement = document.getElementById('portfolioId');
-  
-const portfolioId = portfolioselectElement.value; // Seçilen değeri alın
+    const url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getportfolio'
 
+    // API'den verileri alın
+    const response = await axios.post(url, { personelId })
+    const portfolioselectElement = document.getElementById('portfolioId')
+
+    const portfolioId = portfolioselectElement.value // Seçilen değeri alın
 
     // Önceki seçenekleri temizle
-    portfolioselectElement.innerHTML = '<option value="">Seçiniz</option>';
+    portfolioselectElement.innerHTML = '<option value="">Seçiniz</option>'
 
     // Gelen verileri işle ve seçim kutusuna ekle
     response.data.data.forEach((portfolio) => {
-      const option = document.createElement('option');
-      option.value = portfolio._id; // ID değerini value olarak ayarla
-      option.textContent = portfolio.portfolioName || "Bilinmiyor"; // portfolioName alanını ayarla, yoksa "Bilinmiyor" yaz
-      portfolioselectElement.appendChild(option);
-    });
+      const option = document.createElement('option')
+      option.value = portfolio._id // ID değerini value olarak ayarla
+      option.textContent = portfolio.portfolioName || 'Bilinmiyor' // portfolioName alanını ayarla, yoksa "Bilinmiyor" yaz
+      portfolioselectElement.appendChild(option)
+    })
   } catch (error) {
-    console.error('Portfolio data retrieval error:', error);
+    console.error('Portfolio data retrieval error:', error)
   }
 }
-
 
 document.addEventListener('DOMContentLoaded', async function () {
   function base64UrlDecode(str) {
     // Base64url formatındaki token'ı base64 formatına çeviriyoruz
-    return atob(str.replace(/-/g, '+').replace(/_/g, '/'));
-}
+    return atob(str.replace(/-/g, '+').replace(/_/g, '/'))
+  }
 
-let payload;
+  let payload
 
-if (jwt && jwt.split('.').length === 3) {
-    console.log('Cookie içindeki JWT:', jwt);
+  if (jwt && jwt.split('.').length === 3) {
+    console.log('Cookie içindeki JWT:', jwt)
     try {
-        const parts = jwt.split('.');
-        const header = JSON.parse(base64UrlDecode(parts[0]));
-        payload = JSON.parse(decodeURIComponent(escape(base64UrlDecode(parts[1]))));
+      const parts = jwt.split('.')
+      const header = JSON.parse(base64UrlDecode(parts[0]))
+      payload = JSON.parse(
+        decodeURIComponent(escape(base64UrlDecode(parts[1]))),
+      )
 
-        console.log('Header:', header);
-        console.log('Payload:', payload);
+      console.log('Header:', header)
+      console.log('Payload:', payload)
     } catch (error) {
-        console.error('Geçersiz JWT formatı:', error);
-        //window.location.href = '/giris';
+      console.error('Geçersiz JWT formatı:', error)
     }
-} else {
-    //window.location.href = '/giris';
-    console.log('JWT cookie bulunamadı veya geçersiz formatta.');
-}
+  } else {
+    console.log('JWT cookie bulunamadı veya geçersiz formatta.')
+  }
 
-if (payload && payload.name && payload.surname) {
-  document.getElementById("user-name").textContent = `${payload.name} ${payload.surname}`;
-    }
+  if (payload && payload.name && payload.surname) {
+    document.getElementById('user-name').textContent =
+      `${payload.name} ${payload.surname}`
+  }
   // Payload’ı kontrol et
-  if (!payload || !payload.role || payload.role.trim() === "") {
-    console.log('Role boş veya tanımlanmamış, personel menüsü gizlenmeli.');
+  if (!payload || !payload.role || payload.role.trim() === '') {
+    console.log('Role boş veya tanımlanmamış, personel menüsü gizlenmeli.')
 
-    const personelMenu = document.getElementById("personel");
+    const personelMenu = document.getElementById('personel')
     if (personelMenu) {
-        personelMenu.add("d-none");
-            
-        console.log("Personel menüsü gizlendi.");
-    } else {
-        console.log("Personel menüsü bulunamadı.");
-    }
-    console.log("fff", personelMenu)
-}
+      personelMenu.add('d-none')
 
-console.log("payloadpayload",payload)
+      console.log('Personel menüsü gizlendi.')
+    } else {
+      console.log('Personel menüsü bulunamadı.')
+    }
+    console.log('fff', personelMenu)
+  }
+
+  console.log('payloadpayload', payload)
   const demirbasForm = document.getElementById('demirbas-form')
 
   if (demirbasForm) {
@@ -330,7 +325,7 @@ console.log("payloadpayload",payload)
   })
 
   // Populate customer dropdown
-  const personelId=payload.id;
+  const personelId = payload.id
   await populateCustomer(personelId)
   await populatePortfolio(personelId)
 
@@ -349,7 +344,6 @@ console.log("payloadpayload",payload)
         if (form) {
           const formId = form.id
           const formData = new FormData(form)
-          
 
           const formObject = {}
           formData.forEach((value, key) => {
@@ -371,14 +365,14 @@ console.log("payloadpayload",payload)
           allFormData[formId] = formObject
         }
       })
- const propertyOwnerSelect = document.getElementById('propertyOwnerName'); // Ensure this ID matches your select element
- 
-  const propertyOwnerId = propertyOwnerSelect.value; // Get the selected value
-  const personelId=payload.id;
+      const propertyOwnerSelect = document.getElementById('propertyOwnerName') // Ensure this ID matches your select element
 
-  const portfolioSelect = document.getElementById('portfolioId');
-  const portfolioId = portfolioSelect.value; // Seçilen değeri alın
-  console.log("Selected Portfolio ID:", portfolioId);
+      const propertyOwnerId = propertyOwnerSelect.value // Get the selected value
+      const personelId = payload.id
+
+      const portfolioSelect = document.getElementById('portfolioId')
+      const portfolioId = portfolioSelect.value // Seçilen değeri alın
+      console.log('Selected Portfolio ID:', portfolioId)
 
       // Handle files
       const files = document.getElementById('formFileMultiple').files
@@ -395,10 +389,9 @@ console.log("payloadpayload",payload)
           ...(allFormData['durumbilgiler-form'] || {}),
         },
         asset: [],
-        propertyOwnerId:propertyOwnerId,
-        personelId:personelId,
-        portfolioId:portfolioId,
-        
+        propertyOwnerId: propertyOwnerId,
+        personelId: personelId,
+        portfolioId: portfolioId,
       }
       console.log(personelId)
       console.log(propertyOwnerSelect)
@@ -421,9 +414,6 @@ console.log("payloadpayload",payload)
           })
         }
       })
-
-
-
 
       organizedData.otherDetails = allFormData['imkan-form'] || {}
       organizedData.titledeed = allFormData['tapu-form'] || {}
