@@ -2,20 +2,19 @@ function getJWTFromCookie() {
   const name = 'token='
   const cookieArray = document.cookie.split(';')
   for (let i = 0; i < cookieArray.length; i++) {
-    let cookie = cookieArray[i].trim() // trim ile baştaki ve sondaki boşlukları temizleyin
+    let cookie = cookieArray[i].trim()
     if (cookie.indexOf(name) === 0) {
-      return decodeURIComponent(cookie.substring(name.length, cookie.length)) // Değerini decode edin
+      return decodeURIComponent(cookie.substring(name.length, cookie.length))
     }
   }
   return null
 }
-const jwt = getJWTFromCookie()
 
+const jwt = getJWTFromCookie()
 console.log('jwt', jwt)
 
 document.addEventListener('DOMContentLoaded', function () {
   function base64UrlDecode(str) {
-    // Base64url formatındaki token'ı base64 formatına çeviriyoruz
     return atob(str.replace(/-/g, '+').replace(/_/g, '/'))
   }
 
@@ -38,8 +37,9 @@ document.addEventListener('DOMContentLoaded', function () {
   } else {
     console.log('JWT cookie bulunamadı veya geçersiz formatta.')
   }
+
   if (payload && payload.name) {
-    document.getElementById('user-name').textContent = payload.name // "Berfin Kale" yerine customer-name'i yerleştiriyoruz
+    document.getElementById('user-name').textContent = payload.name
   }
 
   const form = document.getElementById('add-personel')
@@ -59,18 +59,24 @@ document.addEventListener('DOMContentLoaded', function () {
       phoneNumber: personelPhoneInput.value.trim(),
       email: personelEmailInput.value.trim(),
       password: personelPasswordInput.value.trim(),
+      type: 'personel',
     }
 
     try {
       const response = await axios.post(
-        'https://emlak.dveb.com.tr/api/v1/emlakze/admin/setpersonel',
+        'https://emlak.dveb.com.tr/api/v1/emlakze/admin/setpersonel', // 🔁 endpoint düzeltildi
         formData,
         {
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            ...(jwt && { Authorization: `Bearer ${jwt}` }), // 🔐 JWT eklemesi varsa
+          },
         },
       )
+      console.log('Gönderilen formData:', formData) // Burada
 
-      console.log('response', response.data)
+      console.log('Kullanılan JWT:', jwt) // Burada
+      console.log('✅ response', response.data)
 
       Swal.fire({
         icon: 'success',
@@ -84,11 +90,10 @@ document.addEventListener('DOMContentLoaded', function () {
       })
     } catch (error) {
       console.error(
-        'Hata:',
+        '❌ Hata:',
         error.response ? error.response.data : error.message,
       )
 
-      // Hata mesajı
       Swal.fire({
         icon: 'error',
         title: 'Bir hata oluştu!',

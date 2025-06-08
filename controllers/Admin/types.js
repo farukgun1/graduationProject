@@ -11,6 +11,18 @@ const setPersonelInput = z.object({
   type: z.string().optional(),
 })
 
+console.log('✅ setPersonel2Input validator aktif!')
+
+const setPersonel2Input = z.object({
+  name: z.string(),
+  surname: z.string(),
+  email: z.string(),
+  phoneNumber: z.string(),
+  type: z.string().optional(),
+  password: z.string(), // ✅ artık password bekleniyor
+  // ❌ password yok!
+})
+
 const updatePersonelInput = z.object({
   updatedId: z.string(),
   name: z.string(),
@@ -1399,7 +1411,7 @@ const testFileInput = z.object({
   userId: z.string().optional(),
   rentId: z.string(),
   paymentDate: z.string(),
-  rentAmount: z.preprocess((val) => Number(val), z.number())
+  rentAmount: z.preprocess((val) => Number(val), z.number()),
 })
 
 const getPropertyInput = z.object({
@@ -1641,6 +1653,7 @@ module.exports = {
   loginUserInput,
   getPropertyCountInput,
   updatePortfolioInput,
+  setPersonel2Input,
 
   markPaymentAsPaidInput,
 }

@@ -11,37 +11,41 @@ class CustomAPIError extends Error {
   }
 }
 
-const databaseActionType = z.enum([
-  'create',
-  'read',
-  'update',
-  'delete'
-])
+const databaseActionType = z.enum(['create', 'read', 'update', 'delete'])
 
-const errorRoute = z.enum([
-  'general',
-  'admin',
-  'company',
-
-])
+const errorRoute = z.enum(['general', 'admin', 'company'])
 
 const createCustomError = (errorCode, route, detail) => {
   let errorRouteType
-  if (route === errorRoute.enum.general) {
+
+  if (route === errorRoute.general) {
     errorRouteType = errorMessages(errorCode, detail)
-  } else if (route === errorRoute.enum.admin) {
+  } else if (route === errorRoute.admin) {
     errorRouteType = adminErrorMessages(errorCode, detail)
+  } else {
+    // default hata mesajı
+    errorRouteType = errorMessages(errorCode, detail)
+  }
+
+  if (!errorRouteType) {
+    throw new Error(
+      `Undefined errorRouteType for errorCode ${errorCode} and route ${route}`,
+    )
   }
 
   const {
     message,
     statusCode,
     errorCode: customErrorCode,
-    detail: messageDetail
+    detail: messageDetail,
   } = errorRouteType
 
-  const error = new CustomAPIError(message, statusCode, customErrorCode, messageDetail)
-  return error
+  return new CustomAPIError(message, statusCode, customErrorCode, messageDetail)
 }
 
-module.exports = { createCustomError, CustomAPIError, errorRoute, databaseActionType }
+module.exports = {
+  createCustomError,
+  CustomAPIError,
+  errorRoute,
+  databaseActionType,
+}

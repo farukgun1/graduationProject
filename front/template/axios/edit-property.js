@@ -307,7 +307,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   async function populatePortfolio(personelId, selectedPortfolioId = null) {
     console.log('personelId', personelId)
     try {
-      const url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getportfolio'
+      const url = 'http://localhost:3001/api/v1/emlakze/admin/getportfolio'
       const response = await axios.post(url, { personelId })
 
       const selectElement = document.getElementById('portfolioId')

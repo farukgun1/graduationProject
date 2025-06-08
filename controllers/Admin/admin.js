@@ -133,70 +133,156 @@ const sendEmail = async ({ to, subject, text }) => {
 }
 
 const setPersonel2 = async (input, res, next, results) => {
-  const { name, surname, email, phoneNumber } = input
+  console.log('✅ setPersonel2 FONKSİYONUNA GİRDİ:', input)
+  console.log("🔹 setPersonel2'ye gelen input:", input) // ✅ Giriş verisi
+
+  const { name, surname, email, phoneNumber, password } = input
 
   try {
-    // Aynı e-posta veya telefon numarasını kontrol etme
     const existingPersonel = await personelSchema.findOne({
       $or: [{ email }, { phoneNumber }],
     })
+    console.log('🔹 Var olan personel:', existingPersonel) // ✅ Eğer varsa
 
     if (existingPersonel) {
+      console.warn('⚠️ Bu email veya telefon zaten kayıtlı!')
       return next(createCustomError(9000, errorRoute.Enum.general))
     }
 
-    // Rastgele şifre oluşturma
-    const randomPassword = crypto.randomBytes(4).toString('hex') // 8 karakterli rastgele şifre
+    const randomPassword = crypto.randomBytes(4).toString('hex')
+    console.log('🔐 Oluşan düz şifre:', randomPassword)
 
-    // Yeni personel nesnesi oluşturma
+    const hashedPassword = await bcrypt.hash(randomPassword, 10)
+    console.log('🔐 Hashlenmiş şifre:', hashedPassword)
+
     const newPersonel = new personelSchema({
       name,
       surname,
       email,
       phoneNumber,
-      password: randomPassword, // Şifreyi ekliyoruz
+      password: hashedPassword,
+      isActive: true,
+      actions: [],
     })
-    console.log(randomPassword)
 
-    // Personeli veritabanına kaydetme
+    console.log('💾 Kaydedilecek personel nesnesi:', newPersonel)
+
     const savedPersonel = await newPersonel.save()
+    console.log('✅ Kaydedilen personel:', savedPersonel)
 
-    // E-posta gönderme
     await sendEmail({
       to: email,
-      subject: 'Kayıt Olma Bilgileri',
-      text: `Merhaba ${name} ${surname},\n\nKayıt olduğunuz için teşekkürler! Şifreniz: ${randomPassword}`,
+      subject: 'Kayıt Bilgileriniz',
+      text: `Merhaba ${name} ${surname},\n\nSisteme giriş şifreniz: ${randomPassword}`,
     })
+    console.log('📧 E-posta gönderildi:', email)
 
     return next(createSuccessMessage(2000, savedPersonel))
   } catch (err) {
-    console.error(err)
+    console.error('❌ Personel kaydı sırasında hata:', err)
     return next(createCustomError(9000, errorRoute.Enum.general))
   }
 }
+
+// const setPersonel2 = async (input, res, next, results) => {
+// const { name, surname, email, phoneNumber } = input
+//
+// try {
+// Aynı e-posta veya telefon numarasını kontrol etme
+// const existingPersonel = await personelSchema.findOne({
+// $or: [{ email }, { phoneNumber }],
+// })
+//
+// if (existingPersonel) {
+// return next(createCustomError(9000, errorRoute.Enum.general))
+// }
+//
+// Rastgele şifre oluşturma
+// const randomPassword = crypto.randomBytes(4).toString('hex') // 8 karakterli rastgele şifre
+//
+// Yeni personel nesnesi oluşturma
+// const newPersonel = new personelSchema({
+// name,
+// surname,
+// email,
+// phoneNumber,
+// password: randomPassword, // Şifreyi ekliyoruz
+// })
+// console.log(randomPassword)
+//
+// Personeli veritabanına kaydetme
+// const savedPersonel = await newPersonel.save()
+//
+// E-posta gönderme
+// await sendEmail({
+// to: email,
+// subject: 'Kayıt Olma Bilgileri',
+// text: `Merhaba ${name} ${surname},\n\nKayıt olduğunuz için teşekkürler! Şifreniz: ${randomPassword}`,
+// })
+//
+// return next(createSuccessMessage(2000, savedPersonel))
+// } catch (err) {
+// console.error(err)
+// return next(createCustomError(9000, errorRoute.Enum.general))
+// }
+// }
+
+// const setPersonel = async (input, res, next) => {
+// const { name, surname, email, phoneNumber, password, type } = input
+//
+// try {
+// ✅ 1. Şifreyi hashle
+// const hashedPassword = await bcrypt.hash(password, 10) // 10 salt round
+//
+// ✅ 2. Hashlenmiş şifreyle personel oluştur
+// const newPersonel = new personelSchema({
+// name,
+// surname,
+// email,
+// phoneNumber,
+// password: hashedPassword, // düz değil, hash
+// type: type || '',
+// })
+//
+// const savedPersonel = await newPersonel.save()
+// console.log('✅ Kaydedilen Personel:', savedPersonel)
+//
+// return next(createSuccessMessage(2000, savedPersonel))
+// } catch (err) {
+// console.error(err)
+// return next(createCustomError(9000, errorRoute.Enum.general))
+// }
+// }
 
 const setPersonel = async (input, res, next) => {
   const { name, surname, email, phoneNumber, password, type } = input
 
   try {
-    // ✅ 1. Şifreyi hashle
+    // 1. Şifreyi hashle
     const hashedPassword = await bcrypt.hash(password, 10) // 10 salt round
 
-    // ✅ 2. Hashlenmiş şifreyle personel oluştur
+    // 2. Hashlenmiş şifreyle personel oluştur
     const newPersonel = new personelSchema({
       name,
       surname,
       email,
       phoneNumber,
-      password: hashedPassword, // düz değil, hash
+      password: hashedPassword,
       type: type || '',
     })
 
+    // 3. Kaydet
     const savedPersonel = await newPersonel.save()
+    console.log('✅ Kaydedilen Personel şifre alanı:', savedPersonel.password)
 
-    return next(createSuccessMessage(2000, savedPersonel))
+    // 4. Password alanını response'dan çıkar
+    const savedPersonelObject = savedPersonel.toObject()
+    delete savedPersonelObject.password
+
+    // 5. Başarı mesajı ile dön
+    return next(createSuccessMessage(2000, savedPersonelObject))
   } catch (err) {
-    console.error(err)
+    console.error('❌ Personel kaydı sırasında hata:', err)
     return next(createCustomError(9000, errorRoute.Enum.general))
   }
 }
@@ -753,6 +839,7 @@ const getPortfolio = async (input, res, next) => {
       return next(
         createCustomError(
           404,
+          errorRoute.general,
           'Belirtilen personelId için portföy bulunamadı.',
         ),
       )

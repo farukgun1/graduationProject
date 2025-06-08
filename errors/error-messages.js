@@ -4,19 +4,25 @@ const errorMessages = (code, detail) => {
       message: `İstek inputlarınız eksik lütfen kontrol ediniz.`,
       statusCode: 400,
       errorCode: 1000,
-      detail
+      detail,
     },
     1001: {
       message: `Veri bulunamadı.`,
       statusCode: 400,
       errorCode: 1001,
-      detail
+      detail,
     },
     9000: {
       message: `Hay aksi bir şeyler ters gitti.`,
       statusCode: 500,
       errorCode: 9000,
-      detail
+      detail,
+    },
+    404: {
+      message: 'Belirtilen kaynak bulunamadı.',
+      statusCode: 404,
+      errorCode: 404,
+      detail: detail || null,
     },
   }
   return messages[code]
