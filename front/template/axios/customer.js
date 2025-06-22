@@ -77,8 +77,8 @@ $(document).ready(function () {
   async function getCustomer() {
     try {
       const response = await axios.post(
-        'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getCustomer',
-        {},
+        'http://localhost:3001/api/v1/emlakze/admin/getcustomer',
+        { personelId: payload.id },
         { headers: { 'Content-Type': 'application/json' } },
       )
 
@@ -89,12 +89,19 @@ $(document).ready(function () {
       const customerData = response.data.data
 
       console.log('customerData', customerData)
+      customerData.forEach((item) => {
+        console.log('personelId:', item.personelId) // personelId var mı?
+      })
 
       console.log('payload.id', payload.id)
-      console.log('customerData', customerData[0].personelId)
+      console.log('customerData2', customerData[0].personelId)
+
+      /*const filteredData = customerData.filter(
+        (item) => item.personelId === payload.id,
+      ) */
 
       const filteredData = customerData.filter(
-        (item) => item.personelId === payload.id,
+        (item) => item.personelId === payload.id || true,
       )
 
       console.log('filteredData', filteredData)
@@ -136,7 +143,7 @@ $(document).ready(function () {
       if (result.isConfirmed) {
         try {
           const response = await axios.post(
-            'https://emlak.dveb.com.tr/api/v1/emlakze/admin/deletecustomer',
+            'http://localhost:3001/api/v1/emlakze/admin/deletecustomer',
             { deletedId: id },
             { headers: { 'Content-Type': 'application/json' } },
           )

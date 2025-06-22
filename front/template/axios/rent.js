@@ -75,7 +75,7 @@ $(document).ready(function () {
   async function getRent() {
     try {
       const response = await axios.post(
-        'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getallrent',
+        'http://localhost:3001/api/v1/emlakze/admin/getallrent',
         {},
         { headers: { 'Content-Type': 'application/json' } },
       )
@@ -95,6 +95,8 @@ $(document).ready(function () {
 
       // Kiralama verilerini tabloya ekle
       filteredData.forEach((rent) => {
+        console.log('tenantName:', rent.tenantName)
+        console.log('propertyName:', rent.propertyName)
         table.row
           .add([
             rent.tenantName,

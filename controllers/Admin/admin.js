@@ -118,7 +118,7 @@ const transporter = nodemailer.createTransport({
 // E-posta gönderme fonksiyonu
 const sendEmail = async ({ to, subject, text }) => {
   const mailOptions = {
-    from: 'elifisikdeveloper@gmail.com',
+    from: 'farukgunn@outlook.com',
     to,
     subject,
     text,
@@ -2025,37 +2025,109 @@ const getPersonelCount = async (input, res, next) => {
   }
 }
 
+// const calculateAverageRentIncome = async (input, res, next) => {
+// try {
+// const { personelId } = input
+// Rentleri veritabanından çek
+// const rents = await RentSchema.find({ personelId })
+//
+// if (!rents || rents.length === 0) {
+// console.log('Bu personel için ödeme bulunamadı.')
+// return 0
+// }
+//
+// let totalIncome = 0
+// let paidCount = 0
+//
+// rents.forEach((rent) => {
+// if (rent.payments && rent.payments.length > 0) {
+// rent.payments.forEach((payment) => {
+// if (payment.isPaid) {
+// totalIncome += parseFloat(payment.rentAmount || 0) // Ödenen miktarı topla
+// paidCount++ // Ödenen sayısını artır
+// }
+// })
+// }
+// })
+//
+// const averageIncome =
+// paidCount > 0 ? (totalIncome / paidCount).toFixed(2) : 0
+// return next(createSuccessMessage(2007, { averageIncome }))
+// } catch (error) {
+// console.error('Hata oluştu:', error)
+// throw error
+// }
+// }
+
+// const calculateAverageRentIncome = async (input, res, next) => {
+// try {
+// const { personelId } = input
+//
+// const rents = await RentSchema.find().populate('propertyId')
+//
+// const filteredRents = rents.filter(
+// (rent) =>
+// rent.propertyId &&
+// String(rent.propertyId.personelId) === String(personelId),
+// )
+//
+// if (filteredRents.length === 0) {
+// return next(createSuccessMessage(2007, { totalExpectedIncome: 0 }))
+// }
+//
+// let totalExpectedIncome = 0
+//
+// filteredRents.forEach((rent) => {
+// if (rent.rentAmount) {
+// totalExpectedIncome += parseFloat(rent.rentAmount)
+// }
+// })
+//
+// return next(
+// createSuccessMessage(2007, {
+// totalExpectedIncome: totalExpectedIncome.toFixed(2),
+// }),
+// )
+// } catch (error) {
+// console.error('Hata oluştu:', error)
+// return next(error)
+// }
+// }
+
 const calculateAverageRentIncome = async (input, res, next) => {
   try {
     const { personelId } = input
-    // Rentleri veritabanından çek
-    const rents = await RentSchema.find({ personelId })
 
-    if (!rents || rents.length === 0) {
-      console.log('Bu personel için ödeme bulunamadı.')
-      return 0
+    const rents = await RentSchema.find({ personelId })
+    console.log('🎯 Rent kayıtları bulundu:', rents.length)
+
+    if (rents.length === 0) {
+      return next(createSuccessMessage(2007, { totalExpectedIncome: 0 }))
     }
 
-    let totalIncome = 0
-    let paidCount = 0
+    let totalExpectedIncome = 0
 
-    rents.forEach((rent) => {
-      if (rent.payments && rent.payments.length > 0) {
-        rent.payments.forEach((payment) => {
-          if (payment.isPaid) {
-            totalIncome += parseFloat(payment.rentAmount || 0) // Ödenen miktarı topla
-            paidCount++ // Ödenen sayısını artır
-          }
-        })
+    rents.forEach((rent, index) => {
+      const amount = rent.rentalfee || rent.rentAmount
+      console.log(`💸 [${index}] işlenen kira:`, amount)
+
+      if (amount) {
+        totalExpectedIncome += parseFloat(
+          String(amount).replace('.', '').replace(',', '.'),
+        )
       }
     })
 
-    const averageIncome =
-      paidCount > 0 ? (totalIncome / paidCount).toFixed(2) : 0
-    return next(createSuccessMessage(2007, { averageIncome }))
+    console.log('💰 Hesaplanan toplam gelir:', totalExpectedIncome)
+
+    return next(
+      createSuccessMessage(2007, {
+        totalExpectedIncome: totalExpectedIncome.toFixed(2),
+      }),
+    )
   } catch (error) {
-    console.error('Hata oluştu:', error)
-    throw error
+    console.error('❌ Hata oluştu:', error)
+    return next(error)
   }
 }
 

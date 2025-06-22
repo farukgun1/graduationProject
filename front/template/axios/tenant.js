@@ -129,7 +129,7 @@ $(document).ready(function () {
       if (result.isConfirmed) {
         try {
           const response = await axios.post(
-            'https://emlak.dveb.com.tr/api/v1/emlakze/admin/deletetenant',
+            'http://localhost:3001/api/v1/emlakze/admin/deletetenant',
             { deletedId: id },
             { headers: { 'Content-Type': 'application/json' } },
           )

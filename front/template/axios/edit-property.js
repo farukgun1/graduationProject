@@ -16,7 +16,7 @@ console.log('jwt', jwt)
 
 async function populateStates(citycode) {
   try {
-    let url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getLocation'
+    let url = 'http://localhost:3001/api/v1/emlakze/admin/getlocation'
     let requestData = {}
 
     if (citycode) {
@@ -32,7 +32,7 @@ async function populateStates(citycode) {
 // Populate customer dropdown
 async function populateCustomer(personelId) {
   try {
-    const url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getcustomer'
+    const url = 'http://localhost:3001/api/v1/emlakze/admin/getcustomer'
     const response = await axios.post(url, {})
     const selectElement = document.getElementById('propertyOwnerName')
 
@@ -338,7 +338,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   async function getProperty() {
     try {
       const response = await axios.post(
-        'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getproperty',
+        'http://localhost:3001/api/v1/emlakze/admin/getproperty',
         {},
         {
           headers: { 'Content-Type': 'application/json' },
@@ -356,7 +356,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   async function deletePhoto(photoId, photoName) {
     try {
       const response = await axios.post(
-        'https://emlak.dveb.com.tr/api/v1/emlakze/admin/deletePhoto',
+        'http://localhost:3001/api/v1/emlakze/admin/deletephoto',
         {
           propertyId: photoId,
           photoName: photoName,
@@ -977,7 +977,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
       // Fotoğrafları gönder
       photoResponse = await axios.post(
-        'https://emlak.dveb.com.tr/api/v1/emlakze/admin/setphotos',
+        'http://localhost:3001/api/v1/emlakze/admin/setphotos',
         photoFormData,
         {
           headers: { 'Content-Type': 'multipart/form-data' },

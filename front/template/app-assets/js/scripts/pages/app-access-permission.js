@@ -3,16 +3,16 @@
  */
 
 $(function () {
-  'use strict';
+  'use strict'
 
   var dataTablePermissions = $('.datatables-permissions'),
     assetPath = '../../../app-assets/',
     dt_permission,
-    userList = 'app-user-list.html';
+    userList = 'app-user-list.html'
 
   if ($('body').attr('data-framework') === 'laravel') {
-    assetPath = $('body').attr('data-asset-path');
-    userList = assetPath + 'app/user/list';
+    assetPath = $('body').attr('data-asset-path')
+    userList = assetPath + 'app/user/list'
   }
 
   // Users List datatable
@@ -26,7 +26,7 @@ $(function () {
         { data: 'name' },
         { data: 'assigned_to' },
         { data: 'created_date' },
-        { data: '' }
+        { data: '' },
       ],
       columnDefs: [
         {
@@ -36,17 +36,17 @@ $(function () {
           responsivePriority: 2,
           targets: 0,
           render: function (data, type, full, meta) {
-            return '';
-          }
+            return ''
+          },
         },
         {
           targets: 1,
-          visible: false
+          visible: false,
         },
         {
           // remove ordering from Name
           targets: 2,
-          orderable: false
+          orderable: false,
         },
         {
           // User Role
@@ -54,7 +54,7 @@ $(function () {
           orderable: false,
           render: function (data, type, full, meta) {
             var $assignedTo = full['assigned_to'],
-              $output = '';
+              $output = ''
             var roleBadgeObj = {
               Admin:
                 '<a href="' +
@@ -75,14 +75,14 @@ $(function () {
               Restricted:
                 '<a href="' +
                 userList +
-                '" class="me-50"><span class="badge rounded-pill badge-light-danger">Restricted User</span></a>'
-            };
-            for (var i = 0; i < $assignedTo.length; i++) {
-              var val = $assignedTo[i];
-              $output += roleBadgeObj[val];
+                '" class="me-50"><span class="badge rounded-pill badge-light-danger">Restricted User</span></a>',
             }
-            return $output;
-          }
+            for (var i = 0; i < $assignedTo.length; i++) {
+              var val = $assignedTo[i]
+              $output += roleBadgeObj[val]
+            }
+            return $output
+          },
         },
         {
           // Actions
@@ -92,14 +92,18 @@ $(function () {
           render: function (data, type, full, meta) {
             return (
               '<button class="btn btn-sm btn-icon" data-bs-toggle="modal" data-bs-target="#editPermissionModal">' +
-              feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
+              feather.icons['edit'].toSvg({
+                class: 'font-medium-2 text-body',
+              }) +
               '</i></button>' +
               '<button class="btn btn-sm btn-icon delete-record">' +
-              feather.icons['trash'].toSvg({ class: 'font-medium-2 text-body' }) +
+              feather.icons['trash'].toSvg({
+                class: 'font-medium-2 text-body',
+              }) +
               '</button>'
-            );
-          }
-        }
+            )
+          },
+        },
       ],
       order: [[1, 'asc']],
       dom:
@@ -114,7 +118,7 @@ $(function () {
       language: {
         sLengthMenu: 'Show _MENU_',
         search: 'Search',
-        searchPlaceholder: 'Search..'
+        searchPlaceholder: 'Search..',
       },
       // Buttons with Dropdown
       buttons: [
@@ -123,21 +127,21 @@ $(function () {
           className: 'add-new btn btn-primary mt-50',
           attr: {
             'data-bs-toggle': 'modal',
-            'data-bs-target': '#addPermissionModal'
+            'data-bs-target': '#addPermissionModal',
           },
           init: function (api, node, config) {
-            $(node).removeClass('btn-secondary');
-          }
-        }
+            $(node).removeClass('btn-secondary')
+          },
+        },
       ],
       // For responsive popup
       responsive: {
         details: {
           display: $.fn.dataTable.Responsive.display.modal({
             header: function (row) {
-              var data = row.data();
-              return 'Details of Permission';
-            }
+              var data = row.data()
+              return 'Details of Permission'
+            },
           }),
           type: 'column',
           renderer: function (api, rowIdx, columns) {
@@ -156,48 +160,50 @@ $(function () {
                     col.data +
                     '</td>' +
                     '</tr>'
-                : '';
-            }).join('');
+                : ''
+            }).join('')
 
-            return data ? $('<table class="table"/><tbody />').append(data) : false;
-          }
-        }
+            return data
+              ? $('<table class="table"/><tbody />').append(data)
+              : false
+          },
+        },
       },
       language: {
         paginate: {
           // remove previous & next text from pagination
           previous: '&nbsp;',
-          next: '&nbsp;'
-        }
+          next: '&nbsp;',
+        },
       },
       initComplete: function () {
         // Adding role filter once table initialized
         this.api()
           .columns(3)
           .every(function () {
-            var column = this;
+            var column = this
             var select = $(
-              '<select id="UserRole" class="form-select text-capitalize"><option value=""> Select Role </option><option value="Administrator" class="text-capitalize">Administrator</option><option value="Manager" class="text-capitalize">Manager</option><option value="Users" class="text-capitalize">users</option><option value="Support" class="text-capitalize">Support</option><option value="Restricted" class="text-capitalize">Restricted User</option></select>'
+              '<select id="UserRole" class="form-select text-capitalize"><option value=""> Select Role </option><option value="Administrator" class="text-capitalize">Administrator</option><option value="Manager" class="text-capitalize">Manager</option><option value="Users" class="text-capitalize">users</option><option value="Support" class="text-capitalize">Support</option><option value="Restricted" class="text-capitalize">Restricted User</option></select>',
             )
               .appendTo('.user_role')
               .on('change', function () {
-                var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                column.search(val ? val : '', true, false).draw();
-              });
-          });
-      }
-    });
+                var val = $.fn.dataTable.util.escapeRegex($(this).val())
+                column.search(val ? val : '', true, false).draw()
+              })
+          })
+      },
+    })
   }
 
   // Delete Record
   $('.datatables-permissions tbody').on('click', '.delete-record', function () {
-    dt_permission.row($(this).parents('tr')).remove().draw();
-  });
+    dt_permission.row($(this).parents('tr')).remove().draw()
+  })
 
   // Filter form control to default size
   // ? setTimeout used for multilingual table initialization
   setTimeout(() => {
-    $('.dataTables_filter .form-control').removeClass('form-control-sm');
-    $('.dataTables_length .form-select').removeClass('form-select-sm');
-  }, 300);
-});
+    $('.dataTables_filter .form-control').removeClass('form-control-sm')
+    $('.dataTables_length .form-select').removeClass('form-select-sm')
+  }, 300)
+})

@@ -77,7 +77,7 @@ $(document).ready(function () {
   async function getProperty() {
     try {
       const response = await axios.post(
-        'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getproperty',
+        'http://localhost:3001/api/v1/emlakze/admin/getproperty',
         {},
         {
           headers: { 'Content-Type': 'application/json' },
@@ -88,7 +88,7 @@ $(document).ready(function () {
         throw new Error('Network response was not ok')
 
       const propertyData = response.data
-      console.log(propertyData)
+      console.log('PROPERTY:', propertyData)
 
       const filteredData = propertyData.filter(
         (item) => item.personelId === payload.id,
@@ -145,7 +145,7 @@ $(document).ready(function () {
       if (result.isConfirmed) {
         try {
           const response = await axios.post(
-            'https://emlak.dveb.com.tr/api/v1/emlakze/admin/deleteproperty',
+            'http://localhost:3001/api/v1/emlakze/admin/deleteproperty',
             { deleteId: id },
             { headers: { 'Content-Type': 'application/json' } },
           )

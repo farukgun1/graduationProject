@@ -16,7 +16,7 @@ console.log('jwt', jwt)
 
 async function populateStates(citycode) {
   try {
-    let url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getLocation'
+    let url = 'http://localhost:3001/api/v1/emlakze/admin/getlocation'
     let requestData = {}
 
     if (citycode) {
@@ -33,7 +33,7 @@ async function populateStates(citycode) {
 // Populate customer dropdown
 async function populateCustomer(personelId, propertyOwnerId) {
   try {
-    const url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getcustomer'
+    const url = 'http://localhost:3001/api/v1/emlakze/admin/getcustomer'
     const response = await axios.post(url, { personelId })
     const selectElement = document.getElementById('propertyOwnerName')
 

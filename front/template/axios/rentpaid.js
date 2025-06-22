@@ -107,7 +107,7 @@ $(document).ready(function () {
   async function getRent() {
     try {
       const response = await axios.post(
-        'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getpaidrents',
+        'http://localhost:3001/api/v1/emlakze/admin/getpaidrents',
         { rentId: rentId },
         { headers: { 'Content-Type': 'application/json' } },
       )
@@ -141,12 +141,12 @@ $(document).ready(function () {
   async function populatePaymentForm() {
     try {
       const response = await axios.post(
-        'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getrentbyid',
+        'http://localhost:3001/api/v1/emlakze/admin/getrentbyid',
         { rentId: rentId },
         { headers: { 'Content-Type': 'application/json' } },
       )
 
-      console.log('vmdfkmvfkdvfd', rentId)
+      console.log('Rent ID:', rentId)
 
       if (response.status !== 200) {
         throw new Error('Network response was not ok')
@@ -189,7 +189,7 @@ $(document).ready(function () {
 
     try {
       const response = await axios.post(
-        'https://emlak.dveb.com.tr/api/v1/emlakze/admin/setfiles',
+        'http://localhost:3001/api/v1/emlakze/admin/setfiles',
         fileFormData,
         {
           headers: {

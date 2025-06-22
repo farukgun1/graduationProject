@@ -115,7 +115,7 @@ $(document).ready(function () {
     selectedPropertyId = null,
   ) {
     try {
-      const url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getproperty2'
+      const url = 'http://localhost:3001/api/v1/emlakze/admin/getproperty2'
       const response = await axios.post(url, { personelId, portfolioId })
 
       const selectElement = $('#propertyId')
@@ -164,7 +164,7 @@ $(document).ready(function () {
   async function getRent() {
     try {
       const response = await axios.post(
-        'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getrentbyid',
+        'http://localhost:3001/api/v1/emlakze/admin/getrentbyid',
         {
           rentId: id,
         },
@@ -184,7 +184,7 @@ $(document).ready(function () {
 
   async function getTenant(tenantId) {
     try {
-      const url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/gettenant'
+      const url = 'http://localhost:3001/api/v1/emlakze/admin/gettenant'
       const response = await axios.post(url, {})
 
       // Eğer response içinde data yoksa hata fırlatıyoruz
@@ -283,7 +283,7 @@ $(document).ready(function () {
     console.log('Dosya yükleniyor:', fileFormData)
 
     await axios.post(
-      'https://emlak.dveb.com.tr/api/v1/emlakze/admin/setfiles',
+      'http://localhost:3001/api/v1/emlakze/admin/setfiles',
       fileFormData,
       {
         headers: { 'Content-Type': 'multipart/form-data' },
@@ -324,7 +324,7 @@ $(document).ready(function () {
     console.log('Kira verileri güncelleniyor:', rentData)
 
     const response = await axios.post(
-      `https://emlak.dveb.com.tr/api/v1/emlakze/admin/updaterent`,
+      `http://localhost:3001/api/v1/emlakze/admin/updaterent`,
       rentData,
       {
         headers: { 'Content-Type': 'application/json' },

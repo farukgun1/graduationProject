@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 async function populateStates(citycode) {
   try {
-    let url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getLocation'
+    let url = 'http://localhost:3001/api/v1/emlakze/admin/getlocation'
     let requestData = {}
 
     if (citycode) {
@@ -121,7 +121,7 @@ async function populateNeighborhoodsTwo(district) {
 // Populate customer dropdown
 async function populateCustomer(personelId) {
   try {
-    const url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getcustomer'
+    const url = 'http://localhost:3001/api/v1/emlakze/admin/getcustomer'
     const response = await axios.post(url, {})
     const selectElement = document.getElementById('propertyOwnerName')
 
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     const personelMenu = document.getElementById('personel')
     if (personelMenu) {
-      personelMenu.add('d-none')
+      personelMenu.classList.add('d-none')
 
       console.log('Personel menüsü gizlendi.')
     } else {

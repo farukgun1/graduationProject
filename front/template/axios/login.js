@@ -10,7 +10,7 @@ async function postLogin() {
     console.log(requestData)
 
     const response = await axios.post(
-      'https://emlak.dveb.com.tr//api/v1/emlakze/admin/loginuser',
+      'http://localhost:3001/api/v1/emlakze/admin/loginuser',
       requestData,
     )
 

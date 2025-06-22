@@ -11,63 +11,73 @@ function getJWTFromCookie() {
 }
 const jwt = getJWTFromCookie()
 
-console.log('jwt', jwt)
-
 document.addEventListener('DOMContentLoaded', async function () {
-  document.querySelectorAll('a[data-bs-toggle="tab"]').forEach((tabLink) => {
-    tabLink.addEventListener('show.bs.tab', function (event) {
-      debugger
-      console.log('asdaa')
-      const currentTab = document.querySelector('.tab-pane.active')
-      const form = currentTab.querySelector('form')
+  // ========== JWT Parslama ==========
+  function base64UrlDecode(str) {
+    return atob(str.replace(/-/g, '+').replace(/_/g, '/'))
+  }
+  let payload
+  if (jwt && jwt.split('.').length === 3) {
+    try {
+      const parts = jwt.split('.')
+      payload = JSON.parse(
+        decodeURIComponent(escape(base64UrlDecode(parts[1]))),
+      )
+    } catch (error) {
+      console.error('Geçersiz JWT formatı:', error)
+    }
+  }
 
-      if (form && !form.checkValidity()) {
-        event.preventDefault()
-        form.reportValidity()
-      }
-    })
-  })
+  if (payload && payload.name && payload.surname) {
+    const userElem = document.getElementById('user-name')
+    if (userElem) userElem.textContent = `${payload.name} ${payload.surname}`
+  }
+  if (!payload || !payload.role || payload.role.trim() === '') {
+    const personelMenu = document.getElementById('personel')
+    if (personelMenu) personelMenu.classList.add('d-none')
+  }
 
-  // İl verilerini getirir
+  // ========== Dropdown Helper Fonksiyonlar ==========
   async function populateStates(citycode) {
     try {
       let url = 'http://localhost:3001/api/v1/emlakze/admin/getlocation'
       let requestData = {}
-
-      if (citycode) {
-        requestData.citycode = citycode
-      }
-
+      if (citycode) requestData.citycode = citycode
       const response = await axios.post(url, requestData)
       return response.data
     } catch (error) {
       console.error('İl verileri alınırken hata oluştu:', error)
+      return []
     }
   }
-
-  // İlçe dropdown doldurur
-  async function populateDistricts(stateCode) {
-    try {
-      const data = await populateStates(stateCode)
-      const districtSelectElement = document.getElementById('district')
-
-      districtSelectElement.innerHTML = '<option value="">Seç</option>'
-      Object.keys(data).forEach((district) => {
-        const option = document.createElement('option')
-        option.value = district
-        option.textContent = district
-        districtSelectElement.appendChild(option)
-      })
-    } catch (error) {
-      console.error('İlçeler verileri alınırken hata oluştu:', error)
-    }
+  async function fillProvinceDropdown(selectId) {
+    const provinces = await populateStates()
+    const select = document.getElementById(selectId)
+    if (!select) return
+    select.innerHTML = '<option value="">Seç</option>'
+    provinces.forEach((province) => {
+      const option = document.createElement('option')
+      option.value = province.code
+      option.textContent = province.name
+      select.appendChild(option)
+    })
   }
-
-  // Mahalle dropdown doldurur
-  async function populateNeighborhoods(district) {
-    const data = await populateStates(document.getElementById('province').value)
-    const neighborhoodSelectElement = document.getElementById('neighborhood')
-
+  async function fillDistrictDropdown(stateCode, selectId) {
+    const data = await populateStates(stateCode)
+    const districtSelectElement = document.getElementById(selectId)
+    if (!districtSelectElement) return
+    districtSelectElement.innerHTML = '<option value="">Seç</option>'
+    Object.keys(data).forEach((district) => {
+      const option = document.createElement('option')
+      option.value = district
+      option.textContent = district
+      districtSelectElement.appendChild(option)
+    })
+  }
+  async function fillNeighborhoodDropdown(stateCode, district, selectId) {
+    const data = await populateStates(stateCode)
+    const neighborhoodSelectElement = document.getElementById(selectId)
+    if (!neighborhoodSelectElement) return
     neighborhoodSelectElement.innerHTML = '<option value="">Seç</option>'
     if (data[district]) {
       data[district].forEach((neighborhood) => {
@@ -79,96 +89,97 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
   }
 
-  // Müşteri dropdown doldurur
+  // Dropdown grupları
+  const provinceSet = [
+    {
+      province: 'province',
+      district: 'district',
+      neighborhood: 'neighborhood',
+    },
+    {
+      province: 'titledeedprovince',
+      district: 'titledeeddistrict',
+      neighborhood: 'titledeedneighborhood',
+    },
+  ]
+  // İlleri doldur
+  for (const group of provinceSet) {
+    await fillProvinceDropdown(group.province)
+  }
+  // Event ekle
+  provinceSet.forEach((group) => {
+    const provinceSelect = document.getElementById(group.province)
+    const districtSelect = document.getElementById(group.district)
+    const neighborhoodSelect = document.getElementById(group.neighborhood)
+    if (provinceSelect) {
+      provinceSelect.addEventListener('change', async function () {
+        districtSelect.innerHTML = '<option value="">Seç</option>'
+        neighborhoodSelect.innerHTML = '<option value="">Seç</option>'
+        if (this.value) await fillDistrictDropdown(this.value, group.district)
+      })
+    }
+    if (districtSelect) {
+      districtSelect.addEventListener('change', async function () {
+        neighborhoodSelect.innerHTML = '<option value="">Seç</option>'
+        if (provinceSelect.value && this.value) {
+          await fillNeighborhoodDropdown(
+            provinceSelect.value,
+            this.value,
+            group.neighborhood,
+          )
+        }
+      })
+    }
+  })
+
+  // ========== Müşteri, Portföy ==========
   async function populateCustomer(personelId) {
     try {
-      const url = 'http://localhost:3001/api/v1/emlakze/admin/getcustomer'
-      const response = await axios.post(url, {})
+      const response = await axios.post(
+        'http://localhost:3001/api/v1/emlakze/admin/getcustomer',
+        {},
+      )
       const selectElement = document.getElementById('propertyOwnerName')
-
-      // Önceki seçenekleri temizle
+      if (!selectElement) return
       selectElement.innerHTML = ''
-
-      // personelId’ye göre filtrele ve seçenekleri ekle
       response.data.data
-        .filter((customer) => customer.personelId === personelId)
-        .forEach((customer) => {
+        .filter((c) => c.personelId === personelId)
+        .forEach((c) => {
           const option = document.createElement('option')
-          option.value = customer._id
-          option.textContent = `${customer.name} ${customer.surname}`
+          option.value = c._id
+          option.textContent = `${c.name} ${c.surname}`
           selectElement.appendChild(option)
         })
-    } catch (error) {
-      console.error('Customer data retrieval error:', error)
+    } catch (err) {
+      console.error('Customer error:', err)
     }
   }
-
-  // Portföy dropdown doldurur
   async function populatePortfolio(personelId) {
     try {
-      const url = 'http://localhost:3001/api/v1/emlakze/admin/getportfolio'
-      const response = await axios.post(url, { personelId })
-      const portfolioselectElement = document.getElementById('portfolioId')
-
-      // Önceki seçenekleri temizle
-      portfolioselectElement.innerHTML = '<option value="">Seçiniz</option>'
-
-      response.data.data.forEach((portfolio) => {
-        const option = document.createElement('option')
-        option.value = portfolio._id
-        option.textContent = portfolio.portfolioName || 'Bilinmiyor'
-        portfolioselectElement.appendChild(option)
-      })
-    } catch (error) {
-      console.error('Portfolio data retrieval error:', error)
-    }
-  }
-
-  // JWT’den payload çıkarma helper
-  function base64UrlDecode(str) {
-    return atob(str.replace(/-/g, '+').replace(/_/g, '/'))
-  }
-
-  let payload
-
-  if (jwt && jwt.split('.').length === 3) {
-    console.log('Cookie içindeki JWT:', jwt)
-    try {
-      const parts = jwt.split('.')
-      const header = JSON.parse(base64UrlDecode(parts[0]))
-      payload = JSON.parse(
-        decodeURIComponent(escape(base64UrlDecode(parts[1]))),
+      const response = await axios.post(
+        'http://localhost:3001/api/v1/emlakze/admin/getportfolio',
+        { personelId },
       )
-      console.log('Header:', header)
-      console.log('Payload:', payload)
-    } catch (error) {
-      console.error('Geçersiz JWT formatı:', error)
-    }
-  } else {
-    console.log('JWT cookie bulunamadı veya geçersiz formatta.')
-  }
-
-  // Kullanıcı adını göster
-  if (payload && payload.name && payload.surname) {
-    document.getElementById('user-name').textContent =
-      `${payload.name} ${payload.surname}`
-  }
-
-  // Rol yoksa personel menüsünü gizle
-  if (!payload || !payload.role || payload.role.trim() === '') {
-    console.log('Role boş veya tanımlanmamış, personel menüsü gizlenmeli.')
-    const personelMenu = document.getElementById('personel')
-    if (personelMenu) {
-      personelMenu.classList.add('d-none')
-      console.log('Personel menüsü gizlendi.')
-    } else {
-      console.log('Personel menüsü bulunamadı.')
+      const selectElement = document.getElementById('portfolioId')
+      if (!selectElement) return
+      selectElement.innerHTML = '<option value="">Seçiniz</option>'
+      response.data.data.forEach((p) => {
+        const option = document.createElement('option')
+        option.value = p._id
+        option.textContent = p.portfolioName || 'Bilinmiyor'
+        selectElement.appendChild(option)
+      })
+    } catch (err) {
+      console.error('Portfolio error:', err)
     }
   }
+  if (payload?.id) {
+    await populateCustomer(payload.id)
+    await populatePortfolio(payload.id)
+  }
 
-  // Demirbaş form satır ekleme/kaldırma
+  // ========== Demirbaş ==========
   const demirbasForm = document.getElementById('demirbas-form')
-
   if (demirbasForm) {
     document
       .getElementById('data-repeater-create')
@@ -217,41 +228,9 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (itemToRemove) itemToRemove.remove()
       }
     })
-  } else {
-    console.error('Demirbaş formu bulunamadı!')
   }
 
-  // Dropdownlara ilk il verilerini doldur
-  const dataa = await populateStates()
-
-  const selectElement = document.getElementById('province')
-  const districtSelectElement = document.getElementById('district')
-  const neighborhoodSelectElement = document.getElementById('neighborhood')
-
-  dataa.forEach((province) => {
-    const option = document.createElement('option')
-    option.value = province.code
-    option.textContent = province.name
-    selectElement.appendChild(option)
-  })
-
-  selectElement.addEventListener('change', async function (event) {
-    districtSelectElement.innerHTML = ''
-    neighborhoodSelectElement.innerHTML = ''
-    const selectedValue = event.target.value
-    await populateDistricts(selectedValue)
-  })
-
-  districtSelectElement.addEventListener('change', async function () {
-    await populateNeighborhoods(this.value)
-  })
-
-  // Müşteri ve portföyü doldur
-  const personelId = payload.id
-  await populateCustomer(personelId)
-  await populatePortfolio(personelId)
-
-  // Form gönderme işlemi
+  // ========== Form Gönderme ==========
   document
     .querySelector('.btn-submit-all')
     .addEventListener('click', async function () {
@@ -266,7 +245,6 @@ document.addEventListener('DOMContentLoaded', async function () {
           const formId = form.id
           const formData = new FormData(form)
           const formObject = {}
-
           formData.forEach((value, key) => {
             if (formId === 'imkan-form') {
               if (formObject[key]) {
@@ -282,7 +260,6 @@ document.addEventListener('DOMContentLoaded', async function () {
               formObject[key] = value
             }
           })
-
           allFormData[formId] = formObject
         }
       })
@@ -292,9 +269,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       const personelId = payload.id
       const portfolioSelect = document.getElementById('portfolioId')
       const portfolioId = portfolioSelect.value
-
       const files = document.getElementById('formFileMultiple').files
-
       const organizedData = {
         details: {
           ...(allFormData['genel-form'] || {}),
@@ -310,13 +285,11 @@ document.addEventListener('DOMContentLoaded', async function () {
         personelId,
         portfolioId,
       }
-
       const assetRows = document.querySelectorAll('[data-repeater-item]')
       assetRows.forEach((row) => {
         const assetName = row.querySelector('input[name="assetName"]').value
         const quantity = row.querySelector('input[name="quantity"]').value
         const price = row.querySelector('input[name="price"]').value
-
         if (assetName && quantity && price) {
           organizedData.asset.push({
             assetName,
@@ -325,7 +298,6 @@ document.addEventListener('DOMContentLoaded', async function () {
           })
         }
       })
-
       organizedData.otherDetails = allFormData['imkan-form'] || {}
       organizedData.titledeed = allFormData['tapu-form'] || {}
 
@@ -336,7 +308,6 @@ document.addEventListener('DOMContentLoaded', async function () {
           organizedData,
           { headers: { 'Content-Type': 'application/json' } },
         )
-
         // 2. Fotoğrafları backend'e gönder
         const propertyId = formResponse.data.savedProperty._id
         const photoFormData = new FormData()
@@ -344,15 +315,12 @@ document.addEventListener('DOMContentLoaded', async function () {
         for (let i = 0; i < files.length; i++) {
           photoFormData.append('photos', files[i])
         }
-
         const photoResponse = await axios.post(
           'http://localhost:3001/api/v1/emlakze/admin/setphotos',
           photoFormData,
           { headers: { 'Content-Type': 'multipart/form-data' } },
         )
-
         console.log('Photo Response:', photoResponse.data)
-
         Swal.fire({
           icon: 'success',
           title: 'Mülk Başarıyla Eklendi!',

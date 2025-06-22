@@ -18,6 +18,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.521.0",
     "@aws-sdk/s3-request-presigner": "^3.504.0",
+    "apexcharts": "^4.7.0",
     "aws-sdk": "^2.1550.0",
     "axios": "^1.6.8",
     "bcrypt": "^5.1.1",

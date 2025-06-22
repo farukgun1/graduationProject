@@ -72,7 +72,7 @@ async function fillDropDown(data, element, textContent, selectedValue) {
 async function getCustomer() {
   try {
     const response = await axios.post(
-      'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getcustomer',
+      'http://localhost:3001/api/v1/emlakze/admin/getcustomer',
       {
         headers: { 'Content-Type': 'application/json' },
       },
@@ -89,7 +89,7 @@ async function getCustomer() {
 
 async function populatePersonel(personelId) {
   try {
-    let url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getPersonel'
+    let url = 'http://localhost:3001/api/v1/emlakze/admin/getpersonel'
     let requestData = {} // Boş gönderiyoruz, tüm personelleri alacak
 
     const response = await axios.post(url, requestData)
@@ -233,7 +233,7 @@ form.addEventListener('submit', async function (event) {
 
   try {
     const response = await axios.post(
-      `https://emlak.dveb.com.tr/api/v1/emlakze/admin/updatecustomer`,
+      `http://localhost:3001/api/v1/emlakze/admin/updatecustomer`,
       formData,
       {
         headers: { 'Content-Type': 'application/json' },
@@ -246,7 +246,7 @@ form.addEventListener('submit', async function (event) {
       showConfirmButton: true,
       timer: 1500,
     }).then((result) => {
-      window.location.href = 'mulk_sahibi.html'
+      window.location.href = 'list-customer.html'
     })
   } catch (error) {
     Swal.fire({
@@ -260,7 +260,7 @@ form.addEventListener('submit', async function (event) {
 
 async function populateStates(citycode) {
   try {
-    let url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getLocation'
+    let url = 'http://localhost:3001/api/v1/emlakze/admin/getlocation'
     let requestData = {}
 
     if (citycode) {

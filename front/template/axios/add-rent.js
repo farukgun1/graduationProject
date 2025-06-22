@@ -15,7 +15,7 @@ console.log('jwt', jwt)
 
 async function populatePortfolio(personelId) {
   try {
-    const url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getportfolio'
+    const url = 'http://localhost:3001/api/v1/emlakze/admin/getportfolio'
     const response = await axios.post(url, { personelId })
 
     const selectElement = document.getElementById('portfolioId')
@@ -52,7 +52,7 @@ async function populatePortfolio(personelId) {
 
 async function populateProperty(personelId, portfolioId) {
   try {
-    const url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/getproperty2'
+    const url = 'http://localhost:3001/api/v1/emlakze/admin/getproperty2'
     const response = await axios.post(url, { personelId, portfolioId })
 
     const selectElement = document.getElementById('propertyId')
@@ -80,7 +80,7 @@ async function populateProperty(personelId, portfolioId) {
 
 async function populateTenant(personelId) {
   try {
-    const url = 'https://emlak.dveb.com.tr/api/v1/emlakze/admin/gettenant'
+    const url = 'http://localhost:3001/api/v1/emlakze/admin/gettenant'
     const response = await axios.post(url, {})
     const selectElement = document.getElementById('tenantId')
 
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const personelMenu = document.getElementById('personel')
     if (personelMenu) {
-      personelMenu.add('d-none')
+      personelMenu.classList.add('d-none')
 
       console.log('Personel menüsü gizlendi.')
     } else {
@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', function () {
       try {
         // Form verilerini API'ye gönderin
         const formResponse = await axios.post(
-          'https://emlak.dveb.com.tr/api/v1/emlakze/admin/setrent',
+          'http://localhost:3001/api/v1/emlakze/admin/setrent',
           organizedData,
           { headers: { 'Content-Type': 'application/json' } }, // JSON formatında veri gönderiyoruz
         )
